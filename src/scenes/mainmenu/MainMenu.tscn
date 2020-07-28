@@ -10,10 +10,6 @@
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -1.05951
-margin_top = -1.05946
-margin_right = -1.05951
-margin_bottom = -1.05945
 rect_pivot_offset = Vector2( 458.833, 201.119 )
 script = ExtResource( 4 )
 __meta__ = {
@@ -21,9 +17,8 @@ __meta__ = {
 }
 
 [node name="Background" type="ColorRect" parent="."]
-margin_top = -1.5874
 margin_right = 1280.0
-margin_bottom = 718.413
+margin_bottom = 720.0
 color = Color( 0.376471, 0.431373, 0.854902, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
