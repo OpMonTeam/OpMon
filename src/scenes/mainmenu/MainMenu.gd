@@ -8,10 +8,10 @@ var _buttons: Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_buttons = [$NewGameButton as NinePatchRect, 
-			   $LoadGameButton as NinePatchRect,
-			   $SettingsButton as NinePatchRect, 
-			   $QuitButton as NinePatchRect]
+	_buttons = [get_node("MainMenuButtons/NewGameButton") as NinePatchRect, 
+			   get_node("MainMenuButtons/LoadGameButton") as NinePatchRect,
+			   get_node("MainMenuButtons/SettingsButton") as NinePatchRect, 
+			   get_node("MainMenuButtons/QuitButton") as NinePatchRect]
 	connect("button_pressed", self, "pressed")
 	_buttons[_selection].modulate = Color(1,1,1,1)
 

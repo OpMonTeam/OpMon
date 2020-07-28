@@ -24,12 +24,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NewGameButton" type="NinePatchRect" parent="."]
-modulate = Color( 0.31, 0.31, 0.31, 1 )
+[node name="MainMenuButtons" type="VBoxContainer" parent="."]
 margin_left = 388.0
-margin_top = 2.4126
+margin_top = 4.0
 margin_right = 892.0
-margin_bottom = 66.4126
+margin_bottom = 716.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGameButton" type="NinePatchRect" parent="MainMenuButtons"]
+modulate = Color( 0.31, 0.31, 0.31, 1 )
+margin_right = 504.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 504, 64 )
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -39,7 +47,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NewGameLabel" type="Label" parent="NewGameButton"]
+[node name="NewGameLabel" type="Label" parent="MainMenuButtons/NewGameButton"]
 margin_left = 20.0
 margin_right = 524.0
 margin_bottom = 64.0
@@ -52,12 +60,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LoadGameButton" type="NinePatchRect" parent="."]
+[node name="LoadGameButton" type="NinePatchRect" parent="MainMenuButtons"]
 modulate = Color( 0.313726, 0.313726, 0.313726, 1 )
-margin_left = 388.0
-margin_top = 72.0
-margin_right = 892.0
-margin_bottom = 136.0
+margin_top = 68.0
+margin_right = 504.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 504, 64 )
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -67,7 +75,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LoadGameLabel" type="Label" parent="LoadGameButton"]
+[node name="LoadGameLabel" type="Label" parent="MainMenuButtons/LoadGameButton"]
 margin_left = 20.0
 margin_right = 524.0
 margin_bottom = 64.0
@@ -77,12 +85,12 @@ text = "Load Game"
 valign = 1
 autowrap = true
 
-[node name="SettingsButton" type="NinePatchRect" parent="."]
+[node name="SettingsButton" type="NinePatchRect" parent="MainMenuButtons"]
 modulate = Color( 0.313726, 0.313726, 0.313726, 1 )
-margin_left = 388.0
-margin_top = 140.0
-margin_right = 892.0
-margin_bottom = 204.0
+margin_top = 136.0
+margin_right = 504.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 504, 64 )
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -92,7 +100,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SettingsLabel" type="Label" parent="SettingsButton"]
+[node name="SettingsLabel" type="Label" parent="MainMenuButtons/SettingsButton"]
 margin_left = 20.0
 margin_right = 524.0
 margin_bottom = 64.0
@@ -102,12 +110,12 @@ text = "Settings"
 valign = 1
 autowrap = true
 
-[node name="QuitButton" type="NinePatchRect" parent="."]
+[node name="QuitButton" type="NinePatchRect" parent="MainMenuButtons"]
 modulate = Color( 0.313726, 0.313726, 0.313726, 1 )
-margin_left = 388.0
-margin_top = 208.0
-margin_right = 892.0
-margin_bottom = 272.0
+margin_top = 204.0
+margin_right = 504.0
+margin_bottom = 268.0
+rect_min_size = Vector2( 504, 64 )
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -117,7 +125,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="QuitLabel" type="Label" parent="QuitButton"]
+[node name="QuitLabel" type="Label" parent="MainMenuButtons/QuitButton"]
 margin_left = 20.0
 margin_right = 524.0
 margin_bottom = 64.0
