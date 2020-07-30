@@ -4,5 +4,4 @@
 font_path = "res://OpMon-Data/GameData/fonts/Default.ttf"
 
 [resource]
-size = 20
 font_data = SubResource( 1 )
