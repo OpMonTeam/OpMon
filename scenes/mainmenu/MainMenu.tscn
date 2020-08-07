@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://OpMon-Data/GameData/audio/sounds/nope.wav" type="AudioStream" id=1]
+[ext_resource path="res://OpMon-Data/GameData/audio/sfx/sfx_nope.ogg" type="AudioStream" id=1]
 [ext_resource path="res://OpMon-Data/GameData/backgrounds/menuframe.png" type="Texture" id=2]
 [ext_resource path="res://src/main_font.tres" type="DynamicFont" id=3]
-[ext_resource path="res://src/scenes/mainmenu/MainMenu.gd" type="Script" id=4]
-[ext_resource path="res://OpMon-Data/GameData/audio/sounds/selectbuttons.wav" type="AudioStream" id=5]
+[ext_resource path="res://Scenes/MainMenu/MainMenu.gd" type="Script" id=4]
+[ext_resource path="res://OpMon-Data/GameData/audio/sfx/sfx_select_buttons.ogg" type="AudioStream" id=5]
 [ext_resource path="res://OpMon-Data/GameData/audio/music/title.ogg" type="AudioStream" id=6]
 
 [node name="MainMenu" type="Control"]
