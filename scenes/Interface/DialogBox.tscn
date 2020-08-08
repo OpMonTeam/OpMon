@@ -27,7 +27,6 @@ margin_bottom = 80.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 autowrap = true
-percent_visible = -0.0142857
 __meta__ = {
 "_edit_use_anchors_": false
 }
