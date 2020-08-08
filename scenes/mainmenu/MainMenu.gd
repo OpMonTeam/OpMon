@@ -42,6 +42,6 @@ func pressed(id):
 	if id == 3:
 		get_tree().quit()
 	elif id == 0:
-		get_tree().change_scene("res://src/scenes/introscene/IntroScene.tscn")
+		get_tree().change_scene("res://Scenes/Intro/IntroScene.tscn")
 	else:
 		$Nope.play()
