@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://src/main_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://OpMon-Data/GameData/fonts/main_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://OpMon-Data/GameData/backgrounds/menuframe.png" type="Texture" id=2]
-[ext_resource path="res://src/DialogBox.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Interface/DialogBox.gd" type="Script" id=3]
 [ext_resource path="res://OpMon-Data/GameData/sprites/misc/arrDial.png" type="Texture" id=4]
-[ext_resource path="res://OpMon-Data/GameData/audio/sounds/dialogChange.wav" type="AudioStream" id=5]
+[ext_resource path="res://OpMon-Data/GameData/audio/sfx/sfx_dialog_change.ogg" type="AudioStream" id=5]
 
 [node name="DialogBox" type="NinePatchRect"]
 margin_right = 504.0
