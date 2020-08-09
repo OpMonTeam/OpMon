@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://OpMon-Data/GameData/sprites/chara/prof/profkiwai.png" type="Texture" id=1]
-[ext_resource path="res://OpMon-Data/GameData/backgrounds/start/introscene.png" type="Texture" id=2]
+[ext_resource path="res://OpMon-Data/Sprites/chara/prof/profkiwai.png" type="Texture" id=1]
+[ext_resource path="res://OpMon-Data/Backgrounds/start/introscene.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Interface/DialogBox.tscn" type="PackedScene" id=3]
 
 
