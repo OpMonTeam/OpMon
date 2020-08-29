@@ -43,8 +43,9 @@ func move_to(target_position, input_direction):
 
 	# Start the animation and wait until it is finished
 	# TODO: the animation is constitued of 3 frames, so the speed of the
-	# animation (in FPS) must be 3 times the WALK_SPEED in order for each frame
-	# to be displayed once during the movement from one tile to the next.
+	# animation (in FPS) must be 3 times the value of 1/WALK_SPEED in order for
+	# each frame to be displayed once during the movement from one tile to the
+	# next.
 	play()
 	yield(self, "animation_finished")
 
