@@ -19,6 +19,8 @@ func _process(_delta):
 		$RayCast2D.force_raycast_update ( )
 		if not $RayCast2D.is_colliding():
 			move_to(target_position, input_direction)
+		else:
+			move_to(position, input_direction)
 	update()
 
 func get_input_direction():
