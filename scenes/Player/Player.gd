@@ -24,10 +24,15 @@ func _process(_delta):
 	update()
 
 func get_input_direction():
-	return Vector2(
-		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	)
+	var horizontal_input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	var vertical_input = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+
+	if abs(horizontal_input) > abs(vertical_input):
+		return Vector2(horizontal_input, 0)
+	elif  abs(vertical_input) > abs(horizontal_input):
+		return Vector2(0, vertical_input)
+	else:
+		return Vector2(0, 0)
 
 func move_to(target_position, input_direction):
 	# Set the player to "moving" so it won't accept any other input while moving
