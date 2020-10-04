@@ -1,7 +1,7 @@
 extends Node2D
 
 const TILE_SIZE = 16
-const WALK_SPEED = 0.5
+const WALK_SPEED = 1.0/3.0
 
 var moving = false
 
