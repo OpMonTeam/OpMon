@@ -10,34 +10,35 @@
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 458.833, 201.119 )
+margin_right = -480.0
+margin_bottom = -320.0
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Background" type="ColorRect" parent="."]
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_right = 480.0
+margin_bottom = 320.0
 color = Color( 0.376471, 0.431373, 0.854902, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MainMenuButtons" type="VBoxContainer" parent="."]
-margin_left = 388.0
+margin_left = 112.0
 margin_top = 4.0
-margin_right = 892.0
-margin_bottom = 716.0
+margin_right = 208.0
+margin_bottom = 316.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NewGameButton" type="NinePatchRect" parent="MainMenuButtons"]
 modulate = Color( 0.31, 0.31, 0.31, 1 )
-margin_right = 504.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 504, 64 )
+margin_right = 256.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 256, 32 )
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -48,9 +49,9 @@ __meta__ = {
 }
 
 [node name="NewGameLabel" type="Label" parent="MainMenuButtons/NewGameButton"]
-margin_left = 20.0
-margin_right = 484.0
-margin_bottom = 64.0
+margin_left = 16.0
+margin_right = 224.0
+margin_bottom = 32.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "New Game"
@@ -62,10 +63,10 @@ __meta__ = {
 
 [node name="LoadGameButton" type="NinePatchRect" parent="MainMenuButtons"]
 modulate = Color( 0.313726, 0.313726, 0.313726, 1 )
-margin_top = 68.0
-margin_right = 504.0
-margin_bottom = 132.0
-rect_min_size = Vector2( 504, 64 )
+margin_top = 36.0
+margin_right = 256.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 256, 32 )
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -76,21 +77,24 @@ __meta__ = {
 }
 
 [node name="LoadGameLabel" type="Label" parent="MainMenuButtons/LoadGameButton"]
-margin_left = 20.0
-margin_right = 484.0
-margin_bottom = 64.0
+margin_left = 16.0
+margin_right = 224.0
+margin_bottom = 32.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Load Game"
 valign = 1
 autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SettingsButton" type="NinePatchRect" parent="MainMenuButtons"]
 modulate = Color( 0.313726, 0.313726, 0.313726, 1 )
-margin_top = 136.0
-margin_right = 504.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 504, 64 )
+margin_top = 72.0
+margin_right = 256.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 256, 32 )
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -101,21 +105,24 @@ __meta__ = {
 }
 
 [node name="SettingsLabel" type="Label" parent="MainMenuButtons/SettingsButton"]
-margin_left = 20.0
-margin_right = 484.0
-margin_bottom = 64.0
+margin_left = 16.0
+margin_right = 224.0
+margin_bottom = 32.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Settings"
 valign = 1
 autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="QuitButton" type="NinePatchRect" parent="MainMenuButtons"]
 modulate = Color( 0.313726, 0.313726, 0.313726, 1 )
-margin_top = 204.0
-margin_right = 504.0
-margin_bottom = 268.0
-rect_min_size = Vector2( 504, 64 )
+margin_top = 108.0
+margin_right = 256.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 256, 32 )
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -126,9 +133,9 @@ __meta__ = {
 }
 
 [node name="QuitLabel" type="Label" parent="MainMenuButtons/QuitButton"]
-margin_left = 20.0
-margin_right = 484.0
-margin_bottom = 64.0
+margin_left = 16.0
+margin_right = 224.0
+margin_bottom = 32.0
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Quit"
