@@ -3,8 +3,6 @@
 [ext_resource path="res://Scenes/Player/player_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=2]
 
-
-
 [node name="Player" type="Node2D"]
 script = ExtResource( 2 )
 
