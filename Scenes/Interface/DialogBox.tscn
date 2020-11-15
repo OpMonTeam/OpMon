@@ -1,47 +1,72 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://OpMon-Data/Fonts/main_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://OpMon-Data/Backgrounds/menuframe.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Interface/DialogBox.gd" type="Script" id=3]
-[ext_resource path="res://OpMon-Data/Sprites/misc/arrDial.png" type="Texture" id=4]
+[ext_resource path="res://OpMon-Data/Sprites/UI/arrDial.png" type="Texture" id=4]
 [ext_resource path="res://OpMon-Data/Audio/sfx/sfx_dialog_change.ogg" type="AudioStream" id=5]
 
-[node name="DialogBox" type="NinePatchRect"]
-margin_right = 504.0
-margin_bottom = 100.0
-texture = ExtResource( 2 )
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
+[sub_resource type="Animation" id=1]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 238, 22 ), Vector2( 238, 18 ) ]
+}
+
+[node name="DialogBox" type="Control"]
+margin_right = 256.0
+margin_bottom = 40.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text" type="Label" parent="."]
-margin_left = 19.1591
-margin_top = 20.0
-margin_right = 483.159
-margin_bottom = 80.0
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-autowrap = true
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+margin_right = 256.0
+margin_bottom = 40.0
+texture = ExtResource( 2 )
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Array" type="TextureRect" parent="."]
-visible = false
-margin_left = 470.0
-margin_top = 60.0
-margin_right = 510.0
-margin_bottom = 100.0
-rect_scale = Vector2( 2, 2 )
+[node name="Text" type="RichTextLabel" parent="."]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 248.0
+margin_bottom = 32.0
+custom_fonts/normal_font = ExtResource( 1 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_constants/line_separation = 1
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DialArrow" type="TextureRect" parent="."]
+margin_left = 238.0
+margin_top = 22.0
+margin_right = 248.0
+margin_bottom = 32.0
 texture = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DialArrow"]
+anims/idle = SubResource( 1 )
 
 [node name="DialogSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
