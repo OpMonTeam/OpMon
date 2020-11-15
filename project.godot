@@ -25,5 +25,7 @@ default_bus_layout=""
 
 [display]
 
-window/size/width=1280
-window/size/height=720
+window/size/width=960
+window/size/height=640
+window/size/resizable=false
+window/stretch/shrink=2.0
