@@ -41,9 +41,9 @@ func _process(_delta):
 
 
 func pressed(id):
-	if id == 3:
-		get_tree().quit()
-	elif id == 0:
+	if id == 0:
 		_manager._load_map("MapTest")
+	elif id == 3:
+		get_tree().quit()
 	else:
 		$Nope.play()
