@@ -16,12 +16,16 @@ _global_script_class_icons={
 [application]
 
 config/name="OpMon"
-run/main_scene="res://Scenes/MainMenu/MainMenu.tscn"
+run/main_scene="res://Scenes/Game.tscn"
 config/icon="res://icon.png"
 
 [audio]
 
 default_bus_layout=""
+
+[autoload]
+
+Manager="*res://Singletons/Manager.gd"
 
 [display]
 
