@@ -70,3 +70,7 @@ anims/idle = SubResource( 1 )
 
 [node name="DialogSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 480.0
+margin_bottom = 320.0
