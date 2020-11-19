@@ -23,16 +23,18 @@ tracks/0/keys = {
 }
 
 [node name="DialogBox" type="Control"]
-margin_right = 256.0
-margin_bottom = 40.0
+margin_right = 480.0
+margin_bottom = 320.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
-margin_right = 256.0
-margin_bottom = 40.0
+margin_left = 112.0
+margin_top = 280.0
+margin_right = 368.0
+margin_bottom = 320.0
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -42,7 +44,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text" type="RichTextLabel" parent="."]
+[node name="Text" type="RichTextLabel" parent="NinePatchRect"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 248.0
@@ -55,7 +57,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DialArrow" type="TextureRect" parent="."]
+[node name="DialArrow" type="TextureRect" parent="NinePatchRect"]
 margin_left = 238.0
 margin_top = 22.0
 margin_right = 248.0
@@ -65,12 +67,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="DialArrow"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NinePatchRect/DialArrow"]
 anims/idle = SubResource( 1 )
 
 [node name="DialogSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
-
-[node name="CenterContainer" type="CenterContainer" parent="."]
-margin_right = 480.0
-margin_bottom = 320.0
