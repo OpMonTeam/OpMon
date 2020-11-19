@@ -15,7 +15,14 @@ var _awaiting_next_dialog_line := false
 # Timer for displaying dialog line characters one at a time
 var _timer = null
 
+var _dial_arrow
+
+var _text
+
 func _ready():
+	_dial_arrow = get_node("NinePatchRect/DialArrow")
+	_text = get_node("NinePatchRect/Text")
+
 	# Prepare the timer
 	_timer = Timer.new()
 	add_child(_timer)
@@ -25,22 +32,22 @@ func _ready():
 	_start_new_line();
 
 	# Start the animation of the dial arrow
-	get_node("DialArrow/AnimationPlayer").current_animation = "idle"
-	get_node("DialArrow/AnimationPlayer").playback_active = true
+	_dial_arrow.get_node("AnimationPlayer").current_animation = "idle"
+	_dial_arrow.get_node("AnimationPlayer").playback_active = true
 
 func _start_new_line():
 	_current_dialog_line_index += 1
-	$DialArrow.visible = false
+	_dial_arrow.visible = false
 	_awaiting_next_dialog_line = false
 	_timer.start()
-	$Text.visible_characters = 0
-	$Text.text = dialog_lines[_current_dialog_line_index]
+	_text.visible_characters = 0
+	_text.text = dialog_lines[_current_dialog_line_index]
 
 func _finish_current_line():
-	$DialArrow.visible = true
+	_dial_arrow.visible = true
 	_awaiting_next_dialog_line = true
 	_timer.stop()
-	$Text.visible_characters = -1
+	_text.visible_characters = -1
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
@@ -51,6 +58,6 @@ func _process(_delta):
 			_finish_current_line()
 
 func _on_Timer_timeout():
-	$Text.visible_characters += 1
-	if $Text.visible_characters == dialog_lines[_current_dialog_line_index].length():
+	_text.visible_characters += 1
+	if _text.visible_characters == dialog_lines[_current_dialog_line_index].length():
 		_finish_current_line()
