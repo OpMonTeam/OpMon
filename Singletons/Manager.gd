@@ -19,8 +19,10 @@ func _ready():
 
 func _remove_current_scene():
 	print("[MANAGER] Removing current scene " + current_scene_name)
-	var current_scene_child_node = current_scene_node.get_node(current_scene_name)
-	if (current_scene_child_node != null):
+	var current_scene_child_node = null
+	if current_scene_name != "":
+		current_scene_child_node = current_scene_node.get_node(current_scene_name)
+	if current_scene_child_node != null:
 		current_scene_child_node.queue_free()
 
 func _load_main_menu():
