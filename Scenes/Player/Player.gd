@@ -6,18 +6,29 @@ const WALK_SPEED = 1.0/3.0
 var moving = false
 
 
+func _check_collision_in_direction(direction : Vector2):
+	var target_position = position + direction * TILE_SIZE
+
+	var local_position = to_local(position)
+	var local_target_position = to_local(target_position)
+	$RayCast2D.position = local_position
+	$RayCast2D.cast_to = local_target_position
+	$RayCast2D.force_raycast_update ( )
+	if $RayCast2D.is_colliding():
+		return true
+	else:
+		return false
+
 func _process(_delta):
+
+	if Input.is_action_just_pressed("ui_accept"):
+		print("Enter pressed")
+
 	var input_direction = get_input_direction()
 	if input_direction and not moving:
 		var target_position = position + input_direction * TILE_SIZE
 
-		# TODO: extract this in a method to check collision	*
-		var local_position = to_local(position)
-		var local_target_position = to_local(target_position)
-		$RayCast2D.position = local_position
-		$RayCast2D.cast_to = local_target_position
-		$RayCast2D.force_raycast_update ( )
-		if not $RayCast2D.is_colliding():
+		if not _check_collision_in_direction(input_direction):
 			move_to(target_position, input_direction)
 		else:
 			move_to(position, input_direction)
