@@ -4,10 +4,12 @@ signal button_pressed(id)
 
 var _selection := 0
 var _buttons: Array
+var _manager
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	_manager = get_node("/root/Manager")
 	_buttons = [get_node("MainMenuButtons/NewGameButton") as NinePatchRect, 
 			   get_node("MainMenuButtons/LoadGameButton") as NinePatchRect,
 			   get_node("MainMenuButtons/SettingsButton") as NinePatchRect, 
@@ -39,9 +41,9 @@ func _process(_delta):
 
 
 func pressed(id):
-	if id == 3:
+	if id == 0:
+		_manager._load_map("MapTest", 1, 1)
+	elif id == 3:
 		get_tree().quit()
-	elif id == 0:
-		get_tree().change_scene("res://Scenes/Intro/IntroScene.tscn")
 	else:
 		$Nope.play()
