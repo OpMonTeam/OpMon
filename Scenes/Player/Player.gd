@@ -15,9 +15,10 @@ func _check_collision_in_direction(direction : Vector2):
 	$RayCast2D.cast_to = local_target_position
 	$RayCast2D.force_raycast_update ( )
 	if $RayCast2D.is_colliding():
-		return true
+		print($RayCast2D.get_collider().get_script())
+		return $RayCast2D.get_collider()
 	else:
-		return false
+		return null
 
 func _process(_delta):
 
@@ -28,7 +29,7 @@ func _process(_delta):
 	if input_direction and not moving:
 		var target_position = position + input_direction * TILE_SIZE
 
-		if not _check_collision_in_direction(input_direction):
+		if _check_collision_in_direction(input_direction) == null:
 			move_to(target_position, input_direction)
 		else:
 			move_to(position, input_direction)
