@@ -5,14 +5,15 @@ const InteractableClass = preload("res://Scenes/Interactable/Interactable.gd")
 const TILE_SIZE = 16
 const WALK_SPEED = 1.0/3.0
 
-var moving = false
+var _moving = false
 
+var _facing_direction = Vector2.UP
 
 func _interact():
-	pass
+	var collider = _get_collider_in_direction(_facing_direction)
 	
 
-func _check_collision_in_direction(direction : Vector2):
+func _get_collider_in_direction(direction : Vector2):
 	var target_position = position + direction * TILE_SIZE
 
 	var local_position = to_local(position)
@@ -27,15 +28,14 @@ func _check_collision_in_direction(direction : Vector2):
 		return null
 
 func _process(_delta):
-
 	if Input.is_action_just_pressed("ui_accept"):
 		print("Enter pressed")
 
 	var input_direction = get_input_direction()
-	if input_direction and not moving:
+	if input_direction and not _moving:
 		var target_position = position + input_direction * TILE_SIZE
 
-		if _check_collision_in_direction(input_direction) == null:
+		if _get_collider_in_direction(input_direction) == null:
 			move_to(target_position, input_direction)
 		else:
 			move_to(position, input_direction)
@@ -54,9 +54,10 @@ func get_input_direction():
 
 func move_to(target_position, input_direction):
 	# Set the player to "moving" so it won't accept any other input while moving
-	moving = true
+	_moving = true
 
 	# Select an animation based on the movement direction
+	_facing_direction = input_direction
 	if input_direction == Vector2.UP:
 		$AnimatedSprite.flip_h = false
 		$AnimatedSprite.animation = "walk_up"
@@ -83,7 +84,7 @@ func move_to(target_position, input_direction):
 	yield($AnimatedSprite, "animation_finished")
 
 	# Stop the animation, reset to frame 0 (where the player appears idle), and
-	# unset "moving" so the player can now accept new inputs
+	# unset "_moving" so the player can now accept new inputs
 	$AnimatedSprite.stop()
 	$AnimatedSprite.frame = 0
-	moving = false
+	_moving = false
