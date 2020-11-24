@@ -1,10 +1,16 @@
 extends Node2D
 
+const InteractableClass = preload("res://Scenes/Interactable/Interactable.gd")
+
 const TILE_SIZE = 16
 const WALK_SPEED = 1.0/3.0
 
 var moving = false
 
+
+func _interact():
+	pass
+	
 
 func _check_collision_in_direction(direction : Vector2):
 	var target_position = position + direction * TILE_SIZE
@@ -15,7 +21,7 @@ func _check_collision_in_direction(direction : Vector2):
 	$RayCast2D.cast_to = local_target_position
 	$RayCast2D.force_raycast_update ( )
 	if $RayCast2D.is_colliding():
-		print($RayCast2D.get_collider().get_script())
+		# print($RayCast2D.get_collider() is InteractableClass)
 		return $RayCast2D.get_collider()
 	else:
 		return null
