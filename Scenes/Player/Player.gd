@@ -5,15 +5,23 @@ const InteractableClass = preload("res://Scenes/Interactable/Interactable.gd")
 const TILE_SIZE = 16
 const WALK_SPEED = 1.0/3.0
 
-var _moving = false
-
 var _facing_direction = Vector2.UP
 
-func _interact():
-	var collider = _get_collider_in_direction(_facing_direction)
-	if collider != null and collider is InteractableClass:
-		collider = collider as InteractableClass
-		collider.interact()
+var _moving = false
+
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_accept"):
+		_interact()
+
+	var input_direction = _get_input_direction()
+	if input_direction and not _moving:
+		var target_position = position + input_direction * TILE_SIZE
+
+		if _get_collider_in_direction(input_direction) == null:
+			_move_to(target_position, input_direction)
+		else:
+			_move_to(position, input_direction)
+	update()
 
 func _get_collider_in_direction(direction : Vector2):
 	var target_position = position + direction * TILE_SIZE
@@ -28,21 +36,7 @@ func _get_collider_in_direction(direction : Vector2):
 	else:
 		return null
 
-func _process(_delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		_interact()
-
-	var input_direction = get_input_direction()
-	if input_direction and not _moving:
-		var target_position = position + input_direction * TILE_SIZE
-
-		if _get_collider_in_direction(input_direction) == null:
-			move_to(target_position, input_direction)
-		else:
-			move_to(position, input_direction)
-	update()
-
-func get_input_direction():
+func _get_input_direction():
 	var horizontal_input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	var vertical_input = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 
@@ -53,7 +47,13 @@ func get_input_direction():
 	else:
 		return Vector2(0, 0)
 
-func move_to(target_position, input_direction):
+func _interact():
+	var collider = _get_collider_in_direction(_facing_direction)
+	if collider != null and collider is InteractableClass:
+		collider = collider as InteractableClass
+		collider.interact()
+
+func _move_to(target_position, input_direction):
 	# Set the player to "moving" so it won't accept any other input while moving
 	_moving = true
 
