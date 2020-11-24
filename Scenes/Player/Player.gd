@@ -11,8 +11,9 @@ var _facing_direction = Vector2.UP
 
 func _interact():
 	var collider = _get_collider_in_direction(_facing_direction)
-	if collider != null:
-		print(collider is InteractableClass)
+	if collider != null and collider is InteractableClass:
+		collider = collider as InteractableClass
+		collider.interact()
 
 func _get_collider_in_direction(direction : Vector2):
 	var target_position = position + direction * TILE_SIZE
