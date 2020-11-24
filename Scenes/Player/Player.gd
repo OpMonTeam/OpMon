@@ -11,7 +11,8 @@ var _facing_direction = Vector2.UP
 
 func _interact():
 	var collider = _get_collider_in_direction(_facing_direction)
-	
+	if collider != null:
+		print(collider is InteractableClass)
 
 func _get_collider_in_direction(direction : Vector2):
 	var target_position = position + direction * TILE_SIZE
@@ -22,14 +23,13 @@ func _get_collider_in_direction(direction : Vector2):
 	$RayCast2D.cast_to = local_target_position
 	$RayCast2D.force_raycast_update ( )
 	if $RayCast2D.is_colliding():
-		# print($RayCast2D.get_collider() is InteractableClass)
 		return $RayCast2D.get_collider()
 	else:
 		return null
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
-		print("Enter pressed")
+		_interact()
 
 	var input_direction = get_input_direction()
 	if input_direction and not _moving:
