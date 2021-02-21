@@ -40,6 +40,9 @@ func _ready():
 	_dial_arrow.get_node("AnimationPlayer").current_animation = "idle"
 	_dial_arrow.get_node("AnimationPlayer").playback_active = true
 
+func _exit_tree():
+	_manager.unpause_player()
+
 func _start_new_line():
 	_current_dialog_line_index += 1
 	_dial_arrow.visible = false
@@ -59,6 +62,8 @@ func _process(_delta):
 		if _awaiting_next_dialog_line:
 			if _current_dialog_line_index < dialog_lines.size() - 1:
 				_start_new_line()
+			else:
+				queue_free()
 		else:
 			_finish_current_line()
 
