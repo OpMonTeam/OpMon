@@ -7,6 +7,7 @@ const WALK_SPEED = 1.0/3.0
 
 var _facing_direction = Vector2.UP
 
+# Indicate if the player is in the process of moving from one tile to another
 var _moving = false
 
 func _process(_delta):
