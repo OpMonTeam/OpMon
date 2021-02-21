@@ -19,7 +19,12 @@ var _dial_arrow
 
 var _text
 
+var _manager
+
 func _ready():
+	_manager = get_node("/root/Manager") as Manager
+	_manager.pause_player()
+	
 	_dial_arrow = get_node("NinePatchRect/DialArrow")
 	_text = get_node("NinePatchRect/Text")
 
