@@ -1,10 +1,10 @@
 extends Control
 
-# Lines of dialog stored as an array
-export var _dialog_lines := ["Lorem ipsum dolor sit amet.", "Consectetur adipiscing elit, sed do eiusmod tempor incididunt."]
-
 # Speed at which the dialog lines are displayed
 export var dialog_speed := 10.0
+
+# Lines of dialog stored as an array
+var _dialog_lines
 
 # Index of the current shown dialog line
 var _current_dialog_line_index := -1
