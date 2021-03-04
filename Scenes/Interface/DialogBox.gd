@@ -1,10 +1,10 @@
 extends Control
 
-# Lines of dialog stored as an array
-export var dialog_lines := ["Lorem ipsum dolor sit amet.", "Consectetur adipiscing elit, sed do eiusmod tempor incididunt."]
-
 # Speed at which the dialog lines are displayed
 export var dialog_speed := 10.0
+
+# Lines of dialog stored as an array
+var _dialog_lines
 
 # Index of the current shown dialog line
 var _current_dialog_line_index := -1
@@ -19,7 +19,23 @@ var _dial_arrow
 
 var _text
 
+var _manager
+
+func set_dialog_lines(dialog_lines):
+	_dialog_lines = dialog_lines
+
+func go():
+	# Display the first line of dialogue
+	_start_new_line();
+
+	# Start the animation of the dial arrow
+	_dial_arrow.get_node("AnimationPlayer").current_animation = "idle"
+	_dial_arrow.get_node("AnimationPlayer").playback_active = true
+
 func _ready():
+	_manager = get_node("/root/Manager") as Manager
+	_manager.pause_player()
+	
 	_dial_arrow = get_node("NinePatchRect/DialArrow")
 	_text = get_node("NinePatchRect/Text")
 
@@ -29,11 +45,9 @@ func _ready():
 	_timer.connect("timeout", self, "_on_Timer_timeout")
 	_timer.set_one_shot(false)
 	_timer.set_wait_time(1/dialog_speed)
-	_start_new_line();
 
-	# Start the animation of the dial arrow
-	_dial_arrow.get_node("AnimationPlayer").current_animation = "idle"
-	_dial_arrow.get_node("AnimationPlayer").playback_active = true
+func _exit_tree():
+	_manager.unpause_player()
 
 func _start_new_line():
 	_current_dialog_line_index += 1
@@ -41,7 +55,7 @@ func _start_new_line():
 	_awaiting_next_dialog_line = false
 	_timer.start()
 	_text.visible_characters = 0
-	_text.text = dialog_lines[_current_dialog_line_index]
+	_text.text = _dialog_lines[_current_dialog_line_index]
 
 func _finish_current_line():
 	_dial_arrow.visible = true
@@ -52,12 +66,14 @@ func _finish_current_line():
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		if _awaiting_next_dialog_line:
-			if _current_dialog_line_index < dialog_lines.size() - 1:
+			if _current_dialog_line_index < _dialog_lines.size() - 1:
 				_start_new_line()
+			else:
+				queue_free()
 		else:
 			_finish_current_line()
 
 func _on_Timer_timeout():
 	_text.visible_characters += 1
-	if _text.visible_characters == dialog_lines[_current_dialog_line_index].length():
+	if _text.visible_characters == _dialog_lines[_current_dialog_line_index].length():
 		_finish_current_line()

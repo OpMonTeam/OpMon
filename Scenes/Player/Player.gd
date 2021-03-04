@@ -7,21 +7,27 @@ const WALK_SPEED = 1.0/3.0
 
 var _facing_direction = Vector2.UP
 
+# Indicate if the player can act (the player cannot act during a dialogue or
+# cutscene, etc.)
+var _paused = false
+
+# Indicate if the player is in the process of moving from one tile to another
 var _moving = false
 
 func _process(_delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		_interact()
+	if not _paused:
+		if Input.is_action_just_pressed("ui_accept"):
+			_interact()
 
-	var input_direction = _get_input_direction()
-	if input_direction and not _moving:
-		var target_position = position + input_direction * TILE_SIZE
+		var input_direction = _get_input_direction()
+		if input_direction and not _moving:
+			var target_position = position + input_direction * TILE_SIZE
 
-		if _get_collider_in_direction(input_direction) == null:
-			_move_to(target_position, input_direction)
-		else:
-			_move_to(position, input_direction)
-	update()
+			if _get_collider_in_direction(input_direction) == null:
+				_move_to(target_position, input_direction)
+			else:
+				_move_to(position, input_direction)
+		update()
 
 func _get_collider_in_direction(direction : Vector2):
 	var target_position = position + direction * TILE_SIZE
@@ -51,7 +57,7 @@ func _interact():
 	var collider = _get_collider_in_direction(_facing_direction)
 	if collider != null and collider is InteractableClass:
 		collider = collider as InteractableClass
-		collider.interact()
+		collider.interact(_facing_direction)
 
 func _move_to(target_position, input_direction):
 	# Set the player to "moving" so it won't accept any other input while moving
@@ -89,3 +95,6 @@ func _move_to(target_position, input_direction):
 	$AnimatedSprite.stop()
 	$AnimatedSprite.frame = 0
 	_moving = false
+
+func set_paused(value):
+	_paused = value
