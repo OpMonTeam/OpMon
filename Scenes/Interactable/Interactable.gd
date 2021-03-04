@@ -12,7 +12,6 @@ var _root
 func _ready():
 	_root = get_node("/root")
 	_manager = get_node("/root/Manager")
-	_dialog_box_instance = load(PATH_DIALOG_BOX_SCENE).instance()
 
 func interact():
 	push_error("Virtual method interact was called")
