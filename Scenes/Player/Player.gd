@@ -57,7 +57,7 @@ func _interact():
 	var collider = _get_collider_in_direction(_facing_direction)
 	if collider != null and collider is InteractableClass:
 		collider = collider as InteractableClass
-		collider.interact()
+		collider.interact(_facing_direction)
 
 func _move_to(target_position, input_direction):
 	# Set the player to "moving" so it won't accept any other input while moving
