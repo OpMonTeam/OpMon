@@ -42,7 +42,7 @@ func _process(_delta):
 
 func pressed(id):
 	if id == 0:
-		_manager._load_map("MapTest", 1, 1)
+		_manager._load_map("MapTest", 7, 7)
 	elif id == 3:
 		get_tree().quit()
 	else:
