@@ -110,8 +110,3 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 [node name="TestNPC" parent="." instance=ExtResource( 2 )]
 position = Vector2( 104, 96 )
 dialog_lines = [ "This is a test.", "Consectetur adipiscing elit, sed do eiusmod tempor incididunt." ]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
-current = true
-zoom = Vector2( 0.5, 0.5 )
