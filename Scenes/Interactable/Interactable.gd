@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const PATH_USER_INTERFACE_NODE = "/root/Game/UserInterface"
+
 const PATH_DIALOG_BOX_SCENE = "res://Scenes/Interface/DialogBox.tscn"
 
 # Some interactables display a dialog box when interacted with (NPCs, etc.)
