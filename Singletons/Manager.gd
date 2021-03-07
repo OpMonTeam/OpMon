@@ -35,7 +35,7 @@ func _load_main_menu():
 	print("[MANAGER] Loading main menu")
 	var main_menu_instance = load(PATH_MAIN_MENU_SCENE).instance()
 	var camera_instance = load(PATH_CAMERA_SCENE).instance()
-	camera_instance.set_normal_mode()
+	camera_instance.set_static_mode()
 	current_scene_node.add_child(main_menu_instance)
 	current_scene_node.add_child(camera_instance)
 
