@@ -32,4 +32,3 @@ Manager="*res://Singletons/Manager.gd"
 window/size/width=960
 window/size/height=640
 window/size/resizable=false
-window/stretch/shrink=2.0
