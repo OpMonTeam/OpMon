@@ -6,7 +6,8 @@ func interact(player_facing_direction):
 	change_faced_direction(player_facing_direction)
 	_dialog_box_instance = load(PATH_DIALOG_BOX_SCENE).instance()
 	_dialog_box_instance.set_dialog_lines(dialog_lines)
-	_root.add_child(_dialog_box_instance)
+	var user_interface_node = get_node(PATH_USER_INTERFACE_NODE)
+	user_interface_node.add_child(_dialog_box_instance)
 	_dialog_box_instance.go()
 
 func change_faced_direction(player_facing_direction):
