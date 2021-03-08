@@ -2,9 +2,9 @@ extends Node2D
 
 const InteractableClass = preload("res://Scenes/Interactable/Interactable.gd")
 
-const TILE_SIZE = 16
-const WALK_SPEED = 1.0/3.0
+const _constants = preload("res://Utils/Constants.gd")
 
+# The direction currently faced by the player
 var _faced_direction = Vector2.UP
 
 # Indicate if the player can act (the player cannot act during a dialogue or
@@ -21,7 +21,7 @@ func _process(_delta):
 
 		var input_direction = _get_input_direction()
 		if input_direction and not _moving:
-			var target_position = position + input_direction * TILE_SIZE
+			var target_position = position + input_direction * _constants.TILE_SIZE
 
 			if _get_collider_in_direction(input_direction) == null:
 				_move_to(target_position, input_direction)
@@ -30,7 +30,7 @@ func _process(_delta):
 		update()
 
 func _get_collider_in_direction(direction : Vector2):
-	var target_position = position + direction * TILE_SIZE
+	var target_position = position + direction * _constants.TILE_SIZE
 
 	var local_position = to_local(position)
 	var local_target_position = to_local(target_position)
@@ -79,7 +79,7 @@ func _move_to(target_position, input_direction):
 		$AnimatedSprite.animation = "walk_right"
 
 	# Interpolate between current and target position
-	$Tween.interpolate_property(self, "position", position, target_position, WALK_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.interpolate_property(self, "position", position, target_position, _constants.WALK_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
 
 	# Start the animation and wait until it is finished

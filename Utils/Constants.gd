@@ -1,5 +1,8 @@
 extends Node
 
+const TILE_SIZE = 16
+const WALK_SPEED = 1.0/3.0
+
 const PATH_CURRENT_SCENE_NODE = "/root/Game/CurrentScene"
 const PATH_USER_INTERFACE_NODE = "/root/Game/UserInterface"
 
