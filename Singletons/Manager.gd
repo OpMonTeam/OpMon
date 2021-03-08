@@ -1,5 +1,7 @@
 extends Node
 
+const _constants = preload("res://Utils/Constants.gd")
+
 const PATH_CURRENT_SCENE_NODE = "/root/Game/CurrentScene"
 
 const PATH_CAMERA_SCENE = "res://Scenes/Interface/Camera.tscn"

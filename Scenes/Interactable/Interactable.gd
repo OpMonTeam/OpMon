@@ -9,5 +9,5 @@ func _ready():
 	_root = get_node("/root")
 	_manager = get_node("/root/Manager")
 
-func interact(facing_direction):
+func interact(player_faced_direction):
 	push_error("Virtual method interact was called")

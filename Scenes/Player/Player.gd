@@ -5,7 +5,7 @@ const InteractableClass = preload("res://Scenes/Interactable/Interactable.gd")
 const TILE_SIZE = 16
 const WALK_SPEED = 1.0/3.0
 
-var _facing_direction = Vector2.UP
+var _faced_direction = Vector2.UP
 
 # Indicate if the player can act (the player cannot act during a dialogue or
 # cutscene, etc.)
@@ -54,17 +54,17 @@ func _get_input_direction():
 		return Vector2(0, 0)
 
 func _interact():
-	var collider = _get_collider_in_direction(_facing_direction)
+	var collider = _get_collider_in_direction(_faced_direction)
 	if collider != null and collider is InteractableClass:
 		collider = collider as InteractableClass
-		collider.interact(_facing_direction)
+		collider.interact(_faced_direction)
 
 func _move_to(target_position, input_direction):
 	# Set the player to "moving" so it won't accept any other input while moving
 	_moving = true
 
 	# Select an animation based on the movement direction
-	_facing_direction = input_direction
+	_faced_direction = input_direction
 	if input_direction == Vector2.UP:
 		$AnimatedSprite.flip_h = false
 		$AnimatedSprite.animation = "walk_up"
