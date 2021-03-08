@@ -1,5 +1,7 @@
 extends Control
 
+var _manager
+
 # Speed at which the dialog lines are displayed
 export var dialog_speed := 10.0
 
@@ -18,8 +20,6 @@ var _timer = null
 var _dial_arrow
 
 var _text
-
-var _manager
 
 func set_dialog_lines(dialog_lines):
 	_dialog_lines = dialog_lines
