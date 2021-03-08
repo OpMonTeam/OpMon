@@ -2,13 +2,6 @@ extends Node
 
 const _constants = preload("res://Utils/Constants.gd")
 
-const PATH_CURRENT_SCENE_NODE = "/root/Game/CurrentScene"
-
-const PATH_CAMERA_SCENE = "res://Scenes/Interface/Camera.tscn"
-const PATH_MAIN_MENU_SCENE = "res://Scenes/MainMenu/MainMenu.tscn"
-const PATH_MAP_SCENE = "res://Scenes/Maps/"
-const PATH_PLAYER_SCENE =  "res://Scenes/Player/Player.tscn"
-
 var current_scene_name = ""
 
 var current_scene_node : Node
@@ -17,7 +10,7 @@ var player_instance : Node
 
 func _ready():
 	print("[MANAGER] Manager ready")
-	current_scene_node = get_node(PATH_CURRENT_SCENE_NODE)
+	current_scene_node = get_node(_constants.PATH_CURRENT_SCENE_NODE)
 	_load_main_menu()
 
 func _remove_current_scene():
@@ -35,8 +28,8 @@ func _load_main_menu():
 	_remove_current_scene()
 	current_scene_name = "MainMenu"
 	print("[MANAGER] Loading main menu")
-	var main_menu_instance = load(PATH_MAIN_MENU_SCENE).instance()
-	var camera_instance = load(PATH_CAMERA_SCENE).instance()
+	var main_menu_instance = load(_constants.PATH_MAIN_MENU_SCENE).instance()
+	var camera_instance = load(_constants.PATH_CAMERA_SCENE).instance()
 	camera_instance.set_static_mode()
 	current_scene_node.add_child(main_menu_instance)
 	current_scene_node.add_child(camera_instance)
@@ -45,10 +38,10 @@ func _load_map(map_name : String, player_x, player_y):
 	_remove_current_scene()
 	current_scene_name = map_name
 	print("[MANAGER] Loading map " + map_name)
-	var map_instance = load(PATH_MAP_SCENE + map_name + ".tscn").instance()
-	var camera_instance = load(PATH_CAMERA_SCENE).instance()
+	var map_instance = load(_constants.PATH_MAP_SCENE + map_name + ".tscn").instance()
+	var camera_instance = load(_constants.PATH_CAMERA_SCENE).instance()
 	camera_instance.set_map_mode()
-	player_instance = load(PATH_PLAYER_SCENE).instance()
+	player_instance = load(_constants.PATH_PLAYER_SCENE).instance()
 	player_instance.position.x = player_x * 8
 	player_instance.position.y = player_y * 8
 	player_instance.add_child(camera_instance)
