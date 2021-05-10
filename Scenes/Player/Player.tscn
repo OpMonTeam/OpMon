@@ -8,7 +8,7 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
-animation = "walk_down"
+animation = "walk_side"
 offset = Vector2( 0, -8 )
 
 [node name="Tween" type="Tween" parent="."]
@@ -16,3 +16,5 @@ offset = Vector2( 0, -8 )
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
 collide_with_areas = true
+
+[connection signal="tween_completed" from="Tween" to="." method="_end_move"]

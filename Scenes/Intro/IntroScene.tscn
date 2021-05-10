@@ -4,9 +4,6 @@
 [ext_resource path="res://OpMon-Data/Backgrounds/start/introscene.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Interface/DialogBox.tscn" type="PackedScene" id=3]
 
-
-
-
 [node name="IntroScene" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -33,5 +30,4 @@ margin_left = 406.994
 margin_top = 613.854
 margin_right = 910.994
 margin_bottom = 713.854
-dialog = "Hello and welcome to Regimys! I hope you are fine! I am the professor Kiwaï, owner of the OpMon laboratory of Euvi-town. You are maybe wondering yourself : \"What is he doing in this little town?\" Here is my story. This is where I grew up and met my first OpMon : Furnursus. It is a little fire animal cute and protective. I refused to make him evolve so he stays cute! Sorry, I am only talking about me. So... What is your name?"
 dialog_speed = 1.5

@@ -18,16 +18,17 @@ func _process(_delta):
 	if not _paused:
 		if Input.is_action_just_pressed("ui_accept"):
 			_interact()
-
-		var input_direction = _get_input_direction()
-		if input_direction and not _moving:
-			var target_position = position + input_direction * _constants.TILE_SIZE
-
-			if _get_collider_in_direction(input_direction) == null:
-				_move_to(target_position, input_direction)
-			else:
-				_move_to(position, input_direction)
+		_check_move()
 		update()
+		
+func _check_move():
+	var input_direction = _get_input_direction()
+	if input_direction and not _moving:
+		var target_position = position + input_direction * _constants.TILE_SIZE
+		if _get_collider_in_direction(input_direction) == null:
+			_move_to(target_position, input_direction)
+		else:
+			_move_to(position, input_direction)
 
 func _get_collider_in_direction(direction : Vector2):
 	var target_position = position + direction * _constants.TILE_SIZE
@@ -73,10 +74,10 @@ func _move_to(target_position, input_direction):
 		$AnimatedSprite.animation = "walk_down"
 	elif input_direction == Vector2.RIGHT:
 		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.animation = "walk_right"
+		$AnimatedSprite.animation = "walk_side"
 	elif input_direction == Vector2.LEFT:
 		$AnimatedSprite.flip_h = true
-		$AnimatedSprite.animation = "walk_right"
+		$AnimatedSprite.animation = "walk_side"
 
 	# Interpolate between current and target position
 	$Tween.interpolate_property(self, "position", position, target_position, _constants.WALK_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
@@ -87,14 +88,23 @@ func _move_to(target_position, input_direction):
 	# animation (in FPS) must be 3 times the value of 1/WALK_SPEED in order for
 	# each frame to be displayed once during the movement from one tile to the
 	# next.
+	
 	$AnimatedSprite.play()
-	yield($AnimatedSprite, "animation_finished")
+	# yield($AnimatedSprite, "animation_finished")
 
 	# Stop the animation, reset to frame 0 (where the player appears idle), and
 	# unset "_moving" so the player can now accept new inputs
-	$AnimatedSprite.stop()
-	$AnimatedSprite.frame = 0
-	_moving = false
+	# $AnimatedSprite.stop()
+	
+	# _moving = false
 
 func set_paused(value):
 	_paused = value
+
+
+func _end_move(object, key):
+	_moving = false;
+	_check_move()
+	if not _moving:
+		$AnimatedSprite.stop()
+		$AnimatedSprite.frame = 0
