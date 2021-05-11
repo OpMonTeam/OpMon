@@ -17,6 +17,7 @@ var _awaiting_next_dialog_line := false
 # Timer for displaying dialog line characters one at a time
 var _timer = null
 
+# The arrow will be shown when a dialog line is over and an interaction is needed to go to the next one.
 var _dial_arrow
 
 var _text
@@ -34,7 +35,7 @@ func go():
 
 func _ready():
 	_manager = get_node("/root/Manager") as Manager
-	_manager.pause_player()
+	_manager.pause_player() # Pauses the player to prevent the character from moving during the dialog
 	
 	_dial_arrow = get_node("NinePatchRect/DialArrow")
 	_text = get_node("NinePatchRect/Text")
@@ -61,19 +62,20 @@ func _finish_current_line():
 	_dial_arrow.visible = true
 	_awaiting_next_dialog_line = true
 	_timer.stop()
-	_text.visible_characters = -1
+	_text.visible_characters = -1 # Sets all characters visible
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
-		if _awaiting_next_dialog_line:
-			if _current_dialog_line_index < _dialog_lines.size() - 1:
+		if _awaiting_next_dialog_line: # If the current dialog line already is fully printed
+			if _current_dialog_line_index < _dialog_lines.size() - 1: # If there is another
 				_start_new_line()
-			else:
+			else: # If not, the dialog is over
 				queue_free()
-		else:
+		else: # If there is still to print, print everything.
 			_finish_current_line()
 
 func _on_Timer_timeout():
 	_text.visible_characters += 1
+	# If all characters has been printed
 	if _text.visible_characters == _dialog_lines[_current_dialog_line_index].length():
 		_finish_current_line()

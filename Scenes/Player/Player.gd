@@ -21,14 +21,16 @@ func _process(_delta):
 		_check_move()
 		update()
 		
+# Checks if the player wants to move the character and starts
+# the movement if so.
 func _check_move():
 	var input_direction = _get_input_direction()
 	if input_direction and not _moving:
 		var target_position = position + input_direction * _constants.TILE_SIZE
-		if _get_collider_in_direction(input_direction) == null:
-			_move_to(target_position, input_direction)
+		if _get_collider_in_direction(input_direction) == null: # Checks collisions
+			_move_to(target_position, input_direction) # If no collision problem, move to the next tile
 		else:
-			_move_to(position, input_direction)
+			_move_to(position, input_direction) # Else, only animate, do not move
 
 func _get_collider_in_direction(direction : Vector2):
 	var target_position = position + direction * _constants.TILE_SIZE
@@ -38,7 +40,7 @@ func _get_collider_in_direction(direction : Vector2):
 	$RayCast2D.position = local_position
 	$RayCast2D.cast_to = local_target_position
 	$RayCast2D.force_raycast_update ( )
-	if $RayCast2D.is_colliding():
+	if $RayCast2D.is_colliding(): # Checks the collision
 		return $RayCast2D.get_collider()
 	else:
 		return null
@@ -55,8 +57,8 @@ func _get_input_direction():
 		return Vector2(0, 0)
 
 func _interact():
-	var collider = _get_collider_in_direction(_faced_direction)
-	if collider != null and collider is InteractableClass:
+	var collider = _get_collider_in_direction(_faced_direction) # Returns what's in front of the player
+	if collider != null and collider is InteractableClass: # If it can be interacted with
 		collider = collider as InteractableClass
 		collider.interact(_faced_direction)
 
@@ -83,20 +85,8 @@ func _move_to(target_position, input_direction):
 	$Tween.interpolate_property(self, "position", position, target_position, _constants.WALK_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
 
-	# Start the animation and wait until it is finished
-	# TODO: the animation is constitued of 3 frames, so the speed of the
-	# animation (in FPS) must be 3 times the value of 1/WALK_SPEED in order for
-	# each frame to be displayed once during the movement from one tile to the
-	# next.
-	
+	# Starts the animation that will loop until the movement is over.
 	$AnimatedSprite.play()
-	# yield($AnimatedSprite, "animation_finished")
-
-	# Stop the animation, reset to frame 0 (where the player appears idle), and
-	# unset "_moving" so the player can now accept new inputs
-	# $AnimatedSprite.stop()
-	
-	# _moving = false
 
 func set_paused(value):
 	_paused = value
@@ -104,7 +94,8 @@ func set_paused(value):
 
 func _end_move(object, key):
 	_moving = false;
-	_check_move()
-	if not _moving:
+	_check_move() # This method might set _moving to true if the player continues moving
+	if not _moving: # If not, then the movement is over, stop the animation
 		$AnimatedSprite.stop()
 		$AnimatedSprite.frame = 0
+	# If _moving is true, the animation continues

@@ -1,3 +1,4 @@
+# Represents anything the player can interact with.
 extends KinematicBody2D
 
 const _constants = preload("res://Utils/Constants.gd")

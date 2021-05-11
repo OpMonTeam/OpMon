@@ -31,10 +31,11 @@ __meta__ = {
 }
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
-margin_left = 112.0
-margin_top = 280.0
-margin_right = 368.0
-margin_bottom = 320.0
+margin_left = 48.0
+margin_top = 260.0
+margin_right = 304.0
+margin_bottom = 300.0
+rect_scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16

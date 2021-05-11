@@ -2,7 +2,9 @@ extends Control
 
 signal button_pressed(id)
 
+# The current selection of the menu
 var _selection := 0
+# The buttons of the menu
 var _buttons: Array
 var _manager
 

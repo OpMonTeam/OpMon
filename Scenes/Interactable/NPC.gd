@@ -1,14 +1,16 @@
+# A basic NPC that talks and stands still
 extends "res://Scenes/Interactable/Interactable.gd"
 
 export var dialog_lines := ["Fake line 1.", "Fake line 2."]
 
+# Called when the player interacts with the NPC
 func interact(player_faced_direction):
-	change_faced_direction(player_faced_direction)
-	var dialog_box_instance = load(_constants.PATH_DIALOG_BOX_SCENE).instance()
-	var user_interface_node = get_node(_constants.PATH_USER_INTERFACE_NODE)
-	dialog_box_instance.set_dialog_lines(dialog_lines)
-	user_interface_node.add_child(dialog_box_instance)
-	dialog_box_instance.go()
+	change_faced_direction(player_faced_direction) # Changes the faced direction of the NPC to face the player
+	var dialog_box_instance = load(_constants.PATH_DIALOG_BOX_SCENE).instance() # Loads the dialog
+	var user_interface_node = get_node(_constants.PATH_USER_INTERFACE_NODE) # Retrieves the interface node
+	dialog_box_instance.set_dialog_lines(dialog_lines) # Adds the dialog lines to the dialog
+	user_interface_node.add_child(dialog_box_instance) # Puts the dialog box in the intreface
+	dialog_box_instance.go() # Starts the dialog
 
 func change_faced_direction(player_faced_direction):
 	# Change the direction the NPC is facing based on the direction the player
