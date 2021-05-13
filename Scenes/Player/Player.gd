@@ -40,12 +40,10 @@ func _check_move():
 		var collider = _get_collider_in_direction(input_direction)
 		var collides = false
 		if collider != null: # If the collider isn't null, check if it's ok or not
-			print(collider.class)
-			
 			if collider is InteractableClass:
 				# Some interactable objects collide, some don't
 				collides = (collider as InteractableClass).collides()
-			elif collider is Trigger: # A trigger doesn't collide
+			elif collider is TriggerClass: # A trigger doesn't collide
 				collides = false
 			else: # If it isn't an event, it always collides
 				collides = true

@@ -113,4 +113,3 @@ position = Vector2( 104, 96 )
 dialog_lines = [ "This is a test.", "Consectetur adipiscing elit, sed do eiusmod tempor incididunt." ]
 
 [node name="Teleporter" parent="." instance=ExtResource( 3 )]
-position = Vector2( 200, 88 )

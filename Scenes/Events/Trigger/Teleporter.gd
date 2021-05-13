@@ -1,5 +1,4 @@
 extends "res://Scenes/Events/Trigger/Trigger.gd"
-class_name Teleporter
 
 # The path to the map the teleporter will lead
 export var _map_path: String

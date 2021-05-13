@@ -3,7 +3,6 @@
 [ext_resource path="res://Scenes/Events/Trigger/Teleporter.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 8 )
 
 [node name="Teleporter" type="Area2D"]
 script = ExtResource( 1 )

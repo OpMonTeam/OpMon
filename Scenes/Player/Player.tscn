@@ -16,5 +16,4 @@ offset = Vector2( 0, -8 )
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
 collide_with_areas = true
-
 [connection signal="tween_completed" from="Tween" to="." method="_end_move"]
