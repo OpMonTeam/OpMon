@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://OpMon-Data/Sprites/chara/kid.png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Interactable/NPC.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Events/Interactable/NPC.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )

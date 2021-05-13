@@ -1,6 +1,10 @@
 extends Node2D
 
-const InteractableClass = preload("res://Scenes/Interactable/Interactable.gd")
+const TriggerClass = preload("res://Scenes/Events/Trigger/Trigger.gd")
+
+const TeleporterClass = preload("res://Scenes/Events/Trigger/Teleporter.gd")
+
+const InteractableClass = preload("res://Scenes/Events/Interactable/Interactable.gd")
 
 const _constants = preload("res://Utils/Constants.gd")
 
@@ -14,7 +18,12 @@ var _paused = false
 # Indicate if the player is in the process of moving from one tile to another
 var _moving = false
 
+# The current trigger the player is walking on
+var _walking_on: TriggerClass = null
+
 func _process(_delta):
+	if _walking_on != null:
+		_walking_on.frame()
 	if not _paused:
 		if Input.is_action_just_pressed("ui_accept"):
 			_interact()
@@ -27,7 +36,21 @@ func _check_move():
 	var input_direction = _get_input_direction()
 	if input_direction and not _moving:
 		var target_position = position + input_direction * _constants.TILE_SIZE
-		if _get_collider_in_direction(input_direction) == null: # Checks collisions
+		# Check collisions
+		var collider = _get_collider_in_direction(input_direction)
+		var collides = false
+		if collider != null: # If the collider isn't null, check if it's ok or not
+			print(collider.class)
+			
+			if collider is InteractableClass:
+				# Some interactable objects collide, some don't
+				collides = (collider as InteractableClass).collides()
+			elif collider is Trigger: # A trigger doesn't collide
+				collides = false
+			else: # If it isn't an event, it always collides
+				collides = true
+		# If it's null, it does't collides
+		if not collides:
 			_move_to(target_position, input_direction) # If no collision problem, move to the next tile
 		else:
 			_move_to(position, input_direction) # Else, only animate, do not move
@@ -56,15 +79,27 @@ func _get_input_direction():
 	else:
 		return Vector2(0, 0)
 
+# Interacts with an Interactable event if there is one
 func _interact():
 	var collider = _get_collider_in_direction(_faced_direction) # Returns what's in front of the player
 	if collider != null and collider is InteractableClass: # If it can be interacted with
 		collider = collider as InteractableClass
 		collider.interact(_faced_direction)
 
+# Triggers a trigger if there is one
+func _check_triggers(input_direction):
+	var collider = _get_collider_in_direction(input_direction)
+	if collider != null and collider is TriggerClass:
+		collider = collider as TriggerClass
+		_walking_on = collider
+		_walking_on.begin()
+	
+
 func _move_to(target_position, input_direction):
 	# Set the player to "moving" so it won't accept any other input while moving
 	_moving = true
+	if target_position != position:
+		_check_triggers(input_direction)
 
 	# Select an animation based on the movement direction
 	_faced_direction = input_direction
@@ -94,6 +129,10 @@ func set_paused(value):
 
 func _end_move(object, key):
 	_moving = false;
+	# Ends the trigger if there is one
+	if _walking_on != null:
+		_walking_on.end()
+		_walking_on = null
 	_check_move() # This method might set _moving to true if the player continues moving
 	if not _moving: # If not, then the movement is over, stop the animation
 		$AnimatedSprite.stop()

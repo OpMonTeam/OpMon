@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Area2D",
+"class": "Teleporter",
+"language": "GDScript",
+"path": "res://Scenes/Events/Trigger/Teleporter.gd"
+}, {
+"base": "Area2D",
+"class": "Trigger",
+"language": "GDScript",
+"path": "res://Scenes/Events/Trigger/Trigger.gd"
+} ]
 _global_script_class_icons={
-
+"Teleporter": "",
+"Trigger": ""
 }
 
 [application]

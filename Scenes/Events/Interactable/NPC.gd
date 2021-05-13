@@ -1,5 +1,5 @@
 # A basic NPC that talks and stands still
-extends "res://Scenes/Interactable/Interactable.gd"
+extends "res://Scenes/Events/Interactable/Interactable.gd"
 
 export var dialog_lines := ["Fake line 1.", "Fake line 2."]
 
