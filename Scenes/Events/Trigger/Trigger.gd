@@ -1,6 +1,8 @@
 # An event used to trigger actions in the game when the player walks on it.
 extends Area2D
 
+class_name Trigger
+
 var _root
 var _manager
 

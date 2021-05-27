@@ -8,9 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Character",
+"language": "GDScript",
+"path": "res://Scenes/Events/Interactable/Character.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Iteractable",
+"language": "GDScript",
+"path": "res://Scenes/Events/Interactable/Interactable.gd"
+}, {
+"base": "Area2D",
+"class": "Trigger",
+"language": "GDScript",
+"path": "res://Scenes/Events/Trigger/Trigger.gd"
+} ]
 _global_script_class_icons={
-
+"Character": "",
+"Iteractable": "",
+"Trigger": ""
 }
 
 [application]

@@ -1,8 +1,8 @@
 # Represents anything the player can interact with.
 extends KinematicBody2D
 
-# If the player can go through the event or not
-export var _collides: bool = true
+class_name Iteractable
+
 var _root
 var _manager
 
@@ -12,8 +12,5 @@ func _ready():
 	_root = get_node("/root")
 	_manager = get_node("/root/Manager")
 
-func collides():
-	return _collides
-
-func interact(player_faced_direction):
+func interact(player):
 	push_error("Virtual method interact was called")
