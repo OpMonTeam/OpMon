@@ -18,10 +18,8 @@ func _process(_delta):
 # the movement if so.
 func _check_move():
 	var input_direction = _get_input_direction()
-	if input_direction and not _moving:
+	if input_direction != Vector2.ZERO:
 		move(input_direction) # Move in this direction
-	elif _moving:
-		stop_move()
 
 func _get_input_direction():
 	var horizontal_input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -32,7 +30,7 @@ func _get_input_direction():
 	elif  abs(vertical_input) > abs(horizontal_input):
 		return Vector2(0, vertical_input)
 	else:
-		return Vector2(0, 0)
+		return Vector2.ZERO
 
 # Interacts with an Interactable event if there is one
 func _interact():
@@ -47,3 +45,12 @@ func set_trigger(trigger: Trigger):
 		return true
 	else:
 		return false
+
+# Function connected to the end of the Tween
+func _end_move(_object, _key):
+	_moving = Vector2.ZERO
+	_check_move()
+	if _moving == Vector2.ZERO: # If not, then the movement is over, stop the animation
+		$AnimatedSprite.stop()
+		$AnimatedSprite.frame = 0
+	# If _moving is true, the animation continues

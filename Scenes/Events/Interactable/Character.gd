@@ -10,7 +10,7 @@ var _faced_direction = Vector2.UP
 var _paused = false
 
 # Indicate if the player is in the process of moving from one tile to another
-var _moving = false
+var _moving: Vector2
 
 export var textures: SpriteFrames
 
@@ -43,6 +43,9 @@ func _collides(direction: Vector2):
 	return _get_collider(direction) != null
 
 func move(direction: Vector2):
+	if _moving != Vector2.ZERO:
+		return
+	_moving = direction
 	_faced_direction = direction
 	if direction == Vector2.UP:
 		$AnimatedSprite.flip_h = false
@@ -74,16 +77,17 @@ func set_paused(value):
 	_paused = value
 
 func stop_move():
-	_moving = false
+	_moving = Vector2.ZERO
 
 # The movement is stopped if it has explicitely been stopped by calling stop_move
-func _end_move(object, key):
+# Function connected to the end of the Tween
+func _end_move(_object, _key):
 	# This method might set _moving to true if the player continues moving
-	if not _moving: # If not, then the movement is over, stop the animation
-		_moving = false;
+	if _moving == Vector2.ZERO: # If not, then the movement is over, stop the animation
 		$AnimatedSprite.stop()
 		$AnimatedSprite.frame = 0
 	else:
+		_moving == Vector2.ZERO
 		move(_faced_direction) # Else, continue moving.
 	# If _moving is true, the animation continues
 
