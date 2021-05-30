@@ -18,13 +18,13 @@ func change_faced_direction(player_faced_direction):
 	# is facing: if the player is facing up then face down, etc.
 	if player_faced_direction == Vector2.UP:
 		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.animation = "idle_down"
+		$AnimatedSprite.animation = "walk_down"
 	elif player_faced_direction == Vector2.DOWN:
 		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.animation = "idle_up"
+		$AnimatedSprite.animation = "walk_up"
 	elif player_faced_direction == Vector2.RIGHT:
 		$AnimatedSprite.flip_h = true
-		$AnimatedSprite.animation = "idle_right"
+		$AnimatedSprite.animation = "walk_side"
 	elif player_faced_direction == Vector2.LEFT:
 		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.animation = "idle_right"
+		$AnimatedSprite.animation = "walk_side"
