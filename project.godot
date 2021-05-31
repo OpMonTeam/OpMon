@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Events/Interactable/Interactable.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Scenes/Events/Interactable/Player.gd"
+}, {
+"base": "Trigger",
+"class": "Teleporter",
+"language": "GDScript",
+"path": "res://Scenes/Events/Trigger/Teleporter.gd"
+}, {
 "base": "Area2D",
 "class": "Trigger",
 "language": "GDScript",
@@ -27,6 +37,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Character": "",
 "Iteractable": "",
+"Player": "",
+"Teleporter": "",
 "Trigger": ""
 }
 

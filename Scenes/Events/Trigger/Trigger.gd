@@ -12,15 +12,26 @@ func _ready():
 	_root = get_node("/root")
 	_manager = get_node("/root/Manager")
 
+# True if the player has began to walk on the trigger and not finished yet
+var _active = false
+var _player: Player
+
+func _process(_delta):
+	if _active:
+		frame()
 
 # This method is called when the player begins to walk towards the trigger
-func start():
-	push_error("Virtual method interact was called")
+func start(body):
+	if body is Player:
+		_player = body as Player
+		_active = true
 
 # This method is called each frame while the player walks towards the trigger
 func frame():
-	push_error("Virtual method interact was called")
+	if not _player.is_moving():
+		end()
+
 	
 # This method is called when the player stands still on the trigger
 func end():
-	push_error("Virtual method interact was called")
+	pass

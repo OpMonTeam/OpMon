@@ -19,7 +19,7 @@ func _enter_tree():
 	$AnimatedSprite.animation = textures.get_animation_names()[0]
 	
 
-func interact(player):
+func interact(_player):
 	pass
 
 func _process(_delta):
@@ -87,7 +87,7 @@ func _end_move(_object, _key):
 		$AnimatedSprite.stop()
 		$AnimatedSprite.frame = 0
 	else:
-		_moving == Vector2.ZERO
+		_moving = Vector2.ZERO
 		move(_faced_direction) # Else, continue moving.
 	# If _moving is true, the animation continues
 

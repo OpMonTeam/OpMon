@@ -12,5 +12,5 @@ func _ready():
 	_root = get_node("/root")
 	_manager = get_node("/root/Manager")
 
-func interact(player):
+func interact(_player):
 	push_error("Virtual method interact was called")

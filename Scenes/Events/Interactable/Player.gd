@@ -1,13 +1,10 @@
 extends "res://Scenes/Events/Interactable/Character.gd"
 
+class_name Player
+
 const InteractableClass = preload("Interactable.gd")
 
-# The current trigger the player is walking on
-var _walking_on: Trigger = null
-
 func _process(_delta):
-	if _walking_on != null:
-		_walking_on.frame()
 	if not self._paused:
 		if Input.is_action_just_pressed("ui_accept"):
 			_interact()
@@ -39,13 +36,6 @@ func _interact():
 		collider = collider as InteractableClass
 		collider.interact(self)
 
-func set_trigger(trigger: Trigger):
-	if _walking_on == null:
-		_walking_on = trigger
-		return true
-	else:
-		return false
-
 # Function connected to the end of the Tween
 func _end_move(_object, _key):
 	_moving = Vector2.ZERO
@@ -54,3 +44,7 @@ func _end_move(_object, _key):
 		$AnimatedSprite.stop()
 		$AnimatedSprite.frame = 0
 	# If _moving is true, the animation continues
+
+func is_moving():
+	return _moving != Vector2.ZERO
+
