@@ -16,6 +16,6 @@ func frame():
 	.frame()
 
 func end():
-	_manager._load_map(_map_path, _position.x, _position.y) # Teleports the player
 	_manager.unpause_player()
+	_manager._load_map(_map_path, _position.x, _position.y) # Teleports the player
 	
