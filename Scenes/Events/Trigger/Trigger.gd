@@ -34,4 +34,4 @@ func frame():
 	
 # This method is called when the player stands still on the trigger
 func end():
-	pass
+	_active = false

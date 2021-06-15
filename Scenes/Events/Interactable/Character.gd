@@ -43,7 +43,7 @@ func _collides(direction: Vector2):
 	return _get_collider(direction) != null
 
 func move(direction: Vector2):
-	if _moving != Vector2.ZERO:
+	if _moving != Vector2.ZERO or _paused:
 		return
 	_moving = direction
 	_faced_direction = direction

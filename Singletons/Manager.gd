@@ -2,6 +2,8 @@
 # It also manages the player in the overworld.
 extends Node
 
+signal map_loaded
+
 const _constants = preload("res://Utils/Constants.gd")
 
 var current_scene_name = ""
@@ -62,6 +64,25 @@ func _load_map(map_name : String, player_x, player_y):
 	player_instance.add_child(camera_instance) # Binds the camera to the player
 	map_instance.add_child(player_instance) # Adds the player to the map
 	current_scene_node.add_child(map_instance) # Sets the map as the active scene
+	emit_signal("map_loaded")
+	
+func fade(duration: float):
+	var fade: ColorRect = load(_constants.PATH_FADE_SCENE).instance()
+	var tween: Tween = fade.get_node("Tween")
+	fade.set_size(get_viewport().size)
+	get_node(_constants.PATH_USER_INTERFACE_NODE).add_child(fade)
+	tween.interpolate_property(fade, "alpha", 0.0, 1.0, duration)
+	tween.start()
+	return fade
+	
+func unfade(duration: float, fade: ColorRect):
+	var tween: Tween = fade.get_node("Tween")
+	tween.interpolate_property(fade, "alpha", 1.0, 0.0, duration)
+	tween.start()
+	tween.connect("tween_completed", self, "remove_fade")
+	
+func remove_fade(object, _key):
+	object.queue_free()
 
 func pause_player():
 	player_instance.set_paused(true)
