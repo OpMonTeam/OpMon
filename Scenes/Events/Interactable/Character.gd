@@ -3,7 +3,9 @@ extends "res://Scenes/Events/Interactable/Interactable.gd"
 
 class_name Character
 
-var _faced_direction = Vector2.UP
+export(String, "Left", "Right", "Up", "Down") var faced_direction: String
+
+var _faced_direction
 
 # Indicate if the player can act (the player cannot act during a dialogue or
 # cutscene, etc.)
@@ -16,8 +18,22 @@ export var textures: SpriteFrames
 
 func _enter_tree():
 	$AnimatedSprite.frames = textures
-	$AnimatedSprite.animation = textures.get_animation_names()[0]
-	
+	if faced_direction == "Up":
+		_faced_direction = Vector2.UP
+		$AnimatedSprite.flip_h = false
+		$AnimatedSprite.animation = "walk_up"
+	elif faced_direction == "Down":
+		_faced_direction = Vector2.DOWN
+		$AnimatedSprite.flip_h = false
+		$AnimatedSprite.animation = "walk_down"
+	elif faced_direction == "Right":
+		_faced_direction = Vector2.RIGHT
+		$AnimatedSprite.flip_h = false
+		$AnimatedSprite.animation = "walk_side"
+	elif faced_direction == "Left":
+		_faced_direction = Vector2.LEFT
+		$AnimatedSprite.flip_h = true
+		$AnimatedSprite.animation = "walk_side"
 
 func interact(_player):
 	pass
@@ -25,6 +41,7 @@ func interact(_player):
 func _process(_delta):
 	if not _paused:
 		update()
+	
 
 func _get_collider(direction: Vector2):
 	var target_position = position + direction * _constants.TILE_SIZE
@@ -44,7 +61,8 @@ func _collides(direction: Vector2):
 
 func move(direction: Vector2):
 	if _moving != Vector2.ZERO or _paused:
-		return
+		return false
+	var ret: bool = false
 	_moving = direction
 	_faced_direction = direction
 	if direction == Vector2.UP:
@@ -64,11 +82,13 @@ func move(direction: Vector2):
 	# Interpolate between current and target position
 	if not _collides(direction):
 		next += (direction * _constants.TILE_SIZE)
+		ret = true
 	$Tween.interpolate_property(self, "position", position, next, _constants.WALK_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
 
 	# Starts the animation that will loop until the movement is over.
 	$AnimatedSprite.play()
+	return ret
 
 func face(direction: Vector2):
 	_faced_direction = direction
@@ -83,7 +103,7 @@ func stop_move():
 # Function connected to the end of the Tween
 func _end_move(_object, _key):
 	# This method might set _moving to true if the player continues moving
-	if _moving == Vector2.ZERO: # If not, then the movement is over, stop the animation
+	if _moving == Vector2.ZERO or _paused: # If not, then the movement is over, stop the animation
 		$AnimatedSprite.stop()
 		$AnimatedSprite.frame = 0
 	else:

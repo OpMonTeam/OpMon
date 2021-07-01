@@ -44,7 +44,7 @@ func _process(_delta):
 
 func pressed(id):
 	if id == 0:
-		_manager._load_map("EuviTown", 7, 7)
+		_manager._load_map("EuviTown", 19, 19)
 	elif id == 3:
 		get_tree().quit()
 	else:

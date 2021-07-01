@@ -22,6 +22,8 @@ var _dial_arrow
 
 var _text
 
+signal dialog_over
+
 func set_dialog_lines(dialog_lines):
 	_dialog_lines = dialog_lines
 
@@ -49,6 +51,7 @@ func _ready():
 
 func _exit_tree():
 	_manager.unpause_player()
+	emit_signal("dialog_over")
 
 func _start_new_line():
 	_current_dialog_line_index += 1

@@ -53,7 +53,7 @@ func _load_map(map_name : String, player_x, player_y):
 	current_scene_name = map_name
 	print("[MANAGER] Loading map " + map_name)
 	# Loads the map and the camera
-	var map_instance = load(_constants.PATH_MAP_SCENE + map_name + ".tscn").instance()
+	var map_instance = load(_constants.PATH_MAP_SCENE + map_name + "/" + map_name + ".tscn").instance()
 	var camera_instance = load(_constants.PATH_CAMERA_SCENE).instance()
 	camera_instance.set_map_mode()
 	# Loads the player
