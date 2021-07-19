@@ -6,6 +6,9 @@ export var dialog_lines := ["Fake line 1.", "Fake line 2."]
 
 # Called when the player interacts with the NPC
 func interact(player: PlayerClass):
+	.interact(player)
+	if _moving != Vector2.ZERO:
+		return
 	_paused = true
 	change_faced_direction(player.get_direction()) # Changes the faced direction of the NPC to face the player
 	var dialog_box_instance = load(_constants.PATH_DIALOG_BOX_SCENE).instance() # Loads the dialog

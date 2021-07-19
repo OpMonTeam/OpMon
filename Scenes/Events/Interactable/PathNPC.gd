@@ -24,6 +24,7 @@ func _ready():
 	_next_move()
 
 func _next_move():
+	_check_pending_interaction()
 	if _paused:
 		$AnimatedSprite.stop()
 		$AnimatedSprite.frame = 0

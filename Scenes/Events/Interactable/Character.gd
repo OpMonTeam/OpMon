@@ -14,6 +14,9 @@ var _paused = false
 # Indicate if the player is in the process of moving from one tile to another
 var _moving: Vector2
 
+var _interaction_requested = null
+var _interaction_distance: float
+
 export var textures: SpriteFrames
 
 func _enter_tree():
@@ -36,6 +39,9 @@ func _enter_tree():
 		$AnimatedSprite.animation = "walk_side"
 
 func interact(_player):
+	if _moving != Vector2.ZERO:
+		_interaction_requested = _player
+		_interaction_distance = (_player.get_position() - self.position).length()
 	pass
 
 func _process(_delta):
@@ -108,9 +114,19 @@ func set_paused(value):
 func stop_move():
 	_moving = Vector2.ZERO
 
+func _check_pending_interaction():
+	var _old_moving = _moving
+	_moving = Vector2.ZERO
+	if _interaction_requested != null:
+		if _interaction_distance >= (_interaction_requested.get_position() - self.position).length():
+			interact(_interaction_requested)
+		_interaction_requested = null
+	_moving = _old_moving
+
 # The movement is stopped if it has explicitely been stopped by calling stop_move
 # Function connected to the end of the Tween
 func _end_move(_object, _key):
+	_check_pending_interaction()
 	# This method might set _moving to true if the player continues moving
 	if _moving == Vector2.ZERO or _paused: # If not, then the movement is over, stop the animation
 		$AnimatedSprite.stop()
