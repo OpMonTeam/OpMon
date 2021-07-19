@@ -14,12 +14,15 @@ var _paused = false
 # Indicate if the player is in the process of moving from one tile to another
 var _moving: Vector2
 
+# Is filled with the Player if they asked for an interaction with the character.
 var _interaction_requested = null
+# The distance between the player and the character when the interaction has been requested.
 var _interaction_distance: float
 
 export var textures: SpriteFrames
 
 func _enter_tree():
+	# Sets the texture and the faced direction
 	$AnimatedSprite.frames = textures
 	if faced_direction == "Up":
 		_faced_direction = Vector2.UP
@@ -39,6 +42,12 @@ func _enter_tree():
 		$AnimatedSprite.animation = "walk_side"
 
 func interact(_player):
+	# If the player requested an interaction but the character is moving,
+	# indicate an interaction has been requested and calculates the distance
+	# between the player and the character.
+	# If when the interaction is taken into account the distance has increased,
+	# the character was moving outwards the player and can't be interacted with
+	# anymore: the interaction request will be discarded.
 	if _moving != Vector2.ZERO:
 		_interaction_requested = _player
 		_interaction_distance = (_player.get_position() - self.position).length()
@@ -55,7 +64,7 @@ func _get_collider(direction: Vector2):
 	var local_position = to_local(position)
 	var local_target_position = to_local(target_position)
 	$RayCast2D.position = local_position
-	$RayCast2D.cast_to = local_target_position
+	$RayCast2D.cast_to = local_target_position # Sets the position to check
 	$RayCast2D.force_raycast_update ( )
 	if $RayCast2D.is_colliding(): # Checks the collision
 		return $RayCast2D.get_collider()
@@ -65,12 +74,15 @@ func _get_collider(direction: Vector2):
 func _collides(direction: Vector2):
 	return _get_collider(direction) != null
 
+# Retuns true if the character is actually moving, false if only the animation plays
 func move(direction: Vector2):
+	# Don't move if the character is already moving or paused.
 	if _moving != Vector2.ZERO or _paused:
 		return false
 	var ret: bool = false
 	_moving = direction
 	_faced_direction = direction
+	# Chooses the animation to play
 	if direction == Vector2.UP:
 		$AnimatedSprite.flip_h = false
 		$AnimatedSprite.animation = "walk_up"
@@ -85,17 +97,20 @@ func move(direction: Vector2):
 		$AnimatedSprite.animation = "walk_side"
 	
 	var next = position
-	# Interpolate between current and target position
+	# If there is no collisions, do a real movement.
 	if not _collides(direction):
-		next += (direction * _constants.TILE_SIZE)
+		next += (direction * _constants.TILE_SIZE) # Adds the movement to the current position.
 		ret = true
-		$TileReservation.disabled = false
+		# Reserves the next tile so no other character can go on the same one.
 		$TileReservation.set_position(direction * _constants.TILE_SIZE)
+		# Makes the collision used for the reservation move against the player's movements
+		# so it stays in the same tile on the map.
 		$TileReservation.get_node("Tween").interpolate_property(
 			$TileReservation, "position", $TileReservation.position, 
 			Vector2.ZERO, _constants.WALK_SPEED, 
 			Tween.TRANS_LINEAR, Tween.EASE_IN)
 		$TileReservation.get_node("Tween").start()
+	# Starts the movement if position and next are different.
 	$Tween.interpolate_property(self, "position", position, next, 
 		_constants.WALK_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
@@ -114,6 +129,9 @@ func set_paused(value):
 func stop_move():
 	_moving = Vector2.ZERO
 
+# Checks if the pending interaction is valid (if the player is in front of the character).
+# See interact for more information on how it is done.
+# This method is made to be called between two movements.
 func _check_pending_interaction():
 	var _old_moving = _moving
 	_moving = Vector2.ZERO
