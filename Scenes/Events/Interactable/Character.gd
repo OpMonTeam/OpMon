@@ -83,8 +83,17 @@ func move(direction: Vector2):
 	if not _collides(direction):
 		next += (direction * _constants.TILE_SIZE)
 		ret = true
-	$Tween.interpolate_property(self, "position", position, next, _constants.WALK_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		$TileReservation.disabled = false
+		$TileReservation.set_position(direction * _constants.TILE_SIZE)
+		$TileReservation.get_node("Tween").interpolate_property(
+			$TileReservation, "position", $TileReservation.position, 
+			Vector2.ZERO, _constants.WALK_SPEED, 
+			Tween.TRANS_LINEAR, Tween.EASE_IN)
+		$TileReservation.get_node("Tween").start()
+	$Tween.interpolate_property(self, "position", position, next, 
+		_constants.WALK_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
+	
 
 	# Starts the animation that will loop until the movement is over.
 	$AnimatedSprite.play()
