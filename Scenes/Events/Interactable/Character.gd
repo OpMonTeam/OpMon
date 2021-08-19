@@ -5,7 +5,7 @@ class_name Character
 
 export(String, "Left", "Right", "Up", "Down") var faced_direction: String
 
-var _faced_direction
+var _faced_direction: Vector2
 
 # Indicate if the player can act (the player cannot act during a dialogue or
 # cutscene, etc.)

@@ -12,7 +12,7 @@ func _ready():
 	_root = get_node("/root")
 	_manager = get_node("/root/Manager")
 
-# True if the player has began to walk on the trigger and not finished yet
+# True if the player just started walking on the trigger and not finished yet
 var _active = false
 var _player: Player
 
