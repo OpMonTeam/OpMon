@@ -2,8 +2,8 @@ extends Resource
 
 class_name Species
 
-const Type = preload("res://Resources/Enumerations.gd").Type
-const Stats = preload("res://Resources/Enumerations.gd").Stats
+const Type = preload("res://Objects/Enumerations.gd").Type
+const Stats = preload("res://Objects/Enumerations.gd").Stats
 
 export(String) var name
 export(int) var opdex_number
