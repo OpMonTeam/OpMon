@@ -1,27 +1,17 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Battle/BattleScene.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Battle/BaseDialog.tscn" type="PackedScene" id=2]
 
 [node name="Fond" type="ColorRect"]
 margin_right = 960.0
 margin_bottom = 640.0
 color = Color( 0.741176, 0.741176, 0.741176, 1 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Small_Dialog" type="ColorRect" parent="."]
-margin_left = 577.0
+[node name="BaseDialog" parent="." instance=ExtResource( 2 )]
 margin_top = 475.0
-margin_right = 955.0
-margin_bottom = 635.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Big_Dialog" type="ColorRect" parent="."]
-margin_left = 5.0
-margin_top = 475.0
-margin_right = 571.4
-margin_bottom = 635.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 0.0
