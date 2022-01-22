@@ -1,5 +1,8 @@
 extends Resource
 
+# Class Move: Represent the raw data of a move. For an actual move object that
+# evolves in the game (pp and other modificators), see the OpMove class in the OpMon object
+
 class_name Move
 
 const Type = preload("res://Objects/Enumerations.gd").Type

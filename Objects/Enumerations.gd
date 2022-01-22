@@ -1,5 +1,7 @@
 extends Node
 
+# File containing several enumerations used in the different objects
+
 enum Type {	UNKNOWN = -1,
 			LIQUID = 3,
 			BURNING = 6,
@@ -29,14 +31,14 @@ enum Status {
 			NOTHING }
 			
 enum Stats {
-			ATK = 1,  
-			DEF = 2,
-			ATKSPE = 3,
-			DEFSPE = 4,
-			SPE = 5,
-			HP = 6,
-			ACC = 7,
-			EVA = 8,
+			ATK = 0,  
+			DEF = 1,
+			ATKSPE = 2,
+			DEFSPE = 3,
+			SPE = 4,
+			HP = 5,
+			ACC = 6,
+			EVA = 7,
 			NOTHING = -1 }
 
 # Array of effectiveness : TYPE_EFFECTIVENESS[TYPE_1][TYPE_2] gives the effectiveness of
