@@ -16,6 +16,6 @@ func _process(delta):
 		elif Input.is_action_just_pressed("ui_right") and _curpos < 2: # If right and in the left part of the box
 			_curpos += 2
 		elif Input.is_action_just_pressed("ui_left") and _curpos >= 2: # If left and in the right part of the box
-			_curpos += 2
+			_curpos -= 2
 		if olcur != _curpos: # Update the position only if the position has changed
 			$Small_Dialog/Arrow.rect_position = _positions[_curpos]

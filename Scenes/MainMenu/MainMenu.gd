@@ -6,12 +6,10 @@ signal button_pressed(id)
 var _selection := 0
 # The buttons of the menu
 var _buttons: Array
-var _manager
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_manager = get_node("/root/Manager")
 	_buttons = [get_node("MainMenuButtons/NewGameButton") as NinePatchRect, 
 			   get_node("MainMenuButtons/LoadGameButton") as NinePatchRect,
 			   get_node("MainMenuButtons/SettingsButton") as NinePatchRect, 
@@ -44,7 +42,11 @@ func _process(_delta):
 
 func pressed(id):
 	if id == 0:
-		_manager._load_map("EuviTown", 19, 19)
+		var map = load("res://Scenes/Maps/Map.tscn").instance()
+		map.init("EuviTown", Vector2(19,19))
+		get_tree().root.add_child(map)
+		get_tree().root.remove_child(self)
+		self.call_deferred("free")
 	elif id == 3:
 		get_tree().quit()
 	else:

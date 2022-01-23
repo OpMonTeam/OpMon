@@ -3,11 +3,13 @@
 [ext_resource path="res://Scenes/Battle/BattleScene.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Battle/BaseDialog.tscn" type="PackedScene" id=2]
 
-[node name="Fond" type="ColorRect"]
+[node name="BattleScene" type="Control"]
+script = ExtResource( 1 )
+
+[node name="Fond" type="ColorRect" parent="."]
 margin_right = 960.0
 margin_bottom = 640.0
-color = Color( 0.741176, 0.741176, 0.741176, 1 )
-script = ExtResource( 1 )
+color = Color( 0.721569, 0.721569, 0.721569, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

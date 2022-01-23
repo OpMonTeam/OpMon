@@ -1,4 +1,2 @@
-extends ColorRect
+extends Interface
 
-func _ready():
-	print("BattleScene")

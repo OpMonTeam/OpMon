@@ -1,6 +1,4 @@
-extends Control
-
-var _manager
+extends "res://Scenes/Interface/Interface.gd"
 
 # Speed at which the dialog lines are displayed
 export var dialog_speed := 10.0
@@ -36,8 +34,7 @@ func go():
 	_dial_arrow.get_node("AnimationPlayer").playback_active = true
 
 func _ready():
-	_manager = get_node("/root/Manager") as Manager
-	_manager.pause_player() # Pauses the player to prevent the character from moving during the dialog
+	_map.pause_player() # Pauses the player to prevent the character from moving during the dialog
 	
 	_dial_arrow = get_node("NinePatchRect/DialArrow")
 	_text = get_node("NinePatchRect/Text")
@@ -50,8 +47,9 @@ func _ready():
 	_timer.set_wait_time(1/dialog_speed)
 
 func _exit_tree():
-	_manager.unpause_player()
+	_map.unpause_player()
 	emit_signal("dialog_over")
+	emit_signal("closed")
 
 func _start_new_line():
 	_current_dialog_line_index += 1

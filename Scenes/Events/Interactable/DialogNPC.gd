@@ -12,9 +12,8 @@ func interact(player: PlayerClass):
 	_paused = true
 	change_faced_direction(player.get_direction()) # Changes the faced direction of the NPC to face the player
 	var dialog_box_instance = load(_constants.PATH_DIALOG_BOX_SCENE).instance() # Loads the dialog
-	var user_interface_node = get_node(_constants.PATH_USER_INTERFACE_NODE) # Retrieves the interface node
 	dialog_box_instance.set_dialog_lines(dialog_lines) # Adds the dialog lines to the dialog
-	user_interface_node.add_child(dialog_box_instance) # Puts the dialog box in the intreface
+	_map.load_interface(dialog_box_instance)
 	dialog_box_instance.go() # Starts the dialog
 	dialog_box_instance.connect("dialog_over", self, "_unpause") # When the dialog is over, unpauses the character
 

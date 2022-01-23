@@ -25,6 +25,7 @@ tracks/0/keys = {
 [node name="DialogBox" type="Control"]
 margin_right = 480.0
 margin_bottom = 320.0
+rect_scale = Vector2( 2, 2 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -50,9 +51,9 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 248.0
 margin_bottom = 32.0
-custom_fonts/normal_font = ExtResource( 1 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_constants/line_separation = 1
+custom_fonts/normal_font = ExtResource( 1 )
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false

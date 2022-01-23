@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Events/Interactable/Character.gd"
 }, {
+"base": "Control",
+"class": "Interface",
+"language": "GDScript",
+"path": "res://Scenes/Interface/Interface.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Iteractable",
 "language": "GDScript",
@@ -51,6 +56,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Character": "",
+"Interface": "",
 "Iteractable": "",
 "Move": "",
 "Nature": "",
@@ -63,16 +69,12 @@ _global_script_class_icons={
 [application]
 
 config/name="OpMon"
-run/main_scene="res://Scenes/Game.tscn"
+run/main_scene="res://Scenes/MainMenu/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [audio]
 
 default_bus_layout=""
-
-[autoload]
-
-Manager="*res://Singletons/Manager.gd"
 
 [display]
 

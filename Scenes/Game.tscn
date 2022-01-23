@@ -1,9 +1,0 @@
-[gd_scene format=2]
-
-[node name="Game" type="Node"]
-
-[node name="CurrentScene" type="Node" parent="."]
-
-[node name="UserInterface" type="CanvasLayer" parent="."]
-scale = Vector2( 2, 2 )
-transform = Transform2D( 2, 0, 0, 2, 0, 0 )
