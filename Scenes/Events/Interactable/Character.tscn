@@ -27,6 +27,8 @@ shape = SubResource( 1 )
 [node name="TileReservation" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 16 )
 shape = SubResource( 2 )
+disabled = true
 
 [node name="Tween" type="Tween" parent="TileReservation"]
+
 [connection signal="tween_completed" from="Tween" to="." method="_end_move"]

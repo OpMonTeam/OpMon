@@ -9,6 +9,7 @@ func interact(player: PlayerClass):
 		return
 	_paused = true
 	change_faced_direction(player.get_direction()) # Changes the faced direction of the NPC to face the player
+	_map.pause_player()
 	_map.load_interface(load("res://Scenes/Battle/BattleScene.tscn").instance())
 
 func change_faced_direction(player_faced_direction):

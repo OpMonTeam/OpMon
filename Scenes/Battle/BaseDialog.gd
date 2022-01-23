@@ -1,10 +1,18 @@
 extends Control
 
 var _curpos = 0
-var _positions = [Vector2(12,20),Vector2(12,63),Vector2(132,20),Vector2(132,63)]
+const _positions = [Vector2(12,20),Vector2(12,63),Vector2(132,20),Vector2(132,63)]
+
+signal move_selected
+signal item_selected
+signal opmon_selected
+signal run_selected
+
+const _signals = ["move_selected", "item_selected", "opmon_selected", "run_selected"]
 
 func _ready():
-	print("BattleDialog")
+	for s in _signals:
+		connect(s, get_parent(), s)
 
 func _process(delta):
 	if self.visible:
@@ -17,5 +25,7 @@ func _process(delta):
 			_curpos += 2
 		elif Input.is_action_just_pressed("ui_left") and _curpos >= 2: # If left and in the right part of the box
 			_curpos -= 2
+		elif Input.is_action_just_pressed("ui_accept"):
+			emit_signal(_signals[_curpos])
 		if olcur != _curpos: # Update the position only if the position has changed
 			$Small_Dialog/Arrow.rect_position = _positions[_curpos]

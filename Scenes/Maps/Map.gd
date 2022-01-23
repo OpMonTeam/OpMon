@@ -42,6 +42,7 @@ func unload_interface():
 	if interface != null:
 		interface.call_deferred("free")
 		interface = null
+		call_deferred("unpause_player")
 
 func load_map(map_name: String, map_pos = Vector2(0,0)):
 	print("[MAPNAGER] Loading map " + map_name)
