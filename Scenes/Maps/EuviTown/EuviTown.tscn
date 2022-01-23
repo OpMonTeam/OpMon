@@ -49,4 +49,5 @@ loop = true
 [node name="Character" parent="." instance=ExtResource( 3 )]
 position = Vector2( 200, 24 )
 script = ExtResource( 7 )
+faced_direction = "Down"
 textures = ExtResource( 6 )

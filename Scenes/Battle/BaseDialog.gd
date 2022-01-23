@@ -1,7 +1,7 @@
 extends Control
 
 var _curpos = 0
-var _positions = [Vector2(10,25),Vector2(10,95),Vector2(190,25),Vector2(190,95)]
+var _positions = [Vector2(12,20),Vector2(12,63),Vector2(132,20),Vector2(132,63)]
 
 func _ready():
 	print("BattleDialog")
