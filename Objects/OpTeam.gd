@@ -11,7 +11,8 @@ var _size = 0
 
 # The "team" parameter must be an array of 6 OpMon, with "null" if a square is empty
 func _init(team: Array):
-	pass
+	for o in team:
+		add_opmon(o)
 
 # Adds an OpMon to the team, if there is still room.
 # Returns true if the OpMon has been added, false otherwise.

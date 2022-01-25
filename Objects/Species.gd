@@ -24,9 +24,13 @@ export(int) var base_hp
 export(Array, Stats) var ev_given = []
 export(int) var capture_rate
 
+export(Texture) var front_texture
+export(Texture) var back_texture
+
 func _init(p_name = "", p_opdex_number = 0, p_evolution = null, p_type_1 = Type.UNKNOWN, p_type_2 = Type.UNKNOWN,
 p_height = 0.0, p_weight = 0.0, p_opdex_entry = "", p_base_attack = 0, p_base_defense = 0, p_base_special_attack = 0,
-p_base_special_defense = 0, p_base_speed = 0, p_base_hp = 0, p_ev_given = [], p_capture_rate = 255):
+p_base_special_defense = 0, p_base_speed = 0, p_base_hp = 0, p_ev_given = [], p_capture_rate = 255, p_front_texture = null,
+p_back_texture = null):
 	name = p_name
 	opdex_number = p_opdex_number
 	evolution = p_evolution
@@ -43,3 +47,5 @@ p_base_special_defense = 0, p_base_speed = 0, p_base_hp = 0, p_ev_given = [], p_
 	base_hp = p_base_hp
 	ev_given = p_ev_given
 	capture_rate = p_capture_rate
+	front_texture = p_front_texture
+	back_texture = p_back_texture
