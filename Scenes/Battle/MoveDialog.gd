@@ -3,7 +3,7 @@ extends Control
 var _curpos = 0
 var _positions = [Vector2(15,23), Vector2(15, 63), Vector2(233, 23), Vector2(233, 63)]
 
-signal move_selected(id)
+signal move_chosen(id)
 
 var _moves = [null, null, null, null]
 
@@ -35,7 +35,7 @@ func _input(event):
 		elif event.is_action_pressed("ui_left") and _curpos >= 2: # If left and in the right part of the box
 			_curpos -= 2
 		elif event.is_action_pressed("ui_accept"):
-			emit_signal("move_selected", _curpos)
+			emit_signal("move_chosen", _curpos)
 		if olcur != _curpos: # Update the cursor and the infobox only if the position has changed
 			$MovesDialog/Arrow.rect_position = _positions[_curpos]
 			print_infobox()

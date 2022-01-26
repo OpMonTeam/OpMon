@@ -40,5 +40,20 @@ func move_selected():
 	move_dialog.rect_position = $BaseDialog.rect_position
 	add_child(move_dialog)
 	
+func move_chosen(id):
+	pass
+	
 func run_selected():
 	emit_signal("closed")
+	
+func move_failed():
+	pass
+	
+func move_ineffective():
+	pass
+	
+func effectiveness(factor):
+	pass
+	
+func update_hp():
+	pass

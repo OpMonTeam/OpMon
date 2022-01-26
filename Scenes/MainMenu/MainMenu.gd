@@ -16,6 +16,7 @@ func _ready():
 			   get_node("MainMenuButtons/QuitButton") as NinePatchRect]
 	connect("button_pressed", self, "pressed")
 	_buttons[_selection].modulate = Color(1,1,1,1)
+	randomize()
 
 
 func _process(_delta):
