@@ -4,17 +4,17 @@
 [ext_resource path="res://Scenes/Battle/BaseDialog.gd" type="Script" id=2]
 [ext_resource path="res://OpMon-Data/Backgrounds/menuframe.png" type="Texture" id=4]
 
-[sub_resource type="DynamicFontData" id=1]
+[sub_resource type="DynamicFontData" id=6]
 font_path = "res://OpMon-Data/Fonts/main_font.ttf"
 
 [sub_resource type="DynamicFont" id=3]
-font_data = SubResource( 1 )
+font_data = SubResource( 6 )
 
-[sub_resource type="DynamicFontData" id=4]
+[sub_resource type="DynamicFontData" id=7]
 font_path = "res://OpMon-Data/Fonts/main_font.ttf"
 
 [sub_resource type="DynamicFont" id=5]
-font_data = SubResource( 4 )
+font_data = SubResource( 7 )
 
 [node name="BaseDialog" type="Control"]
 anchor_right = 1.0
@@ -27,7 +27,7 @@ __meta__ = {
 "_editor_description_": "Basic dialog used for the main choice of the battle: Moves, Items, OpMons and Run."
 }
 
-[node name="Small_Dialog" type="NinePatchRect" parent="."]
+[node name="SmallDialog" type="NinePatchRect" parent="."]
 margin_left = 577.0
 margin_right = 829.0
 margin_bottom = 107.0
@@ -41,7 +41,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LabelItems" type="Label" parent="Small_Dialog"]
+[node name="LabelItems" type="Label" parent="SmallDialog"]
 margin_left = 33.0
 margin_top = 60.0
 margin_right = 83.0
@@ -54,7 +54,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LabelOpMon" type="Label" parent="Small_Dialog"]
+[node name="LabelOpMon" type="Label" parent="SmallDialog"]
 margin_left = 153.0
 margin_top = 17.0
 margin_right = 221.0
@@ -67,7 +67,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LabelMoves" type="Label" parent="Small_Dialog"]
+[node name="LabelMoves" type="Label" parent="SmallDialog"]
 margin_left = 33.0
 margin_top = 17.0
 margin_right = 97.0
@@ -80,7 +80,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LabelRun" type="Label" parent="Small_Dialog"]
+[node name="LabelRun" type="Label" parent="SmallDialog"]
 margin_left = 153.0
 margin_top = 60.0
 margin_right = 191.0
@@ -93,7 +93,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Arrow" type="TextureRect" parent="Small_Dialog"]
+[node name="Arrow" type="TextureRect" parent="SmallDialog"]
 margin_left = 12.0
 margin_top = 20.0
 margin_right = 42.0
@@ -106,7 +106,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="BigDialog" type="NinePatchRect" parent="."]
 margin_right = 380.0
 margin_bottom = 107.0
 rect_scale = Vector2( 1.5, 1.5 )
@@ -119,7 +119,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect"]
+[node name="RichTextLabel" type="RichTextLabel" parent="BigDialog"]
 margin_left = 10.6667
 margin_top = 42.6667
 margin_right = 271.667

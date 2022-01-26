@@ -36,7 +36,7 @@ func _init(p_nickname: String, p_species: Species, p_level: int, p_moves: Array,
 	species = p_species
 	level = p_level
 	for i in range(4): # Initializes OpMoves from the raw data of Moves
-		if moves[i] != null:
+		if p_moves[i] != null:
 			moves[i] = OpMove.new(p_moves[i])
 	nature = p_nature
 	calc_stats()

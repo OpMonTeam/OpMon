@@ -8,6 +8,8 @@ var opponent_team: OpTeam
 var player_opmon: OpMon
 var opponent_opmon: OpMon
 
+var move_dialog = null
+
 func init(p_player_team: OpTeam, p_opponent_team: OpTeam):
 	player_team = p_player_team
 	opponent_team = p_opponent_team
@@ -20,7 +22,6 @@ func _enter_tree():
 	$PlayerInfobox/Name.text = player_opmon.get_effective_name()
 	$OpponentInfobox/Name.text = opponent_opmon.get_effective_name()
 	$PlayerInfobox/HPLabel.text = player_opmon.get_hp_string()
-	$OpponentInfobox/HPLabel.text = opponent_opmon.get_hp_string()
 	$PlayerInfobox/HP.max_value = player_opmon.stats[Stats.HP]
 	$PlayerInfobox/HP.value = player_opmon.hp
 	$OpponentInfobox/HP.max_value = opponent_opmon.stats[Stats.HP]
@@ -33,7 +34,11 @@ func item_selected():
 	pass
 	
 func move_selected():
-	pass
+	$BaseDialog.visible = false
+	move_dialog = load("res://Scenes/Battle/MoveDialog.tscn").instance()
+	move_dialog.set_moves(player_opmon.moves)
+	move_dialog.rect_position = $BaseDialog.rect_position
+	add_child(move_dialog)
 	
 func run_selected():
 	emit_signal("closed")

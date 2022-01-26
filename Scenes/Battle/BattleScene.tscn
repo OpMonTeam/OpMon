@@ -130,24 +130,13 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="OpponentInfobox"]
-margin_left = 10.943
-margin_right = 220.943
-margin_bottom = 33.0
+margin_left = 15.9999
+margin_top = 16.1956
+margin_right = 226.0
+margin_bottom = 49.1956
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "[OpMon Name]"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HPLabel" type="Label" parent="OpponentInfobox"]
-margin_left = 10.943
-margin_top = 33.0
-margin_right = 220.943
-margin_bottom = 66.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
-text = "XXX / XXX"
 __meta__ = {
 "_edit_use_anchors_": false
 }
