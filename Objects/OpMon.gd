@@ -1,5 +1,7 @@
 extends Object
 
+class_name OpMon
+
 const Type = preload("res://Objects/Enumerations.gd").Type
 const Stats = preload("res://Objects/Enumerations.gd").Stats
 const Status = preload("res://Objects/Enumerations.gd").Status
@@ -41,12 +43,13 @@ func _init(p_nickname: String, p_species: Species, p_level: int, p_moves: Array,
 	hp = stats[Stats.HP]
 
 # Returns the final statistics of the OpMon, with the in-battle modifications
-func get_effective_stats():
+func get_effective_stats() -> Array:
 	var effective_stats = stats
 	# Accuracy and evasion
 	effective_stats.append(100)
 	effective_stats.append(100)
 	# TODO: add in-battle stat modification (+think of a more efficient system than the c++ version)
+	return effective_stats
 
 # Completely heals the OpMon
 func heal():
@@ -55,17 +58,35 @@ func heal():
 	for move in moves:
 		move.power_points = move.data.max_power_points
 		
-func is_ko():
+func is_ko() -> bool:
 	return hp > 0
 	
-func get_effective_name():
+func get_effective_name() -> String:
 	if nickname == "":
 		return species.name
 	else:
 		return nickname
 		
-func get_hp_string():
+func get_hp_string() -> String:
 	return String(hp) + " / " + String(stats[Stats.HP])
+	
+	
+# In-battle modification of statistics, capped at ±6
+# Returns the actual modification
+func change_stat(stat, change) -> int:
+	# Checks if the cap is already reached
+	if (change > 0 and stats_change[stat] == 6) or (change < 0 and stats_change[stat] == -6):
+		return 0
+	stats_change[stat] += change
+	var overflow = stats_change[stat] - 6
+	if overflow > 0:
+		stats_change[stat] = 6
+		return change - overflow
+	var underflow = stats_change[stat] + 6
+	if underflow < 0:
+		stats_change[stat] = -6
+		return change - underflow
+	return change
 
 # A Move class representing an OpMon’s move. It uses the data of Move but this class is "living",
 # meaning it’s edited to store the power points and other dynamic data of a move.

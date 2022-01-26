@@ -10,9 +10,13 @@ var opponent_team: OpTeam
 func _ready():
 	._ready()
 	var popmon = OpMon.new("", load("res://OpMon-Data/GodotResources/Species/Furnurus.tres"), 10, 
-	[null, null, null, null], load("res://OpMon-Data/GodotResources/Natures/Bot.tres"))
+	[load("res://OpMon-Data/GodotResources/Moves/Tackle.tres"), 
+	load("res://OpMon-Data/GodotResources/Moves/Growl.tres"), null, null], 
+	load("res://OpMon-Data/GodotResources/Natures/Bot.tres"))
 	var oopmon = OpMon.new("", load("res://OpMon-Data/GodotResources/Species/Carnapple.tres"), 10, 
-	[null, null, null, null], load("res://OpMon-Data/GodotResources/Natures/Bot.tres"))
+	[load("res://OpMon-Data/GodotResources/Moves/Tackle.tres"), 
+	load("res://OpMon-Data/GodotResources/Moves/Harden.tres"), null, null], 
+	load("res://OpMon-Data/GodotResources/Natures/Bot.tres"))
 	player_team = OpTeam.new([popmon, null, null, null, null, null])
 	opponent_team = OpTeam.new([oopmon, null, null, null, null, null])
 

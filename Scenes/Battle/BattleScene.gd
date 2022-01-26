@@ -1,7 +1,5 @@
 extends Interface
 
-const OpTeam = preload("res://Objects/OpTeam.gd")
-const OpMon = preload("res://Objects/OpMon.gd")
 const Stats = preload("res://Objects/Enumerations.gd").Stats
 
 var player_team: OpTeam
