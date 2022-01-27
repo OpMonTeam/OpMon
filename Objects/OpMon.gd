@@ -11,6 +11,11 @@ var stats = [0, 0, 0, 0, 0, 0]
 var ev = [0, 0, 0, 0, 0, 0]
 var stats_change = [0, 0, 0, 0, 0, 0, 0, 0]
 
+# In-battle stats modificators for basic stats
+const mod_stat = [0.25, 0.29, 0.33, 0.40, 0.50, 0.67, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0]
+# In-battle stats modificators for accuracy and evasion
+const mod_stat_2 = [0.33, 0.38, 0.43, 0.5, 0.6, 0.75, 1.0, 1.33, 1.67, 2.0, 2.33, 2.67, 3.0]
+
 var species: Species
 var level: int
 # Must contain OpMove objects
@@ -49,7 +54,13 @@ func get_effective_stats() -> Array:
 	# Accuracy and evasion
 	effective_stats.append(100)
 	effective_stats.append(100)
-	# TODO: add in-battle stat modification (+think of a more efficient system than the c++ version)
+	
+	for i in range(6):
+		effective_stats[i] *= mod_stat[stats_change[i] + 6]
+		
+	for i in range(6,8):
+		effective_stats[i] *= mod_stat_2[stats_change[i] + 6]
+	
 	return effective_stats
 
 # Completely heals the OpMon
