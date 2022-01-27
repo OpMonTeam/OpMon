@@ -19,6 +19,10 @@ var camera_instance: Node
 
 var interface = null
 
+# Sets the number of frames to wait before unpausing the player
+# -1 if the player has not to be unpaused
+var unpause_player_delay = -1
+
 func init(p_first_map: String, p_first_map_pos: Vector2):
 	_first_map = p_first_map
 	_first_map_pos = p_first_map_pos
@@ -31,6 +35,13 @@ func _ready():
 	player_instance.position = _first_map_pos * (_constants.TILE_SIZE / 2)
 	load_map(_first_map, _first_map_pos)
 	maps[_first_map].add_child(player_instance)
+	
+func _process(delta):
+	if unpause_player_delay > 0:
+		unpause_player_delay -= 1
+	elif unpause_player_delay == 0:
+		unpause_player_delay -= 1
+		unpause_player()
 
 func load_interface(p_interface: Node):
 	if interface == null and p_interface.has_method("set_map"):
@@ -42,7 +53,7 @@ func unload_interface():
 	if interface != null:
 		interface.call_deferred("free")
 		interface = null
-		call_deferred("unpause_player")
+		unpause_player_delay = 5
 
 func load_map(map_name: String, map_pos = Vector2(0,0)):
 	print("[MAPNAGER] Loading map " + map_name)

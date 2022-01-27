@@ -41,8 +41,39 @@ func move_selected():
 	add_child(move_dialog)
 	
 func move_chosen(id):
-	pass
+	var opponent_chosen = 0
 	
+	# Calculates the order of the turn
+	var order = []
+	var player_move_priority = player_opmon.moves[id].data.priority > opponent_opmon.moves[opponent_chosen].data.priority
+	var no_move_priority = player_opmon.moves[id].data.priority == opponent_opmon.moves[opponent_chosen].data.priority
+	var player_faster = player_opmon.get_effective_stats()[Stats.SPE] >= opponent_opmon.get_effective_stats()[Stats.SPE]
+	if player_move_priority or (no_move_priority and player_faster):
+		order.append(player_opmon)
+		order.append(opponent_opmon)
+	else:
+		order.append(opponent_opmon)
+		order.append(player_opmon)
+	
+	# Processes the turn
+	for opmon in order:
+		var move
+		var opponent
+		if opmon == player_opmon:
+			move = id
+			opponent = opponent_opmon
+		else:
+			move = opponent_chosen
+			opponent = player_opmon
+		opmon.moves[move].move(self, opmon, opponent)
+		if opmon.is_ko() or opponent.is_ko():
+			ko()
+	self.call_deferred("show_base_dialog")
+	remove_child(move_dialog)
+
+func show_base_dialog():
+	$BaseDialog.visible = true
+
 func run_selected():
 	emit_signal("closed")
 	
@@ -54,6 +85,15 @@ func move_ineffective():
 	
 func effectiveness(factor):
 	pass
-	
+
 func update_hp():
+	$PlayerInfobox/HP.value = player_opmon.hp
+	$PlayerInfobox/HPLabel.text = player_opmon.get_hp_string()
+	$OpponentInfobox/HP.value = opponent_opmon.hp
 	pass
+	
+func stat_changed(target: OpMon, stat, change):
+	pass
+
+func ko():
+	emit_signal("closed")

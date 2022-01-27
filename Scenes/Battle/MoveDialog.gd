@@ -11,7 +11,7 @@ func set_moves(moves = [null, null, null, null]):
 	_moves = moves
 
 func _ready():
-	connect("move_selected", get_parent(), "move_selected")
+	connect("move_chosen", get_parent(), "move_chosen")
 	for i in range(4):
 		if _moves[i] != null:
 			get_node("MovesDialog/Move" + String(i)).text = _moves[i].data.name
