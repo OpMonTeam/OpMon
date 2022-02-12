@@ -119,6 +119,7 @@ class OpMove:
 
 	func move(battle_scene, user: OpMon, opponent: OpMon):
 		power_points -= 1
+		battle_scene.add_dialog([user.get_effective_name() + " uses " + self.data.name + "!"])
 		# Checks if the move fails
 		if (100*randf()) > (data.accuracy * (user.stats[Stats.ACC] / opponent.stats[Stats.EVA])) and not data.never_fails:
 			battle_scene.move_failed()

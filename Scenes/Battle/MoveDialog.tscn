@@ -13,6 +13,8 @@ font_data = SubResource( 1 )
 [node name="MoveDialog" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -5.0
+margin_bottom = -479.0
 rect_pivot_offset = Vector2( -251, -277 )
 script = ExtResource( 3 )
 __meta__ = {

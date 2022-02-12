@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Battle/BattleScene.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Battle/BaseDialog.tscn" type="PackedScene" id=2]
 [ext_resource path="res://OpMon-Data/Sprites/battle/square_1.png" type="Texture" id=3]
 [ext_resource path="res://OpMon-Data/Sprites/battle/health_jauge.png" type="Texture" id=4]
 [ext_resource path="res://OpMon-Data/Sprites/battle/health_bar.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/Battle/TextDialog.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://OpMon-Data/Fonts/main_font.ttf"
@@ -140,3 +141,11 @@ text = "[OpMon Name]"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TextDialog" parent="." instance=ExtResource( 6 )]
+visible = false
+margin_top = 476.0
+margin_bottom = 476.0
+dialog_speed = 20.0
+
+[connection signal="dialog_over" from="TextDialog" to="." method="_next_action"]
