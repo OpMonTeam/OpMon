@@ -45,19 +45,26 @@ func _process(_delta):
 	if _hp_bar_animated:
 		_update_hp_label()
 
+# Choices of the base dialog
+
 func opmon_selected():
 	pass
 	
 func item_selected():
 	pass
-	
+
+# When the move choice has been selected in the base menu
 func move_selected():
 	$BaseDialog.visible = false
 	move_dialog = load("res://Scenes/Battle/MoveDialog.tscn").instance()
 	move_dialog.set_moves(player_opmon.moves)
 	move_dialog.rect_position = $BaseDialog.rect_position
 	add_child(move_dialog)
-	
+
+func run_selected():
+	emit_signal("closed")
+
+# Called when a move has been chosen in the move selection menu
 func move_chosen(id):
 	remove_child(move_dialog)
 	$TextDialog.visible = true
@@ -91,7 +98,8 @@ func move_chosen(id):
 			ko()
 			break
 	_next_action()
-	
+
+# Calls the next action to show, and ends the turn if there is no more actions to show
 func _next_action():
 	if _action_queue.empty():
 		show_base_dialog()
@@ -99,9 +107,6 @@ func _next_action():
 	else:
 		var action = _action_queue.pop_front()
 		self.callv(action["method"], action["parameters"])
-
-func _end_turn():
-	self.call_deferred("show_base_dialog")
 
 func show_base_dialog():
 	$BaseDialog.visible = true
@@ -116,22 +121,8 @@ func ko():
 	else:
 		add_dialog([opponent_opmon.get_effective_name() + " is KO!"])
 	_action_queue.append({"method": "_ko", "parameters":[]})
+	
 
-# Choices of the base dialog
-
-func run_selected():
-	emit_signal("closed")
-	
-func move_failed():
-	pass
-	
-func move_ineffective():
-	pass
-	
-func effectiveness(factor):
-	pass
-
-	
 # Methods queuing actions
 
 # The "text" parameter must be an array of Strings where one element is printed on one dialog.
@@ -144,8 +135,56 @@ func add_dialog(text: Array):
 func update_hp(is_self: bool, new_value: int):
 	_action_queue.append({"method": "_update_hp", "parameters": [is_self == _player_in_action, new_value]})
 	
+
+const stat_names = {
+	Stats.ATK : "attack",
+	Stats.DEF : "defense",
+	Stats.ATKSPE : "special attack",
+	Stats.DEFSPE : "special defense",
+	Stats.SPE : "speed",
+	Stats.EVA : "evasion",
+	Stats.HP : "maximum HP",
+	Stats.ACC : "accuracy"
+}
+
+# Note: good idea to add lines for every possible changes
+# but you forgot to take into account the fact that
+# it can change from -12 to +12 if the stats
+# has already been modified
+# Todo: take this into account later
+const change_texts = {
+	-6 : "reached rock bottom",
+	-5 : "completely dropped",
+	-4 : "has drastically lowered",
+	-3 : "has hugely lowered",
+	-2 : "has highly lowered",
+	-1 : "has lowered",
+	0 : "is inchanged",
+	1 : "has increased",
+	2 : "has highly increased",
+	3 : "has hugely increased",
+	4 : "has drastically increased",
+	5 : "has exploded",
+	6 : "breached the roof"
+}
+
 func stat_changed(target: OpMon, stat, change):
-	pass
+	add_dialog([target.get_effective_name() + "'s " + stat_names[stat] + " " + change_texts[change] + "!"])
+	
+func move_failed():
+	add_dialog(["But the move failed!"])
+
+const effectiveness_texts = {
+	0.0 : "But it’s ineffective…",
+	0.25 : "It’s barely effective…",
+	0.5 : "It’s not very effective…",
+	2.0 : "It’s very effective!",
+	4.0 : "It’s hugely effective!"
+}
+
+func effectiveness(factor: float):
+	if factor != 1.0:
+		add_dialog([effectiveness_texts[factor]])
 	
 # Methods executing actions
 # Every action must, by one way or another, call back _next_action to continue the chain

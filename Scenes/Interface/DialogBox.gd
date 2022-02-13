@@ -70,9 +70,9 @@ func _input(event):
 			if _current_dialog_line_index < _dialog_lines.size() - 1: # If there is another
 				_start_new_line()
 			else: # If not, the dialog is over
-				emit_signal("dialog_over")
-				$NinePatchRect/DialArrow.visible = false
 				_dialog_over = true
+				$NinePatchRect/DialArrow.visible = false
+				emit_signal("dialog_over")
 				if close_when_over:
 					close()
 		elif $NinePatchRect/Text.visible_characters != 0: # If there is still to print,
