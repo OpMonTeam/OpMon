@@ -160,7 +160,7 @@ class OpMove:
 			hp_lost_float *= 0.85 + 0.15 * randf()
 			hp_lost = round(hp_lost_float)
 			opponent.hp -= hp_lost
-			battle_scene.update_hp()
+			battle_scene.update_hp(false, opponent.hp, opponent.get_hp_string())
 			battle_scene.effectiveness(effectiveness)
 		
 		# Processes the post-move effects

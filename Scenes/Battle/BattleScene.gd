@@ -17,6 +17,10 @@ var move_dialog = null
 # automatically the queue. You can see them after the "Methods queuing actions" section.
 var _action_queue := []
 
+# True if its the player’s turn being calculated, false if it’s the opponent’s
+# turn being calculated. Used in some actions to determine which OpMon is active.
+var _player_in_action := true
+
 func init(p_player_team: OpTeam, p_opponent_team: OpTeam):
 	player_team = p_player_team
 	opponent_team = p_opponent_team
@@ -68,7 +72,8 @@ func move_chosen(id):
 	for opmon in order:
 		var move
 		var opponent
-		if opmon == player_opmon:
+		_player_in_action = opmon == player_opmon
+		if _player_in_action:
 			move = id
 			opponent = opponent_opmon
 		else:
@@ -122,8 +127,11 @@ func effectiveness(factor):
 func add_dialog(text: Array):
 	_action_queue.append({"method": "_dialog", "parameters": [text]})
 	
-func update_hp():
-	_action_queue.append({"method": "_update_hp", "parameters": []})
+# is_self: if the updated hp has to be the acting opmon’s bar (true) or the opponent’s one (false)
+# new value: the new value of the hp bar.
+# player_label: Text to be shown under the player’s hp bar, if it’s the player’s bar that is modified
+func update_hp(is_self: bool, new_value: int, hp_label := ""):
+	_action_queue.append({"method": "_update_hp", "parameters": [is_self == _player_in_action, new_value, hp_label]})
 	
 # Methods executing actions
 # Every action must, by one way or another, call back _next_action to continue the chain
@@ -136,8 +144,9 @@ func _dialog(text: Array):
 
 # Todo: Animate hp update + separate the different steps of hp change through the battle
 # (The method currently fully updates the hp to its final state after the turn)
-func _update_hp():
-	$PlayerInfobox/HP.value = player_opmon.hp
-	$PlayerInfobox/HPLabel.text = player_opmon.get_hp_string()
-	$OpponentInfobox/HP.value = opponent_opmon.hp
+func _update_hp(player: bool, new_value: int, hp_label := ""):
+	var hpbar = $PlayerInfobox/HP if player else $OpponentInfobox/HP
+	hpbar.value = new_value
+	if player:
+		$PlayerInfobox/HPLabel.text = hp_label
 	_next_action()
