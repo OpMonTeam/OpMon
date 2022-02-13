@@ -21,6 +21,9 @@ var _action_queue := []
 # turn being calculated. Used in some actions to determine which OpMon is active.
 var _player_in_action := true
 
+# True if the hp bar is animated so the player’s HP label can be updated in real time.
+var _hp_bar_animated := false
+
 func init(p_player_team: OpTeam, p_opponent_team: OpTeam):
 	player_team = p_player_team
 	opponent_team = p_opponent_team
@@ -37,6 +40,10 @@ func _enter_tree():
 	$PlayerInfobox/HP.value = player_opmon.hp
 	$OpponentInfobox/HP.max_value = opponent_opmon.stats[Stats.HP]
 	$OpponentInfobox/HP.value = opponent_opmon.hp
+
+func _process(_delta):
+	if _hp_bar_animated:
+		_update_hp_label()
 
 func opmon_selected():
 	pass
@@ -97,9 +104,9 @@ func _end_turn():
 
 func show_base_dialog():
 	$BaseDialog.visible = true
-	
-func stat_changed(target: OpMon, stat, change):
-	pass
+
+func _update_hp_label():
+	$PlayerInfobox/HPLabel.text = String($PlayerInfobox/HP.value) + " / " + String(player_opmon.stats[Stats.HP])
 
 # Executed when one on the OpMons is KO
 func ko():
@@ -129,9 +136,11 @@ func add_dialog(text: Array):
 	
 # is_self: if the updated hp has to be the acting opmon’s bar (true) or the opponent’s one (false)
 # new value: the new value of the hp bar.
-# player_label: Text to be shown under the player’s hp bar, if it’s the player’s bar that is modified
-func update_hp(is_self: bool, new_value: int, hp_label := ""):
-	_action_queue.append({"method": "_update_hp", "parameters": [is_self == _player_in_action, new_value, hp_label]})
+func update_hp(is_self: bool, new_value: int):
+	_action_queue.append({"method": "_update_hp", "parameters": [is_self == _player_in_action, new_value]})
+	
+func stat_changed(target: OpMon, stat, change):
+	pass
 	
 # Methods executing actions
 # Every action must, by one way or another, call back _next_action to continue the chain
@@ -142,11 +151,25 @@ func _dialog(text: Array):
 	$TextDialog.set_dialog_lines(text)
 	$TextDialog.go()
 
-# Todo: Animate hp update + separate the different steps of hp change through the battle
-# (The method currently fully updates the hp to its final state after the turn)
-func _update_hp(player: bool, new_value: int, hp_label := ""):
-	var hpbar = $PlayerInfobox/HP if player else $OpponentInfobox/HP
-	hpbar.value = new_value
-	if player:
-		$PlayerInfobox/HPLabel.text = hp_label
+# Calls _next_action via the animation player whose signal "animation_finished" is connected to "_health_bar_stop"
+func _update_hp(player: bool, new_value: int):
+	var hpbar:TextureProgress = $PlayerInfobox/HP if player else $OpponentInfobox/HP
+	var animation_player: AnimationPlayer = $PlayerInfobox/HP/AnimationPlayer if player else $OpponentInfobox/HP/AnimationPlayer
+	var animation := Animation.new()
+	var track_index := animation.add_track(Animation.TYPE_VALUE)
+	animation.track_set_path(track_index, ".:value")
+	animation.length = 1
+	animation.track_insert_key(track_index, 0, hpbar.value)
+	animation.track_insert_key(track_index, 1, new_value)
+	if animation_player.has_animation("hpbar"):
+		animation_player.remove_animation("hpbar")
+	animation_player.add_animation("hpbar", animation)
+	animation_player.play("hpbar")
+	_hp_bar_animated = true
+	
+# Calls _next_action for _update_hp
+func _health_bar_stop(_anim_name):
+	$PlayerInfobox/HP/AnimationPlayer.stop()
+	$OpponentInfobox/HP/AnimationPlayer.stop()
+	_hp_bar_animated = false
 	_next_action()

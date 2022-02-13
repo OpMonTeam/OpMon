@@ -18,6 +18,8 @@ var _awaiting_next_dialog_line := false
 # Timer for displaying dialog line characters one at a time
 var _timer = null
 
+var _dialog_over := false
+
 signal dialog_over
 
 # The "dialog_lines" parameter must be an array of Strings where one element is printed on one dialog.
@@ -27,6 +29,7 @@ func set_dialog_lines(dialog_lines: Array):
 
 func reset():
 	_current_dialog_line_index = -1 # -1 since incremented first when calling _start_new_line
+	_dialog_over = false
 
 func go():
 	# Display the first line of dialogue
@@ -62,12 +65,14 @@ func _finish_current_line():
 	$NinePatchRect/Text.visible_characters = -1 # Sets all characters visible
 
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("ui_accept") and not _dialog_over:
 		if _awaiting_next_dialog_line: # If the current dialog line already is fully printed
 			if _current_dialog_line_index < _dialog_lines.size() - 1: # If there is another
 				_start_new_line()
 			else: # If not, the dialog is over
 				emit_signal("dialog_over")
+				$NinePatchRect/DialArrow.visible = false
+				_dialog_over = true
 				if close_when_over:
 					close()
 		elif $NinePatchRect/Text.visible_characters != 0: # If there is still to print,
