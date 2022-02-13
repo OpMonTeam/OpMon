@@ -89,6 +89,7 @@ func move_chosen(id):
 		opmon.moves[move].move(self, opmon, opponent)
 		if opmon.is_ko() or opponent.is_ko():
 			ko()
+			break
 	_next_action()
 	
 func _next_action():
@@ -110,7 +111,11 @@ func _update_hp_label():
 
 # Executed when one on the OpMons is KO
 func ko():
-	emit_signal("closed")
+	if player_opmon.is_ko():
+		add_dialog([player_opmon.get_effective_name() + " is KO!"])
+	else:
+		add_dialog([opponent_opmon.get_effective_name() + " is KO!"])
+	_action_queue.append({"method": "_ko", "parameters":[]})
 
 # Choices of the base dialog
 
@@ -173,3 +178,6 @@ func _health_bar_stop(_anim_name):
 	$OpponentInfobox/HP/AnimationPlayer.stop()
 	_hp_bar_animated = false
 	_next_action()
+	
+func _ko():
+	emit_signal("closed")
