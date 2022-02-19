@@ -110,6 +110,7 @@ func move(direction: Vector2):
 			Vector2.ZERO, _constants.WALK_SPEED, 
 			Tween.TRANS_LINEAR, Tween.EASE_IN)
 		$TileReservation.get_node("Tween").start()
+		$TileReservation.disabled = false
 	# Starts the movement if position and next are different.
 	$Tween.interpolate_property(self, "position", position, next, 
 		_constants.WALK_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
@@ -149,6 +150,7 @@ func _end_move(_object, _key):
 	if _moving == Vector2.ZERO or _paused: # If not, then the movement is over, stop the animation
 		$AnimatedSprite.stop()
 		$AnimatedSprite.frame = 0
+		$TileReservation.disabled = true
 	else:
 		_moving = Vector2.ZERO
 		move(_faced_direction) # Else, continue moving.

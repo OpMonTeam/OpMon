@@ -9,20 +9,55 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "ChangeStatEffect",
+"language": "GDScript",
+"path": "res://OpMon-Data/GodotResources/Moves/Effects/ChangeStatEffect.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Character",
 "language": "GDScript",
 "path": "res://Scenes/Events/Interactable/Character.gd"
+}, {
+"base": "Control",
+"class": "Interface",
+"language": "GDScript",
+"path": "res://Scenes/Interface/Interface.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Iteractable",
 "language": "GDScript",
 "path": "res://Scenes/Events/Interactable/Interactable.gd"
 }, {
+"base": "Resource",
+"class": "Move",
+"language": "GDScript",
+"path": "res://Objects/Move.gd"
+}, {
+"base": "Resource",
+"class": "Nature",
+"language": "GDScript",
+"path": "res://Objects/Nature.gd"
+}, {
+"base": "Object",
+"class": "OpMon",
+"language": "GDScript",
+"path": "res://Objects/OpMon.gd"
+}, {
+"base": "Object",
+"class": "OpTeam",
+"language": "GDScript",
+"path": "res://Objects/OpTeam.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://Scenes/Events/Interactable/Player.gd"
+}, {
+"base": "Resource",
+"class": "Species",
+"language": "GDScript",
+"path": "res://Objects/Species.gd"
 }, {
 "base": "Trigger",
 "class": "Teleporter",
@@ -35,9 +70,16 @@ _global_script_classes=[ {
 "path": "res://Scenes/Events/Trigger/Trigger.gd"
 } ]
 _global_script_class_icons={
+"ChangeStatEffect": "",
 "Character": "",
+"Interface": "",
 "Iteractable": "",
+"Move": "",
+"Nature": "",
+"OpMon": "",
+"OpTeam": "",
 "Player": "",
+"Species": "",
 "Teleporter": "",
 "Trigger": ""
 }
@@ -45,16 +87,12 @@ _global_script_class_icons={
 [application]
 
 config/name="OpMon"
-run/main_scene="res://Scenes/Game.tscn"
+run/main_scene="res://Scenes/MainMenu/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [audio]
 
 default_bus_layout=""
-
-[autoload]
-
-Manager="*res://Singletons/Manager.gd"
 
 [display]
 

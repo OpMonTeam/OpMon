@@ -1,0 +1,128 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://OpMon-Data/Sprites/UI/arrChoice.png" type="Texture" id=1]
+[ext_resource path="res://OpMon-Data/Backgrounds/menuframe.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Battle/MoveDialog.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://OpMon-Data/Fonts/main_font.ttf"
+
+[sub_resource type="DynamicFont" id=5]
+font_data = SubResource( 1 )
+
+[node name="MoveDialog" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -5.0
+margin_bottom = -479.0
+rect_pivot_offset = Vector2( -251, -277 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Infobox" type="NinePatchRect" parent="."]
+margin_left = 577.0
+margin_right = 829.0
+margin_bottom = 107.0
+rect_scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 2 )
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PP" type="Label" parent="Infobox"]
+margin_left = 21.0
+margin_top = 20.0
+margin_right = 176.0
+margin_bottom = 42.0
+rect_pivot_offset = Vector2( -550, -133 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "PP: --/--"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MovesDialog" type="NinePatchRect" parent="."]
+margin_left = 1.0
+margin_right = 381.0
+margin_bottom = 107.0
+rect_scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 2 )
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Arrow" type="TextureRect" parent="MovesDialog"]
+margin_left = 15.0
+margin_top = 23.0
+margin_right = 45.0
+margin_bottom = 53.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Move1" type="Label" parent="MovesDialog"]
+margin_left = 37.0
+margin_top = 60.0
+margin_right = 87.0
+margin_bottom = 82.0
+rect_pivot_offset = Vector2( -550, -133 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "---"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Move2" type="Label" parent="MovesDialog"]
+margin_left = 255.0
+margin_top = 20.0
+margin_right = 323.0
+margin_bottom = 42.0
+rect_pivot_offset = Vector2( -550, -133 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "---"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Move0" type="Label" parent="MovesDialog"]
+margin_left = 37.0
+margin_top = 20.0
+margin_right = 101.0
+margin_bottom = 42.0
+rect_pivot_offset = Vector2( -550, -133 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "---"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Move3" type="Label" parent="MovesDialog"]
+margin_left = 255.0
+margin_top = 60.0
+margin_right = 293.0
+margin_bottom = 82.0
+rect_pivot_offset = Vector2( -550, -133 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "---"
+__meta__ = {
+"_edit_use_anchors_": false
+}

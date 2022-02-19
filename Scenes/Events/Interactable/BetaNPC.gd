@@ -1,8 +1,24 @@
 extends "res://Scenes/Events/Interactable/Character.gd"
 
 const PlayerClass = preload("Player.gd")
+const OpTeam = preload("res://Objects/OpTeam.gd")
+const OpMon = preload("res://Objects/OpMon.gd")
 
-export var dialog_lines := ["Fake line 1.", "Fake line 2."]
+var player_team: OpTeam
+var opponent_team: OpTeam
+
+func _ready():
+	._ready()
+	var tackle = load("res://OpMon-Data/GodotResources/Moves/Tackle.tres")
+	var growl = load("res://OpMon-Data/GodotResources/Moves/Growl.tres")
+	var harden = load("res://OpMon-Data/GodotResources/Moves/Harden.tres")
+	var bot_nature = load("res://OpMon-Data/GodotResources/Natures/Bot.tres")
+	var popmon = OpMon.new("", load("res://OpMon-Data/GodotResources/Species/Furnurus.tres"), 10, 
+	[tackle, growl, null, null], bot_nature)
+	var oopmon = OpMon.new("", load("res://OpMon-Data/GodotResources/Species/Carnapple.tres"), 10, 
+	[tackle, growl, null, null], bot_nature)
+	player_team = OpTeam.new([popmon, null, null, null, null, null])
+	opponent_team = OpTeam.new([oopmon, null, null, null, null, null])
 
 # Called when the player interacts with the NPC
 func interact(player: PlayerClass):
@@ -11,12 +27,10 @@ func interact(player: PlayerClass):
 		return
 	_paused = true
 	change_faced_direction(player.get_direction()) # Changes the faced direction of the NPC to face the player
-	var dialog_box_instance = load(_constants.PATH_DIALOG_BOX_SCENE).instance() # Loads the dialog
-	dialog_box_instance.set_dialog_lines(dialog_lines) # Adds the dialog lines to the dialog
-	dialog_box_instance.close_when_over = true
-	_map.load_interface(dialog_box_instance)
-	dialog_box_instance.go() # Starts the dialog
-	dialog_box_instance.connect("dialog_over", self, "_unpause") # When the dialog is over, unpauses the character
+	_map.pause_player()
+	var battle_scene = load("res://Scenes/Battle/BattleScene.tscn").instance()
+	battle_scene.init(player_team, opponent_team)
+	_map.load_interface(battle_scene)
 
 func change_faced_direction(player_faced_direction):
 	# Change the direction the NPC is facing based on the direction the player

@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://OpMon-Data/Fonts/main_font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://OpMon-Data/Backgrounds/menuframe.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/Interface/DialogBox.gd" type="Script" id=3]
+[ext_resource path="res://OpMon-Data/Backgrounds/menuframe.png" type="Texture" id=1]
+[ext_resource path="res://OpMon-Data/Audio/sfx/sfx_dialog_change.ogg" type="AudioStream" id=2]
+[ext_resource path="res://OpMon-Data/Fonts/main_font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://OpMon-Data/Sprites/UI/arrDial.png" type="Texture" id=4]
-[ext_resource path="res://OpMon-Data/Audio/sfx/sfx_dialog_change.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Scenes/Interface/DialogBox.gd" type="Script" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "idle"
@@ -19,25 +19,24 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 238, 22 ), Vector2( 238, 18 ) ]
+"values": [ Vector2( 608, 80 ), Vector2( 608, 76 ) ]
 }
 
-[node name="DialogBox" type="Control"]
-margin_right = 480.0
-margin_bottom = 320.0
-rect_scale = Vector2( 2, 2 )
-script = ExtResource( 3 )
+[node name="TextDialog" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -480.0
+rect_pivot_offset = Vector2( -932, -215 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
-margin_left = 48.0
-margin_top = 260.0
-margin_right = 304.0
-margin_bottom = 300.0
+margin_right = 636.667
+margin_bottom = 107.333
 rect_scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 1 )
 patch_margin_left = 16
 patch_margin_top = 16
 patch_margin_right = 16
@@ -47,23 +46,25 @@ __meta__ = {
 }
 
 [node name="Text" type="RichTextLabel" parent="NinePatchRect"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 248.0
-margin_bottom = 32.0
+margin_left = 21.0
+margin_top = 16.0
+margin_right = 309.0
+margin_bottom = 53.0
+rect_scale = Vector2( 2, 2 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_constants/line_separation = 1
-custom_fonts/normal_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 3 )
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="DialArrow" type="TextureRect" parent="NinePatchRect"]
-margin_left = 238.0
-margin_top = 22.0
-margin_right = 248.0
-margin_bottom = 32.0
+margin_left = 608.0
+margin_top = 80.0
+margin_right = 618.0
+margin_bottom = 90.0
+rect_scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -73,4 +74,4 @@ __meta__ = {
 anims/idle = SubResource( 1 )
 
 [node name="DialogSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 2 )
