@@ -38,10 +38,11 @@ __meta__ = {
 }
 
 [node name="Kid" parent="." instance=ExtResource( 3 )]
-position = Vector2( 152, 104 )
+position = Vector2( 168, 104 )
 script = ExtResource( 4 )
+faced_direction = "Down"
 textures = ExtResource( 5 )
-dialog_lines = [ "I like shorts!", "...", "I don't know why I said that." ]
+dialog_key = "EUVITOWN_KID_DIALOG"
 path = [ "Right", "Stand", "Left", "Stand" ]
 durations = [ 5, 1, 5, 1 ]
 loop = true

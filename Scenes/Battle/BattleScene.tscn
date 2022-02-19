@@ -151,6 +151,7 @@ visible = false
 margin_top = 476.0
 margin_bottom = 476.0
 dialog_speed = 20.0
+close_when_over = false
 
 [connection signal="animation_finished" from="PlayerInfobox/HP/AnimationPlayer" to="." method="_health_bar_stop"]
 [connection signal="animation_finished" from="OpponentInfobox/HP/AnimationPlayer" to="." method="_health_bar_stop"]

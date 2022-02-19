@@ -4,7 +4,7 @@ extends "res://Scenes/Interface/Interface.gd"
 export var dialog_speed := 10.0
 
 # If the dialog auto-closes when finished
-export var close_when_over := false
+export var close_when_over := true
 
 # Lines of dialog stored as an array
 var _dialog_lines: Array
@@ -21,6 +21,17 @@ var _timer = null
 var _dialog_over := false
 
 signal dialog_over
+
+# Sets the dialog lines form a translation key instead of directly setting them.
+func set_dialog_key(dialog_key: String):
+	_dialog_lines.clear()
+	var i := 0
+	var line := ""
+	line = tr(dialog_key + "_" + str(i))
+	while(line != dialog_key + "_" + str(i)):
+		_dialog_lines.append(line)
+		i+=1
+		line = tr(dialog_key + "_" + str(i))
 
 # The "dialog_lines" parameter must be an array of Strings where one element is printed on one dialog.
 # Make sure the text is not too long to be shown.
@@ -77,7 +88,7 @@ func _input(event):
 					close()
 		elif $NinePatchRect/Text.visible_characters != 0: # If there is still to print,
 			# Print everything, but if there has been a character shown already
-			# (else we assume this is an error, the same event counted twice)
+			# (else we assume this is an error, the same event counted twice, because it’s too fast)
 			_finish_current_line()
 
 func close():

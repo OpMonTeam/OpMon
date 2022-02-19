@@ -1,3 +1,4 @@
+tool
 extends "res://Scenes/Events/Interactable/Character.gd"
 
 const PlayerClass = preload("Player.gd")
@@ -9,16 +10,17 @@ var opponent_team: OpTeam
 
 func _ready():
 	._ready()
-	var tackle = load("res://OpMon-Data/GodotResources/Moves/Tackle.tres")
-	var growl = load("res://OpMon-Data/GodotResources/Moves/Growl.tres")
-	var harden = load("res://OpMon-Data/GodotResources/Moves/Harden.tres")
-	var bot_nature = load("res://OpMon-Data/GodotResources/Natures/Bot.tres")
-	var popmon = OpMon.new("", load("res://OpMon-Data/GodotResources/Species/Furnurus.tres"), 10, 
-	[tackle, growl, null, null], bot_nature)
-	var oopmon = OpMon.new("", load("res://OpMon-Data/GodotResources/Species/Carnapple.tres"), 10, 
-	[tackle, growl, null, null], bot_nature)
-	player_team = OpTeam.new([popmon, null, null, null, null, null])
-	opponent_team = OpTeam.new([oopmon, null, null, null, null, null])
+	if not Engine.editor_hint:
+		var tackle = load("res://OpMon-Data/GodotResources/Moves/Tackle.tres")
+		var growl = load("res://OpMon-Data/GodotResources/Moves/Growl.tres")
+		var harden = load("res://OpMon-Data/GodotResources/Moves/Harden.tres")
+		var bot_nature = load("res://OpMon-Data/GodotResources/Natures/Bot.tres")
+		var popmon = OpMon.new("", load("res://OpMon-Data/GodotResources/Species/Furnurus.tres"), 10, 
+		[tackle, growl, null, null], bot_nature)
+		var oopmon = OpMon.new("", load("res://OpMon-Data/GodotResources/Species/Carnapple.tres"), 10, 
+		[tackle, growl, null, null], bot_nature)
+		player_team = OpTeam.new([popmon, null, null, null, null, null])
+		opponent_team = OpTeam.new([oopmon, null, null, null, null, null])
 
 # Called when the player interacts with the NPC
 func interact(player: PlayerClass):

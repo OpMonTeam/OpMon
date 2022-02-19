@@ -1,3 +1,4 @@
+tool
 extends "res://Scenes/Events/Interactable/DialogNPC.gd"
 
 # List of instructions for the path
@@ -23,16 +24,15 @@ var _stopped: bool = false
 # A frame countdown for the "Stand" instruction
 var _pause: int = -1
 
-func _enter_tree():
+func _ready():
 	# Checks for errors before initializing
 	if path.size() == 0:
 		push_error("No path defined, use DialogNPC instead.")
 	if path.size() != durations.size():
 		push_error("The array of durations does not have the same size as the array of paths.")
-	._enter_tree()
-
-func _ready():
-	_next_move()
+	if not Engine.editor_hint:
+		_next_move()
+	._ready()
 
 func _next_move():
 	_check_pending_interaction()
@@ -65,12 +65,13 @@ func _next_move():
 		$AnimatedSprite.frame = 0
 
 func _process(_delta):
-	if _pause == 0: # If the "Stand" instruction is over
-		_progress+=1
-		_pause = -1
-		_next_move()
-	elif _pause > 0: # Else continue the countdown
-		_pause -= 1
+	if not Engine.editor_hint:
+		if _pause == 0: # If the "Stand" instruction is over
+			_progress+=1
+			_pause = -1
+			_next_move()
+		elif _pause > 0: # Else continue the countdown
+			_pause -= 1
 	._process(_delta)
 
 func _get_direction(sdir: String):
@@ -86,4 +87,4 @@ func _end_move(_1, _2):
 	
 func _unpause():
 	._unpause()
-	_next_move()
+	call_deferred("_next_move")

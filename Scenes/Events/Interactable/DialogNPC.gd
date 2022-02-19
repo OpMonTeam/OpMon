@@ -1,22 +1,31 @@
+tool
 extends "res://Scenes/Events/Interactable/Character.gd"
 
-const PlayerClass = preload("Player.gd")
+export var dialog_key := ""
 
-export var dialog_lines := ["Fake line 1.", "Fake line 2."]
+# Countdown to avoid the confusion between the event that closes a dialog with the event that
+# interacts with the NPC to start a dialog
+var _dialog_countdown := 0
 
 # Called when the player interacts with the NPC
-func interact(player: PlayerClass):
+func interact(player):
 	.interact(player)
 	if _moving != Vector2.ZERO:
 		return
-	_paused = true
-	change_faced_direction(player.get_direction()) # Changes the faced direction of the NPC to face the player
-	var dialog_box_instance = load(_constants.PATH_DIALOG_BOX_SCENE).instance() # Loads the dialog
-	dialog_box_instance.set_dialog_lines(dialog_lines) # Adds the dialog lines to the dialog
-	dialog_box_instance.close_when_over = true
-	_map.load_interface(dialog_box_instance)
-	dialog_box_instance.go() # Starts the dialog
-	dialog_box_instance.connect("dialog_over", self, "_unpause") # When the dialog is over, unpauses the character
+	if _dialog_countdown == 0:
+		_paused = true
+		change_faced_direction(player.get_direction()) # Changes the faced direction of the NPC to face the player
+		var dialog_box_instance = load(_constants.PATH_DIALOG_BOX_SCENE).instance() # Loads the dialog
+		dialog_box_instance.set_dialog_key(dialog_key) # Adds the dialog lines to the dialog
+		dialog_box_instance.close_when_over = true
+		_map.load_interface(dialog_box_instance)
+		dialog_box_instance.go() # Starts the dialog
+		dialog_box_instance.connect("dialog_over", self, "_unpause") # When the dialog is over, unpauses the character
+
+func _process(delta):
+	._process(delta)
+	if _dialog_countdown > 0:
+		_dialog_countdown -= 1
 
 func change_faced_direction(player_faced_direction):
 	# Change the direction the NPC is facing based on the direction the player
@@ -36,3 +45,4 @@ func change_faced_direction(player_faced_direction):
 
 func _unpause():
 	_paused = false
+	_dialog_countdown = 5

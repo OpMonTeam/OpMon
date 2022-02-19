@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://OpMon-Data/GodotResources/Moves/Effects/ChangeStatEffect.gd"
 }, {
-"base": "KinematicBody2D",
-"class": "Character",
-"language": "GDScript",
-"path": "res://Scenes/Events/Interactable/Character.gd"
-}, {
 "base": "Control",
 "class": "Interface",
 "language": "GDScript",
@@ -49,11 +44,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Objects/OpTeam.gd"
 }, {
-"base": "KinematicBody2D",
-"class": "Player",
-"language": "GDScript",
-"path": "res://Scenes/Events/Interactable/Player.gd"
-}, {
 "base": "Resource",
 "class": "Species",
 "language": "GDScript",
@@ -71,14 +61,12 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ChangeStatEffect": "",
-"Character": "",
 "Interface": "",
 "Iteractable": "",
 "Move": "",
 "Nature": "",
 "OpMon": "",
 "OpTeam": "",
-"Player": "",
 "Species": "",
 "Teleporter": "",
 "Trigger": ""
@@ -122,3 +110,7 @@ texture={
 "stream": false,
 "svg/scale": 1.0
 }
+
+[locale]
+
+translations=PoolStringArray( "res://OpMon-Data/translations.en.translation", "res://OpMon-Data/translations.fr.translation" )

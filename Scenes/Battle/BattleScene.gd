@@ -117,9 +117,9 @@ func _update_hp_label():
 # Executed when one on the OpMons is KO
 func ko():
 	if player_opmon.is_ko():
-		add_dialog([player_opmon.get_effective_name() + " is KO!"])
+		add_dialog([tr("BATTLE_KO").replace("{opmon}", player_opmon.get_effective_name())])
 	else:
-		add_dialog([opponent_opmon.get_effective_name() + " is KO!"])
+		add_dialog([tr("BATTLE_KO").replace("{opmon}", opponent_opmon.get_effective_name())])
 	_action_queue.append({"method": "_ko", "parameters":[]})
 	
 
@@ -137,14 +137,14 @@ func update_hp(is_self: bool, new_value: int):
 	
 
 const stat_names = {
-	Stats.ATK : "attack",
-	Stats.DEF : "defense",
-	Stats.ATKSPE : "special attack",
-	Stats.DEFSPE : "special defense",
-	Stats.SPE : "speed",
-	Stats.EVA : "evasion",
-	Stats.HP : "maximum HP",
-	Stats.ACC : "accuracy"
+	Stats.ATK : "STAT_CHANGE_ATK",
+	Stats.DEF : "STAT_CHANGE_DEF",
+	Stats.ATKSPE : "STAT_CHANGE_ATKSPE",
+	Stats.DEFSPE : "STAT_CHANGE_DEFSPE",
+	Stats.SPE : "STAT_CHANGE_SPE",
+	Stats.EVA : "STAT_CHANGE_EVA",
+	Stats.HP : "STAT_CHANGE_HP",
+	Stats.ACC : "STAT_CHANGE_ACC"
 }
 
 # Note: good idea to add lines for every possible changes
@@ -152,39 +152,40 @@ const stat_names = {
 # it can change from -12 to +12 if the stats
 # has already been modified
 # Todo: take this into account later
-const change_texts = {
-	-6 : "reached rock bottom",
-	-5 : "completely dropped",
-	-4 : "has drastically lowered",
-	-3 : "has hugely lowered",
-	-2 : "has highly lowered",
-	-1 : "has lowered",
-	0 : "is inchanged",
-	1 : "has increased",
-	2 : "has highly increased",
-	3 : "has hugely increased",
-	4 : "has drastically increased",
-	5 : "has exploded",
-	6 : "breached the roof"
-}
+# const change_texts = {
+#	-6 : "reached rock bottom",
+#	-5 : "completely dropped",
+#	-4 : "has drastically lowered",
+#	-3 : "has hugely lowered",
+#	-2 : "has highly lowered",
+#	-1 : "has lowered",
+#	0 : "is inchanged",
+#	1 : "has increased",
+#	2 : "has highly increased",
+#	3 : "has hugely increased",
+#	4 : "has drastically increased",
+#	5 : "has exploded",
+#	6 : "breached the roof"
+#}
 
 func stat_changed(target: OpMon, stat, change):
-	add_dialog([target.get_effective_name() + "'s " + stat_names[stat] + " " + change_texts[change] + "!"])
+	var changed_string = tr("STAT_CHANGE_DIALOG").replace("{opmon}", target.get_effective_name()).replace("{stat}", tr(stat_names[stat])).replace("{change}", tr(("STAT_CHANGE_LOWER" if change < 0 else "STAT_CHANGE_HIGHER")))
+	add_dialog([changed_string])
 	
 func move_failed():
-	add_dialog(["But the move failed!"])
+	add_dialog([tr("BATTLE_MOVE_FAILED")])
 
 const effectiveness_texts = {
-	0.0 : "But it’s ineffective…",
-	0.25 : "It’s barely effective…",
-	0.5 : "It’s not very effective…",
-	2.0 : "It’s very effective!",
-	4.0 : "It’s hugely effective!"
+	0.0 : "MOVE_EFFECTIVENESS_NONE",
+	0.25 : "MOVE_EFFECTIVENESS_VERYLOW",
+	0.5 : "MOVE_EFFECTIVENESS_LOW",
+	2.0 : "MOVE_EFFECTIVENESS_HIGH",
+	4.0 : "MOVE_EFFECTIVENESS_VERYHIGH"
 }
 
 func effectiveness(factor: float):
 	if factor != 1.0:
-		add_dialog([effectiveness_texts[factor]])
+		add_dialog([tr(effectiveness_texts[factor])])
 	
 # Methods executing actions
 # Every action must, by one way or another, call back _next_action to continue the chain

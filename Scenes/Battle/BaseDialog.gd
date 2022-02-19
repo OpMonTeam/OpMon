@@ -13,6 +13,7 @@ const _signals = ["move_selected", "item_selected", "opmon_selected", "run_selec
 func _ready():
 	for s in _signals:
 		connect(s, get_parent(), s)
+	$BigDialog/RichTextLabel.text = tr("BATTLE_BASEDIALOG_FILLER").replace("{opmon}",get_parent().player_opmon.get_effective_name())
 
 func _input(event):
 	if self.visible:

@@ -75,7 +75,7 @@ func is_ko() -> bool:
 	
 func get_effective_name() -> String:
 	if nickname == "":
-		return species.name
+		return tr(species.name)
 	else:
 		return nickname
 		
@@ -119,7 +119,7 @@ class OpMove:
 
 	func move(battle_scene, user: OpMon, opponent: OpMon):
 		power_points -= 1
-		battle_scene.add_dialog([user.get_effective_name() + " uses " + self.data.name + "!"])
+		battle_scene.add_dialog([tr("BATTLE_MOVE_USE").replace("{opmon}",user.get_effective_name()).replace("{move}",tr(self.data.name))])
 		# Checks if the move fails
 		if (100*randf()) > (data.accuracy * (user.stats[Stats.ACC] / opponent.stats[Stats.EVA])) and not data.never_fails:
 			battle_scene.move_failed()

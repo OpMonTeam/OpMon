@@ -1,9 +1,8 @@
 # Describes the physics of a basic character
+tool
 extends "res://Scenes/Events/Interactable/Interactable.gd"
 
-class_name Character
-
-export(String, "Left", "Right", "Up", "Down") var faced_direction: String
+export(String, "Left", "Right", "Up", "Down") var faced_direction: String setget set_faced_direction
 
 var _faced_direction: Vector2
 
@@ -19,11 +18,10 @@ var _interaction_requested = null
 # The distance between the player and the character when the interaction has been requested.
 var _interaction_distance: float
 
-export var textures: SpriteFrames
+export var textures: SpriteFrames setget set_textures
 
-func _enter_tree():
-	# Sets the texture and the faced direction
-	$AnimatedSprite.frames = textures
+func set_faced_direction(new_faced_direction: String):
+	faced_direction = new_faced_direction
 	if faced_direction == "Up":
 		_faced_direction = Vector2.UP
 		$AnimatedSprite.flip_h = false
@@ -40,6 +38,15 @@ func _enter_tree():
 		_faced_direction = Vector2.LEFT
 		$AnimatedSprite.flip_h = true
 		$AnimatedSprite.animation = "walk_side"
+
+func set_textures(new_textures: SpriteFrames):
+	$AnimatedSprite.frames = new_textures
+	textures = new_textures
+
+func _ready():
+	# Sets the texture and the faced direction
+	set_textures(textures)
+	set_faced_direction(faced_direction)
 
 func interact(_player):
 	# If the player requested an interaction but the character is moving,

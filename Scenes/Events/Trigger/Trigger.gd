@@ -3,6 +3,8 @@ extends Area2D
 
 class_name Trigger
 
+const PlayerObject = preload("res://Scenes/Events/Interactable/Player.gd")
+
 var _root
 var _manager
 
@@ -14,7 +16,7 @@ func _ready():
 
 # True if the player just started walking on the trigger and not finished yet
 var _active = false
-var _player: Player
+var _player: PlayerObject
 
 func _process(_delta):
 	if _active:
@@ -22,8 +24,8 @@ func _process(_delta):
 
 # This method is called when the player begins to walk towards the trigger
 func start(body):
-	if body is Player:
-		_player = body as Player
+	if body is PlayerObject:
+		_player = body as PlayerObject
 		_active = true
 
 # This method is called each frame while the player walks towards the trigger

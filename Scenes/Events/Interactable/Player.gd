@@ -1,14 +1,16 @@
+tool
 extends "res://Scenes/Events/Interactable/Character.gd"
-
-class_name Player
 
 const InteractableClass = preload("Interactable.gd")
 
+func _input(event):
+	if event.is_action_pressed("ui_accept") and not Engine.editor_hint:
+		_interact()
+
 func _process(_delta):
 	if not self._paused:
-		if Input.is_action_just_pressed("ui_accept"):
-			_interact()
-		_check_move()
+		if not Engine.editor_hint:
+			_check_move()
 		update()
 		
 # Checks if the player wants to move the character and starts
