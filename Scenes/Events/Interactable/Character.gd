@@ -2,6 +2,8 @@
 tool
 extends "res://Scenes/Events/Interactable/Interactable.gd"
 
+export var textures: SpriteFrames setget set_textures
+
 export(String, "Left", "Right", "Up", "Down") var faced_direction: String setget set_faced_direction
 
 var _faced_direction: Vector2
@@ -18,7 +20,9 @@ var _interaction_requested = null
 # The distance between the player and the character when the interaction has been requested.
 var _interaction_distance: float
 
-export var textures: SpriteFrames setget set_textures
+func set_textures(new_textures: SpriteFrames):
+	$AnimatedSprite.frames = new_textures
+	textures = new_textures
 
 func set_faced_direction(new_faced_direction: String):
 	faced_direction = new_faced_direction
@@ -38,10 +42,6 @@ func set_faced_direction(new_faced_direction: String):
 		_faced_direction = Vector2.LEFT
 		$AnimatedSprite.flip_h = true
 		$AnimatedSprite.animation = "walk_side"
-
-func set_textures(new_textures: SpriteFrames):
-	$AnimatedSprite.frames = new_textures
-	textures = new_textures
 
 func _ready():
 	# Sets the texture and the faced direction

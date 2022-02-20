@@ -5,14 +5,12 @@ class_name Trigger
 
 const PlayerObject = preload("res://Scenes/Events/Interactable/Player.gd")
 
-var _root
-var _manager
+var _map_manager
 
 const _constants = preload("res://Utils/Constants.gd")
 
 func _ready():
-	_root = get_node("/root")
-	_manager = get_node("/root/Manager")
+	_map_manager = get_parent().get_parent()
 
 # True if the player just started walking on the trigger and not finished yet
 var _active = false
@@ -26,7 +24,7 @@ func _process(_delta):
 func start(body):
 	if body is PlayerObject:
 		_player = body as PlayerObject
-		_active = true
+		_active = _player.is_moving()
 
 # This method is called each frame while the player walks towards the trigger
 func frame():

@@ -3,15 +3,12 @@ extends KinematicBody2D
 
 class_name Iteractable
 
-var _root
-
-var _map
+var _map_manager
 
 const _constants = preload("res://Utils/Constants.gd")
 
 func _ready():
-	_root = get_node("/root")
-	_map = get_parent().get_parent()
+	_map_manager = get_parent().get_parent()
 
 func interact(_player):
 	push_error("Virtual method interact was called")

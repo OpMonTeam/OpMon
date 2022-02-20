@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://OpMon-Data/Tileset/Ground.tres" type="TileSet" id=1]
 [ext_resource path="res://OpMon-Data/Tileset/Static.tres" type="TileSet" id=2]
@@ -7,8 +7,11 @@
 [ext_resource path="res://OpMon-Data/Sprites/chara/kid.tres" type="SpriteFrames" id=5]
 [ext_resource path="res://OpMon-Data/Sprites/chara/beta/beta.tres" type="SpriteFrames" id=6]
 [ext_resource path="res://Scenes/Events/Interactable/BetaNPC.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Events/Trigger/Teleporter.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Maps/Map.gd" type="Script" id=9]
 
 [node name="EuviTown" type="YSort"]
+script = ExtResource( 9 )
 
 [node name="Base" type="TileMap" parent="."]
 z_index = -2
@@ -40,8 +43,8 @@ __meta__ = {
 [node name="Kid" parent="." instance=ExtResource( 3 )]
 position = Vector2( 168, 104 )
 script = ExtResource( 4 )
-faced_direction = "Down"
 textures = ExtResource( 5 )
+faced_direction = "Down"
 dialog_key = "EUVITOWN_KID_DIALOG"
 path = [ "Right", "Stand", "Left", "Stand" ]
 durations = [ 5, 1, 5, 1 ]
@@ -50,5 +53,10 @@ loop = true
 [node name="Character" parent="." instance=ExtResource( 3 )]
 position = Vector2( 200, 24 )
 script = ExtResource( 7 )
-faced_direction = "Down"
 textures = ExtResource( 6 )
+faced_direction = "Down"
+
+[node name="PPHouseTeleporter" parent="." instance=ExtResource( 8 )]
+position = Vector2( 440, 248 )
+_map_name = "MapHouse"
+_position = Vector2( 1, 1 )

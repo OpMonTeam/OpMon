@@ -18,7 +18,7 @@ func _ready():
 		var popmon = OpMon.new("", load("res://OpMon-Data/GodotResources/Species/Furnurus.tres"), 10, 
 		[tackle, growl, null, null], bot_nature)
 		var oopmon = OpMon.new("", load("res://OpMon-Data/GodotResources/Species/Carnapple.tres"), 10, 
-		[tackle, growl, null, null], bot_nature)
+		[tackle, harden, null, null], bot_nature)
 		player_team = OpTeam.new([popmon, null, null, null, null, null])
 		opponent_team = OpTeam.new([oopmon, null, null, null, null, null])
 
@@ -29,10 +29,10 @@ func interact(player: PlayerClass):
 		return
 	_paused = true
 	change_faced_direction(player.get_direction()) # Changes the faced direction of the NPC to face the player
-	_map.pause_player()
+	_map_manager.pause_player()
 	var battle_scene = load("res://Scenes/Battle/BattleScene.tscn").instance()
 	battle_scene.init(player_team, opponent_team)
-	_map.load_interface(battle_scene)
+	_map_manager.load_interface(battle_scene)
 
 func change_faced_direction(player_faced_direction):
 	# Change the direction the NPC is facing based on the direction the player

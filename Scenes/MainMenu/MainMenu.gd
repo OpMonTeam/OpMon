@@ -42,7 +42,7 @@ func _process(_delta):
 
 func pressed(id):
 	if id == 0:
-		var map = load("res://Scenes/Maps/Map.tscn").instance()
+		var map = load("res://Scenes/Maps/MapManager.tscn").instance()
 		map.init("EuviTown", Vector2(19,19))
 		get_tree().root.add_child(map)
 		get_tree().root.remove_child(self)

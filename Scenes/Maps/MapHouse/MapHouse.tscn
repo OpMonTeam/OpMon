@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://OpMon-Data/Tileset/tileset.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Maps/Map.gd" type="Script" id=2]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 80, 48, 0, 48, 0, 0, 80, 0 )
@@ -95,6 +96,7 @@ points = PoolVector2Array( 32, 48, 0, 48, 0, 0, 32, 0 )
 4/z_index = 0
 
 [node name="MapTest" type="YSort"]
+script = ExtResource( 2 )
 
 [node name="DetailLayer" type="TileMap" parent="."]
 z_index = 1

@@ -4,8 +4,9 @@ extends "res://Scenes/Events/Interactable/Character.gd"
 const InteractableClass = preload("Interactable.gd")
 
 func _input(event):
-	if event.is_action_pressed("ui_accept") and not Engine.editor_hint:
-		_interact()
+	if not Engine.editor_hint:
+		if event.is_action_pressed("ui_accept"):
+			_interact()
 
 func _process(_delta):
 	if not self._paused:
