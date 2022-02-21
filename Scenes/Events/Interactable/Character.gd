@@ -68,7 +68,7 @@ func _process(_delta):
 func _get_collider(direction: Vector2):
 	var target_position = position + direction * _constants.TILE_SIZE
 
-	var local_position = to_local(position)
+	var local_position = to_local(position) + Vector2(8,8)
 	var local_target_position = to_local(target_position)
 	$RayCast2D.position = local_position
 	$RayCast2D.cast_to = local_target_position # Sets the position to check
@@ -109,12 +109,12 @@ func move(direction: Vector2):
 		next += (direction * _constants.TILE_SIZE) # Adds the movement to the current position.
 		ret = true
 		# Reserves the next tile so no other character can go on the same one.
-		$TileReservation.set_position(direction * _constants.TILE_SIZE)
+		$TileReservation.set_position(direction  * _constants.TILE_SIZE + Vector2(8,8))
 		# Makes the collision used for the reservation move against the player's movements
 		# so it stays in the same tile on the map.
 		$TileReservation.get_node("Tween").interpolate_property(
 			$TileReservation, "position", $TileReservation.position, 
-			Vector2.ZERO, _constants.WALK_SPEED, 
+			$CharacterCollision.position, _constants.WALK_SPEED, 
 			Tween.TRANS_LINEAR, Tween.EASE_IN)
 		$TileReservation.get_node("Tween").start()
 		$TileReservation.disabled = false

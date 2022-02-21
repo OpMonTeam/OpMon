@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://OpMon-Data/Tileset/Ground.tres" type="TileSet" id=1]
 [ext_resource path="res://OpMon-Data/Tileset/Static.tres" type="TileSet" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://Scenes/Events/Interactable/BetaNPC.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/Events/Trigger/Teleporter.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Maps/Map.gd" type="Script" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 448, 536 )
 
 [node name="EuviTown" type="YSort"]
 script = ExtResource( 9 )
@@ -43,7 +46,7 @@ __meta__ = {
 }
 
 [node name="Kid" parent="." instance=ExtResource( 3 )]
-position = Vector2( 168, 104 )
+position = Vector2( 176, 96 )
 script = ExtResource( 4 )
 textures = ExtResource( 5 )
 faced_direction = "Down"
@@ -53,12 +56,19 @@ durations = [ 5, 1, 5, 1 ]
 loop = true
 
 [node name="Character" parent="." instance=ExtResource( 3 )]
-position = Vector2( 200, 24 )
+position = Vector2( 192, 16 )
 script = ExtResource( 7 )
 textures = ExtResource( 6 )
 faced_direction = "Down"
 
 [node name="PPHouseTeleporter" parent="." instance=ExtResource( 8 )]
-position = Vector2( 440, 248 )
+position = Vector2( 432, 240 )
 _map_name = "MapHouse"
 _position = Vector2( 1, 1 )
+
+[node name="MapZone" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionRect" type="CollisionShape2D" parent="MapZone"]
+position = Vector2( 360, 352 )
+shape = SubResource( 1 )

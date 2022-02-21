@@ -10,6 +10,8 @@ export(Array, Vector2) var adjacent_maps_positions := [] setget set_adjacent_map
 
 var adjacent_maps_editor := {}
 
+var zone: Area2D
+
 func set_adjacent_maps(new_adjacent_maps):
 	if Engine.editor_hint:
 		adjacent_maps = new_adjacent_maps
@@ -49,3 +51,4 @@ func _ready():
 		for map in keys:
 			adjacent_maps_editor[map].queue_free()
 			adjacent_maps_editor.erase(map)
+		zone = $MapZone

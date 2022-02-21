@@ -72,7 +72,7 @@ func change_map(map_name: String, player_pos: Vector2):
 	load_map(map_name)
 	maps[map_name].add_child(player_instance)
 	player_current_map = map_name
-	player_instance.position = player_pos * (_constants.TILE_SIZE / 2)
+	player_instance.position = player_pos * (_constants.TILE_SIZE)
 	
 # Unloads the given map, returns true if succeded
 # Returns false if fails because the map given isn’t loaded.
