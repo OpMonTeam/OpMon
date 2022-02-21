@@ -12,6 +12,8 @@
 
 [node name="EuviTown" type="YSort"]
 script = ExtResource( 9 )
+adjacent_maps = [ "MapTest" ]
+adjacent_maps_positions = [ Vector2( 51, 9 ) ]
 
 [node name="Base" type="TileMap" parent="."]
 z_index = -2
