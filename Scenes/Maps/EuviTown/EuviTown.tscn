@@ -11,11 +11,11 @@
 [ext_resource path="res://Scenes/Maps/Map.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 448, 536 )
+extents = Vector2( 432, 488 )
 
 [node name="EuviTown" type="YSort"]
 script = ExtResource( 9 )
-adjacent_maps = [ "MapTest" ]
+adjacent_maps_names = [ "MapTest" ]
 adjacent_maps_positions = [ Vector2( 51, 9 ) ]
 
 [node name="Base" type="TileMap" parent="."]
@@ -70,5 +70,7 @@ _position = Vector2( 1, 1 )
 visible = false
 
 [node name="CollisionRect" type="CollisionShape2D" parent="MapZone"]
-position = Vector2( 360, 352 )
+position = Vector2( 368, 344 )
 shape = SubResource( 1 )
+
+[connection signal="body_entered" from="MapZone" to="." method="_on_map_entered"]

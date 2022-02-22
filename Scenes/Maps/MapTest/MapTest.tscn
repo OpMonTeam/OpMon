@@ -86,10 +86,12 @@ points = PoolVector2Array( 32, 48, 0, 48, 0, 0, 32, 0 )
 3/z_index = 0
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 232, 176 )
+extents = Vector2( 208, 152 )
 
 [node name="MapTest" type="YSort"]
 script = ExtResource( 6 )
+adjacent_maps_names = [ "EuviTown" ]
+adjacent_maps_positions = [ Vector2( -51, -9 ) ]
 
 [node name="DetailLayer" type="TileMap" parent="."]
 z_index = 1
@@ -135,3 +137,5 @@ visible = false
 [node name="CollisionRect" type="CollisionShape2D" parent="MapZone"]
 position = Vector2( 240, 152 )
 shape = SubResource( 4 )
+
+[connection signal="body_entered" from="MapZone" to="." method="_on_map_entered"]

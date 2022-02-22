@@ -7,12 +7,10 @@ const _constants = preload("res://Utils/Constants.gd")
 var _first_map := ""
 var _first_player_pos := Vector2(0,0)
 
-var maps := {}
+var current_map = null
 
-# The instance of Player used in the overworld. Contains the camera when in map mode, and is given
-# to the current map.
+# The instance of Player used in the overworld. Contains the camera.
 var player_instance: Node
-var player_current_map: String
 
 var camera_instance: Node
 
@@ -31,6 +29,7 @@ func _ready():
 	camera_instance = load(_constants.PATH_CAMERA_SCENE).instance()
 	camera_instance.set_map_mode()
 	player_instance.add_child(camera_instance)
+	add_child(player_instance)
 	change_map(_first_map, _first_player_pos)
 	
 	
@@ -55,36 +54,43 @@ func unload_interface():
 
 # Loads a map at the given position in the global MapManager
 # Does not associate the map with the player yet, only shows the map on screen
-# map_pos has to be in map coordinates (one tile = 16 px)
-func load_map(map_name: String, map_pos = Vector2(0,0)):
+# map_pos and player_pos has to be in map coordinates (one tile = 16 px) and relatively to the loaded map
+func change_map(map_name: String, player_pos = Vector2(0,0), map_pos = Vector2(0,0)):
 	print("[MAPNAGER] Loading map " + map_name)
-	maps[map_name] = load(_constants.PATH_MAP_SCENE + map_name + "/" + map_name + ".tscn").instance()
-	maps[map_name].position = map_pos * _constants.TILE_SIZE
-	add_child(maps[map_name])
-	maps[map_name].emit_signal("map_loaded")
-
-# Completely changes all loaded maps and teleports the player
-# Loads the map given at (0,0).
-# player_pos has to be in map coordinates (one tile = 16 px)
-func change_map(map_name: String, player_pos: Vector2):
-	for map in maps.keys():
-		unload_map(map)
-	load_map(map_name)
-	maps[map_name].add_child(player_instance)
-	player_current_map = map_name
-	player_instance.position = player_pos * (_constants.TILE_SIZE)
+	# Removes the old map if there is one
+	if current_map != null:
+		current_map.queue_free()
+	# Loads the new map
+	current_map = load(_constants.PATH_MAP_SCENE + map_name + "/" + map_name + ".tscn").instance()
+	current_map.connect("map_entered", self, "switch_map")
+	# Sets the positions
+	current_map.position = map_pos * _constants.TILE_SIZE
+	player_instance.position = current_map.position + player_pos * _constants.TILE_SIZE
+	# Adds the map to the tree and loads adjacent maps
+	add_child(current_map)
+	current_map.show_adjacent_maps()
+	current_map.emit_signal("map_loaded")
 	
-# Unloads the given map, returns true if succeded
-# Returns false if fails because the map given isn’t loaded.
-func unload_map(map_name: String) -> bool:
-	if maps.has(map_name):
-		if player_current_map == map_name:
-			maps[map_name].remove_child(player_instance)
-			player_current_map = ""
-		maps[map_name].queue_free()
-		maps.erase(map_name)
-		return true
-	else: return false
+# Called when the player enters a map already shown on the screen.
+func switch_map(map):
+	if map != current_map:
+		print("[MAPNAGER] Switching map")
+		# Preparing the deletion of the current map
+		current_map.remove_child(map)
+		current_map.disconnect("map_entered", self, "switch_map")
+		map.disconnect("map_entered", current_map, "on_adjacent_entered")
+		# Fixing positions
+		map.position += current_map.position
+		# Put the current map in the deletion queue
+		current_map.queue_free()
+		# Adding the new map
+		map.connect("map_entered", self, "switch_map")
+		current_map = map
+		add_child(current_map)
+		current_map.show_adjacent_maps()
+		current_map.emit_signal("map_loaded")
+		
+	
 	
 func fade(duration: float):
 	var fade: ColorRect = load(_constants.PATH_FADE_SCENE).instance()
