@@ -4,6 +4,11 @@ extends "res://Scenes/Events/Interactable/Interactable.gd"
 
 export var textures: SpriteFrames setget set_textures
 
+# Signal launched when the character finishes walking on a square (and will be going onto the next one
+# one if its programmation tells so)
+# At this moment, the player’s position is exactly aligned with the tiles.
+signal square_tick
+
 export(String, "Left", "Right", "Up", "Down") var faced_direction: String setget set_faced_direction
 
 var _faced_direction: Vector2
@@ -66,11 +71,8 @@ func _process(_delta):
 	
 
 func _get_collider(direction: Vector2):
-	var target_position = position + direction * _constants.TILE_SIZE
-
-	var local_position = to_local(position) + Vector2(8,8)
-	var local_target_position = to_local(target_position)
-	$RayCast2D.position = local_position
+	var local_target_position = direction * _constants.TILE_SIZE
+	var raycast = $RayCast2D
 	$RayCast2D.cast_to = local_target_position # Sets the position to check
 	$RayCast2D.force_raycast_update ( )
 	if $RayCast2D.is_colliding(): # Checks the collision
@@ -152,6 +154,7 @@ func _check_pending_interaction():
 # The movement is stopped if it has explicitely been stopped by calling stop_move
 # Function connected to the end of the Tween
 func _end_move(_object, _key):
+	emit_signal("square_tick")
 	_check_pending_interaction()
 	# This method might set _moving to true if the player continues moving
 	if _moving == Vector2.ZERO or _paused: # If not, then the movement is over, stop the animation

@@ -132,7 +132,6 @@ _map_name = "MapHouse"
 _position = Vector2( 3, 3 )
 
 [node name="MapZone" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionRect" type="CollisionShape2D" parent="MapZone"]
 position = Vector2( 240, 152 )

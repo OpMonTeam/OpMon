@@ -7,7 +7,7 @@
 [ext_resource path="res://OpMon-Data/Sprites/chara/kid.tres" type="SpriteFrames" id=5]
 [ext_resource path="res://OpMon-Data/Sprites/chara/beta/beta.tres" type="SpriteFrames" id=6]
 [ext_resource path="res://Scenes/Events/Interactable/BetaNPC.gd" type="Script" id=7]
-[ext_resource path="res://Scenes/Events/Trigger/Teleporter.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Events/Trigger/Door.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Maps/Map.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -61,13 +61,13 @@ script = ExtResource( 7 )
 textures = ExtResource( 6 )
 faced_direction = "Down"
 
-[node name="PPHouseTeleporter" parent="." instance=ExtResource( 8 )]
+[node name="ProtagHouseDoor" parent="." instance=ExtResource( 8 )]
 position = Vector2( 432, 240 )
 _map_name = "MapHouse"
 _position = Vector2( 1, 1 )
+animation = "wooden_door"
 
 [node name="MapZone" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionRect" type="CollisionShape2D" parent="MapZone"]
 position = Vector2( 368, 344 )

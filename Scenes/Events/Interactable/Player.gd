@@ -41,6 +41,7 @@ func _interact():
 
 # Function connected to the end of the Tween
 func _end_move(_object, _key):
+	emit_signal("square_tick")
 	_moving = Vector2.ZERO
 	_check_move()
 	if _moving == Vector2.ZERO: # If not, then the movement is over, stop the animation
