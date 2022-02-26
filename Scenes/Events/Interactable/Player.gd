@@ -5,7 +5,7 @@ const InteractableClass = preload("Interactable.gd")
 
 func _input(event):
 	if not Engine.editor_hint:
-		if event.is_action_pressed("ui_accept"):
+		if event.is_action_pressed("ui_accept") and not _paused:
 			_interact()
 
 func _process(_delta):
