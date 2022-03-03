@@ -16,7 +16,7 @@ This case is the simplest: just create a pull request or contact us on Discord w
 
 ### Contributing to open projects
 You can also choose to contribute to one of the different projects exposed in [the Projects tab](https://github.com/OpMonTeam/OpMon/projects?type=beta) with
-[Code] at the beginning of the name.
+[Code] at the beginning of the name.  
 In this case, you can be assigned to a task so people know you’re working on it to avoid having two people working separately on the same item. However, to
 avoid something being reserved too long, we ask you to report your progress at least every week (a commit is counted as progress report, we just want to
 be assured you’re still on it).  
@@ -45,7 +45,7 @@ edit, or you can tell us on the Discord server so we do it for you (crediting yo
 
 ### Contributing to open projects
 You can also choose to contribute to one of the different projects exposed in [the Projects tab](https://github.com/OpMonTeam/OpMon/projects?type=beta) with
-[Data] at the beginning of the game.
+[Data] at the beginning of the game. (Note: if you want to add maps, please read [this paragraph](#adding-maps).)  
 In this case, you can be assigned to a task so people know you’re working on it to avoid having two people working separately on the same item. However, to
 avoid something being reserved too long, we ask you to report your progress at least every week (a commit is counted as progress report, we just want to
 be assured you’re still on it).  
@@ -58,10 +58,16 @@ If two weeks pass without any progress report, you’ll be unassigned from the t
 
 ### Adding new content
 You can also add content to the game! That can be OpMons, moves, items, even maps, characters… However, keep in mind that the content you submit have to
-be compatible with the current content. I’m especially thiking about maps, that have to be placed on the region map, so please,
-read [this thread about the map](https://github.com/OpMonTeam/OpMon/discussions/13) before putting hours of work into something that can be incompatible
-with the current taken decisions.
+be compatible with the current content.
 To submit your content, you can directly create a pull request, or you can contact us on Discord.  
 Note that we highly recommend you of submitting your content in
 [the review category of the forum](https://github.com/OpMonTeam/OpMon/discussions/categories/review-criticism) so it can be improved before adding
 it to the game.
+
+#### Adding Maps
+If you want to add maps, please read [this thread about the map](https://github.com/OpMonTeam/OpMon/discussions/13) before putting hours of work into something that can be incompatible with the taken directions. You can also check [the Projects tab](https://github.com/OpMonTeam/OpMon/projects?type=beta) to see what maps
+has to been created soon.  
+If you want to create a map that is already planned in the region, please contact Cyrielle first so you can have a more precise description of its intended atmosphere.
+
+#### Contributing to the story
+The development of the story is lead by Cyrielle. The scenario is not finished yet, but will be posted in the forum when it’ll be advanced enough. You will then be able to give your (constructive) opinion about it and new ideas. The story is closed to contributions until then.
