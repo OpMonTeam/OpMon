@@ -16,7 +16,7 @@ This case is the simplest: just create a pull request or contact us on Discord w
 
 ### Contributing to open projects
 You can also choose to contribute to one of the different projects exposed in [the Projects tab](https://github.com/OpMonTeam/OpMon/projects?type=beta) with
-[Code] at the beginning of the name.  
+[Code] at the beginning of the name. You can also search within the issues with the code label.  
 In this case, you can be assigned to a task so people know you’re working on it to avoid having two people working separately on the same item. However, to
 avoid something being reserved too long, we ask you to report your progress at least every week (a commit is counted as progress report, we just want to
 be assured you’re still on it).  
@@ -45,7 +45,7 @@ edit, or you can tell us on the Discord server so we do it for you (crediting yo
 
 ### Contributing to open projects
 You can also choose to contribute to one of the different projects exposed in [the Projects tab](https://github.com/OpMonTeam/OpMon/projects?type=beta) with
-[Data] at the beginning of the game. (Note: if you want to add maps, please read [this paragraph](#adding-maps).)  
+[Data] at the beginning of the game. You can also search within the issues with the graphics or maps label. (Note: if you want to add maps, please read [this paragraph](#adding-maps).)  
 In this case, you can be assigned to a task so people know you’re working on it to avoid having two people working separately on the same item. However, to
 avoid something being reserved too long, we ask you to report your progress at least every week (a commit is counted as progress report, we just want to
 be assured you’re still on it).  
