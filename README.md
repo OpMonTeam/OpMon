@@ -1,6 +1,6 @@
 # Welcome to Project OpMon Lazuli!
 
-OpMon is a Pokémon-inspired game project imagined in 2012 and started in september 2016. Quite a long and unstable development since we were beginners at the time: we started in high school, and now we’re in university. The project has be restarted multiple times, but we decided it’s time to finish it once and for all so we switched from C++ to Godot: this was the final reboot.  
+OpMon is a Pokémon-inspired game project imagined in 2012 and started in september 2016. Quite a long and unstable development since we were beginners at the time: we started in high school, and now we’re in university. The project has been restarted multiple times, but we decided it’s time to finish it once and for all so we switched from C++ to Godot: this was the final reboot.
 
 ## Contributing
 
