@@ -2,7 +2,7 @@
 
 Hello there! So you want to contribute to the project? Here are the things you can do.
 * [Contributing to the code](#contributing-to-the-code)
-* [Contributing outside the code](contributing-outside-the-code)
+* [Contributing outside the code](#contributing-outside-the-code)
 
 ## Contributing to the code
 First of all, if you want to contribute to the code, keep in mind that we have OpMon-Data as a subrepository! Read [this file](https://github.com/OpMonTeam/OpMon-Data/blob/master/README.md) to understand how to use it.
