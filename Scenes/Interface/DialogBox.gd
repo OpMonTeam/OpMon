@@ -51,8 +51,8 @@ func go():
 	$NinePatchRect/DialArrow.get_node("AnimationPlayer").playback_active = true
 
 func _ready():
-	if _map != null:
-		_map.pause_player() # Pauses the player to prevent the character from moving during the dialog
+	if _map_manager != null:
+		_map_manager.pause_player() # Pauses the player to prevent the character from moving during the dialog
 
 	# Prepare the timer
 	_timer = Timer.new()

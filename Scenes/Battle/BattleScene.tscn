@@ -2,13 +2,13 @@
 
 [ext_resource path="res://Scenes/Battle/BattleScene.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Battle/BaseDialog.tscn" type="PackedScene" id=2]
-[ext_resource path="res://OpMon-Data/Sprites/battle/square_1.png" type="Texture" id=3]
-[ext_resource path="res://OpMon-Data/Sprites/battle/health_jauge.png" type="Texture" id=4]
-[ext_resource path="res://OpMon-Data/Sprites/battle/health_bar.png" type="Texture" id=5]
+[ext_resource path="res://Data/Sprites/battle/square_1.png" type="Texture" id=3]
+[ext_resource path="res://Data/Sprites/battle/health_jauge.png" type="Texture" id=4]
+[ext_resource path="res://Data/Sprites/battle/health_bar.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Battle/TextDialog.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFontData" id=1]
-font_path = "res://OpMon-Data/Fonts/main_font.ttf"
+font_path = "res://Data/Fonts/main_font.ttf"
 
 [sub_resource type="DynamicFont" id=2]
 size = 24

@@ -1,11 +1,11 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://OpMon-Data/Sprites/UI/arrChoice.png" type="Texture" id=1]
-[ext_resource path="res://OpMon-Data/Backgrounds/menuframe.png" type="Texture" id=2]
+[ext_resource path="res://Data/Sprites/UI/arrChoice.png" type="Texture" id=1]
+[ext_resource path="res://Data/Backgrounds/menuframe.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Battle/MoveDialog.gd" type="Script" id=3]
 
 [sub_resource type="DynamicFontData" id=1]
-font_path = "res://OpMon-Data/Fonts/main_font.ttf"
+font_path = "res://Data/Fonts/main_font.ttf"
 
 [sub_resource type="DynamicFont" id=5]
 font_data = SubResource( 1 )

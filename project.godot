@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "ChangeStatEffect",
 "language": "GDScript",
-"path": "res://OpMon-Data/GodotResources/Moves/Effects/ChangeStatEffect.gd"
+"path": "res://Data/GodotResources/Moves/Effects/ChangeStatEffect.gd"
 }, {
 "base": "Control",
 "class": "Interface",
@@ -160,4 +160,4 @@ menu={
 
 [locale]
 
-translations=PoolStringArray( "res://OpMon-Data/translations.en.translation", "res://OpMon-Data/translations.fr.translation" )
+translations=PoolStringArray( "res://Data/translations.en.translation", "res://Data/translations.fr.translation" )

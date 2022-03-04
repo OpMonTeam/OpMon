@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://Objects/Move.gd" type="Script" id=1]
+[ext_resource path="res://OpMon-Data/GodotResources/Moves/Effects/ChangeStatEffect.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+stat = 1
+change = 1
+to_opponent = false
+
+[resource]
+script = ExtResource( 1 )
+name = "MOVENAME_HARDEN"
+power = 0
+type = 9
+accuracy = 100
+category = 2
+never_fails = true
+max_power_points = 30
+priority = 0
+pre_effect = [ SubResource( 1 ) ]
+post_effect = [  ]
+fail_effect = [  ]

@@ -3,7 +3,7 @@
 [ext_resource path="res://Scenes/GameMenu/GameMenu.gd" type="Script" id=1]
 
 [sub_resource type="DynamicFontData" id=1]
-font_path = "res://OpMon-Data/Fonts/main_font.ttf"
+font_path = "res://Data/Fonts/main_font.ttf"
 
 [sub_resource type="DynamicFont" id=2]
 size = 23
