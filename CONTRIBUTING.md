@@ -1,14 +1,11 @@
 # Contribute to the OpMon project
 
 Hello there! So you want to contribute to the project? Here are the things you can do.
-* [Contributing to the code](https://github.com/OpMonTeam/OpMon/blob/master/CONTRIBUTING.md#contributing-to-the-code)
-* [Contributing outside the code](https://github.com/OpMonTeam/OpMon/blob/master/CONTRIBUTING.md#contributing-outside-the-code)
+* [Contributing to the code](#contributing-to-the-code)
+* [Contributing outside the code](contributing-outside-the-code)
 
 ## Contributing to the code
-First of all, if you want to contribute to the code, keep in mind that we have OpMon-Data as a subrepository!
-That means you have to manage commits in two repositories: don’t forget to also fork OpMon-Data and to change the remote
-of the OpMon-Data subrepository to yours. However, we haven’t tested this: if you have any problem, don’t hestitate to contact
-us and we’ll do what we can. If you manage to find an easy and consistent method, contact us too so we can put it in this file.
+First of all, if you want to contribute to the code, keep in mind that we have OpMon-Data as a subrepository! Read [this file](https://github.com/OpMonTeam/OpMon-Data/blob/master/README.md) to understand how to use it.
 
 ### Small contributions
 What we call small contributions are basically small bug or mistake fixes, or small additions.
@@ -40,7 +37,7 @@ However, if you’re contributing very often, you can ask to join the OpMonTeam 
 Contributions outside the code are as important as contributions to the code! The procedure is quite simple, and you don’t have to master git to do so.
 
 ### Small contributions
-If you only want to fix something (a translation, a sprite, a typo…), you have to options: you can either create a pull request of the repository you want to
+If you only want to fix something (a translation, a sprite, a typo…), you have to options: you can either create a pull request on the repository you want to
 edit, or you can tell us on the Discord server so we do it for you (crediting you of course).
 
 ### Contributing to open projects
