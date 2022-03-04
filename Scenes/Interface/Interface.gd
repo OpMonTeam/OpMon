@@ -2,10 +2,10 @@ extends Control
 
 class_name Interface
 
-var _map
+var _map_manager
 
 signal closed
 
-func set_map(map: Node):
-	_map = map
-	connect("closed", _map, "unload_interface")
+func set_map(map_manager: Node):
+	_map_manager = map_manager
+	connect("closed", _map_manager, "unload_interface")
