@@ -5,7 +5,7 @@ const InteractableClass = preload("Interactable.gd")
 
 func _input(event):
 	if not Engine.editor_hint:
-		if event.is_action_pressed("ui_accept") and not _paused:
+		if event.is_action_pressed("interact") and not _paused:
 			_interact()
 
 func _process(_delta):
@@ -22,8 +22,8 @@ func _check_move():
 		move(input_direction) # Move in this direction
 
 func _get_input_direction():
-	var horizontal_input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	var vertical_input = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	var horizontal_input = Input.get_action_strength("right") - Input.get_action_strength("left")
+	var vertical_input = Input.get_action_strength("down") - Input.get_action_strength("up")
 
 	if abs(horizontal_input) > abs(vertical_input):
 		return Vector2(horizontal_input, 0)

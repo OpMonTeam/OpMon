@@ -20,9 +20,11 @@ var camera_instance: Camera2D
 
 var interface = null
 
-# Sets the number of frames to wait before unpausing the player
-# -1 if the player has not to be unpaused
-var unpause_player_delay := -1
+# Sets a cooldown after closing the interface
+# During the cooldown, the player is still paused and the menu can’t open
+# Unpauses the player at the end of the cooldown
+# -1 if the cooldown is over
+var interface_closed_delay := -1
 
 func init(p_first_map: String, p_first_player_pos: Vector2):
 	_first_map = p_first_map
@@ -35,11 +37,17 @@ func _ready():
 	player_instance.add_child(camera_instance)
 	change_map(_first_map, _first_player_pos)
 	
+func _input(event):
+	if event.is_action_pressed("menu") and interface_closed_delay < 0:
+		var menu = load("res://Scenes/GameMenu/GameMenu.tscn").instance()
+		pause_player()
+		load_interface(menu)
+	
 func _process(_delta):
-	if unpause_player_delay > 0:
-		unpause_player_delay -= 1
-	elif unpause_player_delay == 0:
-		unpause_player_delay -= 1
+	if interface_closed_delay > 0:
+		interface_closed_delay -= 1
+	if interface_closed_delay == 0:
+		interface_closed_delay -= 1
 		unpause_player()
 
 func load_interface(p_interface: Node):
@@ -47,12 +55,14 @@ func load_interface(p_interface: Node):
 		interface = p_interface
 		p_interface.set_map(self)
 		$Interface.add_child(interface)
+	elif not p_interface.has_method("set_map"):
+		print("Error: the given interface doesn’t have the set_map method.")
 
 func unload_interface():
 	if interface != null:
 		interface.call_deferred("free")
 		interface = null
-		unpause_player_delay = 5
+		interface_closed_delay = 5
 
 # Loads a map at the given position in the global MapManager and erases all the current present maps
 # Does not associate the map with the player yet, only shows the map on screen

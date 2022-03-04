@@ -76,7 +76,7 @@ func _finish_current_line():
 	$NinePatchRect/Text.visible_characters = -1 # Sets all characters visible
 
 func _input(event):
-	if event.is_action_pressed("ui_accept") and not _dialog_over:
+	if event.is_action_pressed("dialog_pass") and not _dialog_over:
 		if _awaiting_next_dialog_line: # If the current dialog line already is fully printed
 			if _current_dialog_line_index < _dialog_lines.size() - 1: # If there is another
 				_start_new_line()
