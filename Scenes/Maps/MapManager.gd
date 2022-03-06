@@ -16,6 +16,8 @@ var next_map := ""
 # The instance of Player used in the overworld. Contains the camera.
 var player_instance: Node
 
+var player_data: PlayerData
+
 var camera_instance: Camera2D
 
 var interface = null
@@ -33,12 +35,13 @@ func init(p_first_map: String, p_first_player_pos: Vector2):
 func _ready():
 	player_instance = load(_constants.PATH_PLAYER_SCENE).instance()
 	camera_instance = load(_constants.PATH_CAMERA_SCENE).instance()
+	player_data = get_node("/root/PlayerData")
 	camera_instance.set_map_mode()
 	player_instance.add_child(camera_instance)
 	change_map(_first_map, _first_player_pos)
 	
 func _input(event):
-	if event.is_action_pressed("menu") and interface_closed_delay < 0:
+	if event.is_action_pressed("menu") and interface_closed_delay < 0 and not player_instance.is_moving():
 		var menu = load("res://Scenes/GameMenu/GameMenu.tscn").instance()
 		pause_player()
 		load_interface(menu)
@@ -85,6 +88,7 @@ func change_map(map_name: String, player_pos = Vector2(0,0), map_pos = Vector2(0
 	# Adds the map to the tree and loads adjacent maps
 	call_deferred("add_child", maps[current_map])
 	maps[current_map].call_deferred("add_child", player_instance)
+	player_data.current_map = current_map
 	maps[current_map].show_adjacent_maps(self, maps)
 	maps[current_map].emit_signal("map_loaded")
 
@@ -113,6 +117,7 @@ func switch_map():
 		maps[current_map].adjacent_mode(self, maps[next_map])
 		maps[next_map].main_mode(self, maps, maps[current_map])
 		current_map = next_map
+		player_data.current_map = current_map
 	next_map = ""
 	player_instance.disconnect("square_tick",self,"switch_map")
 

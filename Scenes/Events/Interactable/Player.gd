@@ -3,6 +3,12 @@ extends "res://Scenes/Events/Interactable/Character.gd"
 
 const InteractableClass = preload("Interactable.gd")
 
+var player_data: PlayerData
+
+func _ready():
+	._ready()
+	player_data = get_node("/root/PlayerData")
+
 func _input(event):
 	if not Engine.editor_hint:
 		if event.is_action_pressed("interact") and not _paused:
@@ -43,6 +49,7 @@ func _interact():
 func _end_move(_object, _key):
 	emit_signal("square_tick")
 	_moving = Vector2.ZERO
+	player_data.current_position = position / _constants.TILE_SIZE
 	_check_move()
 	if _moving == Vector2.ZERO: # If not, then the movement is over, stop the animation
 		$AnimatedSprite.stop()
