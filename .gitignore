@@ -1,6 +1,5 @@
-
-# Godot-specific ignores
-.import/
+# Godot Import files
+*.import/
 
 # Imported translations (automatically generated from CSV files)
 *.translation
