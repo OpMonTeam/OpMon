@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://Objects/Move.gd" type="Script" id=1]
-[ext_resource path="res://OpMon-Data/GodotResources/Moves/Effects/ChangeStatEffect.gd" type="Script" id=2]
+[ext_resource path="res://Data/GodotResources/Moves/Effects/ChangeStatEffect.gd" type="Script" id=2]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )

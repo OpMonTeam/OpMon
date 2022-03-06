@@ -1,0 +1,219 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/GameMenu/TeamManager.gd" type="Script" id=1]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Data/Fonts/main_font.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+font_data = SubResource( 1 )
+
+[node name="TeamManager" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 960.0
+margin_bottom = 640.0
+color = Color( 0.67451, 0.67451, 0.67451, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mon1" type="ColorRect" parent="."]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 472.0
+margin_bottom = 205.0
+rect_pivot_offset = Vector2( 400, 88 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Mon1"]
+margin_left = 112.0
+margin_top = 8.0
+margin_right = 404.0
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "{opmon_name}"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Mon1"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 104.0
+margin_bottom = 104.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mon2" type="ColorRect" parent="."]
+margin_left = 488.0
+margin_top = 24.0
+margin_right = 936.0
+margin_bottom = 205.0
+rect_pivot_offset = Vector2( 280, 96 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Mon2"]
+margin_left = 112.0
+margin_top = 8.0
+margin_right = 404.0
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "{opmon_name}"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Mon2"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 104.0
+margin_bottom = 104.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mon6" type="ColorRect" parent="."]
+margin_left = 488.0
+margin_top = 424.0
+margin_right = 936.0
+margin_bottom = 605.0
+rect_pivot_offset = Vector2( 400, 88 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Mon6"]
+margin_left = 112.0
+margin_top = 8.0
+margin_right = 404.0
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "{opmon_name}"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Mon6"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 104.0
+margin_bottom = 104.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mon5" type="ColorRect" parent="."]
+margin_left = 24.0
+margin_top = 424.0
+margin_right = 472.0
+margin_bottom = 605.0
+rect_pivot_offset = Vector2( 400, 88 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Mon5"]
+margin_left = 112.0
+margin_top = 8.0
+margin_right = 404.0
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "{opmon_name}"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Mon5"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 104.0
+margin_bottom = 104.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mon4" type="ColorRect" parent="."]
+margin_left = 488.0
+margin_top = 224.0
+margin_right = 936.0
+margin_bottom = 405.0
+rect_pivot_offset = Vector2( 400, 88 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Mon4"]
+margin_left = 112.0
+margin_top = 8.0
+margin_right = 404.0
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "{opmon_name}"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Mon4"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 104.0
+margin_bottom = 104.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mon3" type="ColorRect" parent="."]
+margin_left = 24.0
+margin_top = 224.0
+margin_right = 472.0
+margin_bottom = 405.0
+rect_pivot_offset = Vector2( 400, 88 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Mon3"]
+margin_left = 112.0
+margin_top = 8.0
+margin_right = 404.0
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "{opmon_name}"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Mon3"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 104.0
+margin_bottom = 104.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Selrect" type="ColorRect" parent="."]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 472.0
+margin_bottom = 205.0
+color = Color( 0.984314, 0.792157, 0.792157, 0.407843 )
