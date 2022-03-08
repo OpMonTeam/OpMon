@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://Objects/Species.gd" type="Script" id=1]
+[ext_resource path="res://Data/Sprites/opmon/1-0.png" type="Texture" id=2]
+[ext_resource path="res://Data/Sprites/opmon/1-1.png" type="Texture" id=3]
+
+[resource]
+script = ExtResource( 1 )
+name = "OPNAME_ROSARIN"
+opdex_number = 1
+type_1 = 10
+type_2 = 18
+height = 0.7
+weight = 6.9
+opdex_entry = ""
+base_attack = 49
+base_defense = 49
+base_special_attack = 65
+base_special_defense = 65
+base_speed = 45
+base_hp = 45
+ev_given = [ 2 ]
+capture_rate = 45
+front_texture = ExtResource( 3 )
+back_texture = ExtResource( 2 )
