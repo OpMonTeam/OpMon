@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Objects/Move.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "MOVENAME_WATERGUN"
+power = 40
+type = 3
+accuracy = 100
+category = 1
+never_fails = false
+max_power_points = 25
+priority = 0
+pre_effect = [  ]
+post_effect = [  ]
+fail_effect = [  ]
