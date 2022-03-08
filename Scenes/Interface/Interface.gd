@@ -4,7 +4,7 @@ class_name Interface
 
 var _map_manager
 
-signal closed
+signal closed(interface_id)
 
 func set_map(map_manager: Node):
 	_map_manager = map_manager

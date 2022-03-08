@@ -35,7 +35,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Mon1"]
+[node name="Name" type="Label" parent="Mon1"]
 margin_left = 112.0
 margin_top = 8.0
 margin_right = 404.0
@@ -47,7 +47,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="Mon1"]
+[node name="Pict" type="TextureRect" parent="Mon1"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 104.0
@@ -66,7 +66,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Mon2"]
+[node name="Name" type="Label" parent="Mon2"]
 margin_left = 112.0
 margin_top = 8.0
 margin_right = 404.0
@@ -78,7 +78,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="Mon2"]
+[node name="Pict" type="TextureRect" parent="Mon2"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 104.0
@@ -97,7 +97,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Mon6"]
+[node name="Name" type="Label" parent="Mon6"]
 margin_left = 112.0
 margin_top = 8.0
 margin_right = 404.0
@@ -109,7 +109,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="Mon6"]
+[node name="Pict" type="TextureRect" parent="Mon6"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 104.0
@@ -128,7 +128,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Mon5"]
+[node name="Name" type="Label" parent="Mon5"]
 margin_left = 112.0
 margin_top = 8.0
 margin_right = 404.0
@@ -140,7 +140,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="Mon5"]
+[node name="Pict" type="TextureRect" parent="Mon5"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 104.0
@@ -159,7 +159,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Mon4"]
+[node name="Name" type="Label" parent="Mon4"]
 margin_left = 112.0
 margin_top = 8.0
 margin_right = 404.0
@@ -171,7 +171,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="Mon4"]
+[node name="Pict" type="TextureRect" parent="Mon4"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 104.0
@@ -190,7 +190,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Mon3"]
+[node name="Name" type="Label" parent="Mon3"]
 margin_left = 112.0
 margin_top = 8.0
 margin_right = 404.0
@@ -202,7 +202,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="Mon3"]
+[node name="Pict" type="TextureRect" parent="Mon3"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 104.0

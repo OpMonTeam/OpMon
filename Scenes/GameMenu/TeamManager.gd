@@ -1,18 +1,27 @@
-extends Control
+extends Interface
 
 var opmons := []
+
+var team: OpTeam
 
 var selection := 0
 
 signal choice(id)
 
 func _ready():
+	team = _map_manager.player_data.team
 	opmons.append($Mon1)
 	opmons.append($Mon2)
 	opmons.append($Mon3)
 	opmons.append($Mon4)
 	opmons.append($Mon5)
 	opmons.append($Mon6)
+	for i in range(6):
+		if team.get_opmon(i) != null:
+			opmons[i].get_node("Name").text = team.get_opmon(i).get_effective_name()
+			opmons[i].get_node("Pict").texture = team.get_opmon(i).species.front_texture
+		else:
+			opmons[i].get_node("Name").text = ""
 
 func _input(event):
 	# Conditions on selection are here to avoid warping
