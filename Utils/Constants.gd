@@ -2,7 +2,7 @@ tool
 extends Node
 
 const TILE_SIZE = 16
-const WALK_SPEED = 1.0/3.0
+const WALK_SPEED = 1.0/6.0
 
 const PATH_CAMERA_SCENE = "res://Scenes/Interface/Camera.tscn"
 const PATH_DIALOG_BOX_SCENE = "res://Scenes/Interface/DialogBox.tscn"
