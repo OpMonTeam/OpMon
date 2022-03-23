@@ -80,7 +80,7 @@ func change_map(map_name: String, player_pos = Vector2(0,0), map_pos = Vector2(0
 		maps.erase(key)
 	# Loads the new map
 	current_map = map_name
-	maps[map_name] = load(_constants.PATH_MAP_SCENE + map_name + "/" + map_name + ".tscn").instance()
+	maps[map_name] = load(_constants.PATH_MAP_SCENE + map_name + ".tscn").instance()
 	maps[current_map].connect("map_entered", self, "map_entered")
 	# Sets the positions
 	maps[current_map].position = map_pos * _constants.TILE_SIZE
