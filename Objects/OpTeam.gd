@@ -17,7 +17,7 @@ func _init(team: Array):
 # Adds an OpMon to the team, if there is still room.
 # Returns true if the OpMon has been added, false otherwise.
 func add_opmon(to_add: OpMon) -> bool:
-	if(_size < 6):
+	if _size < 6 and to_add != null:
 		_team[_size] = to_add
 		_size += 1
 		return true

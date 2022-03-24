@@ -2,7 +2,7 @@ extends Interface
 
 var labels := []
 
-var options := ["res://Scenes/GameMenu/TeamManager.tscn", "", "", "", "", ""]
+var options := ["res://Scenes/Interface/Team/Team.tscn", "", "", "", "", ""]
 
 var selection := 0
 

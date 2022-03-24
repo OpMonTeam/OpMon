@@ -1,3 +1,5 @@
+# The main features of the team screen. Specific features according to the different
+# possible uses of this screen will be put in inherited classes
 extends Interface
 
 var opmons := []
@@ -25,12 +27,7 @@ func _ready():
 
 func _input(event):
 	# Conditions on selection are here to avoid warping
-	if event.is_action_pressed("ui_accept"):
-		emit_signal("choice", selection)
-		emit_signal("closed")
-	elif event.is_action_pressed("menu"):
-		emit_signal("closed")
-	elif event.is_action_pressed("ui_down") and selection != 4:
+	if event.is_action_pressed("ui_down") and selection != 4:
 		selection += 2
 	elif event.is_action_pressed("ui_up") and selection != 1:
 		selection -= 2
@@ -40,6 +37,6 @@ func _input(event):
 		selection += 1
 	if selection < 0:
 			selection = 0
-	elif selection > 5:
-		selection = 5
+	elif selection > (team.size() - 1):
+		selection = team.size() - 1
 	$Selrect.rect_position = opmons[selection].rect_position

@@ -14,6 +14,41 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Data/GodotResources/Moves/Effects/ChangeStatEffect.gd"
 }, {
+"base": "Node",
+"class": "DiscordRPC",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/DiscordRPC.gd"
+}, {
+"base": "Reference",
+"class": "DiscordRPCEnum",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/DiscordRPCEnum.gd"
+}, {
+"base": "Reference",
+"class": "IPC",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/IPC.gd"
+}, {
+"base": "Reference",
+"class": "IPCModule",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/IPCModule.gd"
+}, {
+"base": "Reference",
+"class": "IPCPayload",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/IPCPayload.gd"
+}, {
+"base": "Reference",
+"class": "IPCPipe",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/pipe/IPCPipe.gd"
+}, {
+"base": "Reference",
+"class": "IPCUtil",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/IPCUtil.gd"
+}, {
 "base": "Control",
 "class": "Interface",
 "language": "GDScript",
@@ -44,10 +79,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Objects/OpTeam.gd"
 }, {
+"base": "Reference",
+"class": "RichPresence",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresence.gd"
+}, {
+"base": "Reference",
+"class": "RichPresenceButton",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresenceButton.gd"
+}, {
+"base": "IPCModule",
+"class": "RichPresenceModule",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresenceModule.gd"
+}, {
 "base": "Resource",
 "class": "Species",
 "language": "GDScript",
 "path": "res://Objects/Species.gd"
+}, {
+"base": "",
+"class": "StreamPeerUnix",
+"language": "NativeScript",
+"path": "res://addons/godot_editor_discord_presence/godot-unix-socket/unix-socket.gdns"
 }, {
 "base": "Trigger",
 "class": "Teleporter",
@@ -58,18 +113,59 @@ _global_script_classes=[ {
 "class": "Trigger",
 "language": "GDScript",
 "path": "res://Scenes/Events/Trigger/Trigger.gd"
+}, {
+"base": "Reference",
+"class": "URLUtil",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/URLUtil.gd"
+}, {
+"base": "Reference",
+"class": "UUID",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/UUID.gd"
+}, {
+"base": "IPCPipe",
+"class": "UnixPipe",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/pipe/UnixPipe.gd"
+}, {
+"base": "IPCPayload",
+"class": "UpdateRichPresencePayload",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/UpdateRichPresencePayload.gd"
+}, {
+"base": "IPCPipe",
+"class": "WindowsPipe",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/pipe/WindowsPipe.gd"
 } ]
 _global_script_class_icons={
 "ChangeStatEffect": "",
+"DiscordRPC": "",
+"DiscordRPCEnum": "",
+"IPC": "",
+"IPCModule": "",
+"IPCPayload": "",
+"IPCPipe": "",
+"IPCUtil": "",
 "Interface": "",
 "Iteractable": "",
 "Move": "",
 "Nature": "",
 "OpMon": "",
 "OpTeam": "",
+"RichPresence": "",
+"RichPresenceButton": "",
+"RichPresenceModule": "",
 "Species": "",
+"StreamPeerUnix": "",
 "Teleporter": "",
-"Trigger": ""
+"Trigger": "",
+"URLUtil": "",
+"UUID": "",
+"UnixPipe": "",
+"UpdateRichPresencePayload": "",
+"WindowsPipe": ""
 }
 
 [application]
@@ -86,11 +182,22 @@ default_bus_layout=""
 
 PlayerData="*res://Utils/PlayerData.gd"
 
+[discord_presence]
+
+first_button/label="OpMon Website"
+first_button/url="http://opmon-game.ga"
+second_button/label="Github Repository"
+second_button/url="https://github.com/OpMonTeam/OpMon"
+
 [display]
 
 window/size/width=960
 window/size/height=640
 window/size/resizable=false
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/godot_editor_discord_presence/plugin.cfg" )
 
 [importer_defaults]
 
