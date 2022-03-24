@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Data/Tileset/Ground.tres" type="TileSet" id=1]
 [ext_resource path="res://Data/Tileset/Static.tres" type="TileSet" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scenes/Events/Interactable/BetaNPC.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/Events/Interactable/DialogNPC.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/Maps/Map.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/Events/Trigger/Teleporter.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 480, 352 )
@@ -92,5 +93,9 @@ visible = false
 [node name="CollisionRect" type="CollisionShape2D" parent="MapZone"]
 position = Vector2( -256, -80 )
 shape = SubResource( 1 )
+
+[node name="PlayerHouse_Teleporter" parent="." instance=ExtResource( 10 )]
+position = Vector2( -96.8368, -193.674 )
+_map_name = "/EuviTown/PlayerHouse"
 
 [connection signal="body_entered" from="MapZone" to="." method="_on_map_entered"]
