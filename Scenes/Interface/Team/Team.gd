@@ -8,6 +8,9 @@ var team: OpTeam
 
 var selection := 0
 
+# Avoid the ui_accept action of the Submenu to reactivate the submenu at the same time as closing it
+var accept_cooldown := 0
+
 signal choice(id)
 
 func _ready():
@@ -26,17 +29,29 @@ func _ready():
 			opmons[i].get_node("Name").text = ""
 
 func _input(event):
-	# Conditions on selection are here to avoid warping
-	if event.is_action_pressed("ui_down") and selection != 4:
-		selection += 2
-	elif event.is_action_pressed("ui_up") and selection != 1:
-		selection -= 2
-	elif event.is_action_pressed("ui_left") and selection % 2 == 1:
-		selection -= 1
-	elif event.is_action_pressed("ui_right") and selection % 2 == 0:
-		selection += 1
-	if selection < 0:
-			selection = 0
-	elif selection > (team.size() - 1):
-		selection = team.size() - 1
-	$Selrect.rect_position = opmons[selection].rect_position
+	if not $Submenu.visible and accept_cooldown == 0:
+		# Conditions on selection are here to avoid warping
+		if event.is_action_pressed("ui_down") and selection != 4:
+			selection += 2
+		elif event.is_action_pressed("ui_up") and selection != 1:
+			selection -= 2
+		elif event.is_action_pressed("ui_left") and selection % 2 == 1:
+			selection -= 1
+		elif event.is_action_pressed("ui_right") and selection % 2 == 0:
+			selection += 1
+		elif event.is_action_pressed("ui_accept"):
+			$Submenu.visible = true
+		if selection < 0:
+				selection = 0
+		elif selection > (team.size() - 1):
+			selection = team.size() - 1
+		$Selrect.rect_position = opmons[selection].rect_position
+
+func _process(_delta):
+	if accept_cooldown != 0:
+		accept_cooldown -= 1
+
+func _submenu_selection(selection):
+	$Submenu.visible = false
+	$Submenu.curpos = 0
+	accept_cooldown = 5

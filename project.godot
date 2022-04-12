@@ -104,6 +104,11 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/godot_editor_discord_presence/godot-unix-socket/unix-socket.gdns"
 }, {
+"base": "ColorRect",
+"class": "Submenu",
+"language": "GDScript",
+"path": "res://Scenes/Interface/Submenu.gd"
+}, {
 "base": "Trigger",
 "class": "Teleporter",
 "language": "GDScript",
@@ -159,6 +164,7 @@ _global_script_class_icons={
 "RichPresenceModule": "",
 "Species": "",
 "StreamPeerUnix": "",
+"Submenu": "",
 "Teleporter": "",
 "Trigger": "",
 "URLUtil": "",

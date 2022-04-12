@@ -1,18 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/GameMenu/GameMenu.gd" type="Script" id=1]
+[ext_resource path="res://Data/Fonts/main_font.ttf" type="DynamicFontData" id=2]
 
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://Data/Fonts/main_font.ttf"
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=2]
-size = 23
-font_data = SubResource( 1 )
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+Label/fonts/font = null
 
 [node name="GameMenu" type="Control"]
 anchor_right = 0.417
 anchor_bottom = 0.625
 margin_right = -0.320038
+theme = SubResource( 4 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -32,7 +35,6 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 192.0
 margin_bottom = 136.0
-custom_fonts/font = SubResource( 2 )
 text = "GAMEMENU_OPMON"
 align = 1
 valign = 1
@@ -46,7 +48,6 @@ margin_left = 208.0
 margin_top = 8.0
 margin_right = 392.0
 margin_bottom = 136.0
-custom_fonts/font = SubResource( 2 )
 text = "GAMEMENU_BAG"
 align = 1
 valign = 1
@@ -60,7 +61,6 @@ margin_left = 8.0
 margin_top = 144.0
 margin_right = 192.0
 margin_bottom = 269.0
-custom_fonts/font = SubResource( 2 )
 text = "GAMEMENU_ENCYCLOPEDIA"
 align = 1
 valign = 1
@@ -74,7 +74,6 @@ margin_left = 208.0
 margin_top = 144.0
 margin_right = 392.0
 margin_bottom = 269.0
-custom_fonts/font = SubResource( 2 )
 text = "GAMEMENU_ID"
 align = 1
 valign = 1
@@ -88,7 +87,6 @@ margin_left = 8.0
 margin_top = 269.0
 margin_right = 192.0
 margin_bottom = 394.0
-custom_fonts/font = SubResource( 2 )
 text = "GAMEMENU_SAVE"
 align = 1
 valign = 1
@@ -102,7 +100,6 @@ margin_left = 208.0
 margin_top = 269.0
 margin_right = 392.0
 margin_bottom = 394.0
-custom_fonts/font = SubResource( 2 )
 text = "GAMEMENU_SETTINGS"
 align = 1
 valign = 1

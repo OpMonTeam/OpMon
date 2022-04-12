@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Battle/BattleScene.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Battle/BaseDialog.tscn" type="PackedScene" id=2]
@@ -6,15 +6,19 @@
 [ext_resource path="res://Data/Sprites/battle/health_jauge.png" type="Texture" id=4]
 [ext_resource path="res://Data/Sprites/battle/health_bar.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Battle/TextDialog.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Data/Fonts/main_font.ttf" type="DynamicFontData" id=7]
 
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://Data/Fonts/main_font.ttf"
-
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 24
-font_data = SubResource( 1 )
+font_data = ExtResource( 7 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+Label/colors/font_color = Color( 0, 0, 0, 1 )
+RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
 
 [node name="BattleScene" type="Control"]
+theme = SubResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -86,8 +90,6 @@ __meta__ = {
 margin_left = 107.218
 margin_right = 317.218
 margin_bottom = 33.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
 text = "[OpMon Name]"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -98,8 +100,6 @@ margin_left = 107.218
 margin_top = 33.0
 margin_right = 317.218
 margin_bottom = 66.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
 text = "XXX / XXX"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -139,8 +139,6 @@ margin_left = 15.9999
 margin_top = 16.1956
 margin_right = 226.0
 margin_bottom = 49.1956
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 2 )
 text = "[OpMon Name]"
 __meta__ = {
 "_edit_use_anchors_": false
