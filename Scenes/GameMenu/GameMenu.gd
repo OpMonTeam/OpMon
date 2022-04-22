@@ -46,7 +46,9 @@ func _input(event):
 		elif selection > 5:
 			selection = 5
 		$ChoiceRect.rect_position = labels[selection].rect_position
-	elif subinterface_cooldown > 0:
+	
+func _process(_delta):
+	if subinterface_cooldown > 0:
 		subinterface_cooldown -= 1
 	elif subinterface_cooldown == 0:
 		subinterface_cooldown -= 1

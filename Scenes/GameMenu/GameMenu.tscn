@@ -17,9 +17,6 @@ anchor_bottom = 0.625
 margin_right = -0.320038
 theme = SubResource( 4 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Background" type="ColorRect" parent="."]
 anchor_right = 1.0

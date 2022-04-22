@@ -42,6 +42,7 @@ func set_choices(new_choices: Array):
 		
 		
 	self.rect_size = Vector2(35 + max_x, y)
+	self.rect_pivot_offset = Vector2(0, self.rect_size.y)
 
 func set_cursor_texture(new_texture: Texture):
 	cursor_texture = new_texture

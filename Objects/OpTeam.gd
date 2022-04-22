@@ -62,3 +62,9 @@ func is_ko() -> bool:
 		if(opmon != null):
 			total = total and opmon.is_ko()
 	return total
+	
+# Switches two OpMons
+func switch(index1: int, index2: int):
+	var op1 = _team[index1]
+	_team[index1] = _team[index2]
+	_team[index2] = op1
