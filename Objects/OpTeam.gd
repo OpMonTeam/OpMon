@@ -17,7 +17,7 @@ func _init(team: Array):
 # Adds an OpMon to the team, if there is still room.
 # Returns true if the OpMon has been added, false otherwise.
 func add_opmon(to_add: OpMon) -> bool:
-	if(_size < 6):
+	if _size < 6 and to_add != null:
 		_team[_size] = to_add
 		_size += 1
 		return true
@@ -62,3 +62,9 @@ func is_ko() -> bool:
 		if(opmon != null):
 			total = total and opmon.is_ko()
 	return total
+	
+# Switches two OpMons
+func switch(index1: int, index2: int):
+	var op1 = _team[index1]
+	_team[index1] = _team[index2]
+	_team[index2] = op1

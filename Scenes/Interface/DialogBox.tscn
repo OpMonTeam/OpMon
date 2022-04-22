@@ -1,10 +1,18 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Data/Fonts/main_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Data/Backgrounds/menuframe.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Interface/DialogBox.gd" type="Script" id=3]
 [ext_resource path="res://Data/Sprites/UI/arrDial.png" type="Texture" id=4]
 [ext_resource path="res://OpMon-Data/Audio/sfx/sfx_dialog_change.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Data/Fonts/main_font.ttf" type="DynamicFontData" id=6]
+
+[sub_resource type="DynamicFont" id=2]
+size = 8
+font_data = ExtResource( 6 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
+RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="Animation" id=1]
 resource_name = "idle"
@@ -26,6 +34,7 @@ tracks/0/keys = {
 margin_right = 480.0
 margin_bottom = 320.0
 rect_scale = Vector2( 2, 2 )
+theme = SubResource( 3 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -51,9 +60,6 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 248.0
 margin_bottom = 32.0
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-custom_constants/line_separation = 1
-custom_fonts/normal_font = ExtResource( 1 )
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
