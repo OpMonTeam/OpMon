@@ -148,7 +148,9 @@ class OpMove:
 					return
 			return
 		
-		# TODO: Animations here
+		# TODO: DEBUG: the animation happens after all dialog (including the "lowered opponent's attack" for growl)
+		# We want this to do the animation on the first dialog of "opmon uses move"
+		battle_scene.animate_move()
 		
 		# Calculates and applies the damages
 		if(data.category != Move.Category.STATUS):

@@ -196,6 +196,44 @@ func _dialog(text: Array):
 	$TextDialog.set_dialog_lines(text)
 	$TextDialog.go()
 
+func animate_move():
+	# TODO: take in which move is being used
+	# or better yet which tanslation actions we need to take (define them in Move.gd and pass in from OpMod.gd)
+	_action_queue.append({"method": "_animate_move", "parameters": [_player_in_action, 15]})
+
+func _animate_move(player: bool, rotation_value: float):
+	var opmon_rect: TextureRect
+	var animation_player: AnimationPlayer
+
+	# Determine whose OpMon is being animated
+	if player:
+		opmon_rect = $PlayerOpMon
+		animation_player = $PlayerOpMon/AnimationPlayer
+	else:
+		opmon_rect = $OpponentOpMon
+		animation_player = $OpponentOpMon/AnimationPlayer
+		# TODO: determine inverse for ALL kinds of translation, not just rotate
+		rotation_value = rotation_value * -1
+
+	# Set up animation data
+	var animation := Animation.new()
+	var track_index := animation.add_track(Animation.TYPE_VALUE)
+	animation.track_set_path(track_index, ".:rect_rotation")#scale")
+	animation.length = 2 # OMG this is how many keys, not how many seconds...
+	animation.track_insert_key (track_index, 0, 0)#Vector2(1,1))#opmon_rect.get_rotation())#Vector3(0,0,0), Quat(0,0,0,0), Vector3(0,0,0))
+	animation.track_insert_key (track_index, 1, rotation_value)#Vector3(0,0,0), Quat(0,0,0,0), Vector3(0,0,0)) #These do nothing...
+	animation.track_insert_key (track_index, 2, 0)#Vector2(0.5,0.5)) # WHY DOESNT THIS DE-SCALE THEM?!?
+
+	# Add animation to the scene
+	if animation_player.has_animation("opmon_rect"):
+		animation_player.remove_animation("opmon_rect")
+	animation_player.add_animation("opmon_rect", animation)
+	animation_player.playback_speed = 10
+
+	# Run the animation and advance the queue
+	animation_player.play("opmon_rect")
+	_next_action()
+
 # Calls _next_action via the animation player whose signal "animation_finished" is connected to "_health_bar_stop"
 func _update_hp(player: bool, new_value: int):
 	var hpbar:TextureProgress = $PlayerInfobox/HP if player else $OpponentInfobox/HP

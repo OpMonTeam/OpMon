@@ -37,26 +37,29 @@ margin_top = 475.0
 margin_bottom = 0.0
 
 [node name="PlayerOpMon" type="TextureRect" parent="."]
+anchor_bottom = 1.0
 margin_left = 125.0
 margin_top = 207.0
 margin_right = 425.0
-margin_bottom = 474.0
+margin_bottom = 473.0
+rect_pivot_offset = Vector2( 150, 133 )
 expand = true
 stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerOpMon"]
+method_call_mode = 1
 
 [node name="OpponentOpMon" type="TextureRect" parent="."]
 margin_left = 619.723
 margin_top = 31.8044
 margin_right = 919.723
-margin_bottom = 298.804
+margin_bottom = 297.804
+rect_pivot_offset = Vector2( 150, 133 )
 expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="OpponentOpMon"]
+method_call_mode = 1
 
 [node name="PlayerInfobox" type="TextureRect" parent="."]
 margin_left = 462.782
@@ -101,9 +104,6 @@ margin_top = 33.0
 margin_right = 317.218
 margin_bottom = 66.0
 text = "XXX / XXX"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="OpponentInfobox" type="TextureRect" parent="."]
 margin_left = 80.0001
