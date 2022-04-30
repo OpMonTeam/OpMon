@@ -196,14 +196,23 @@ func _dialog(text: Array):
 	$TextDialog.set_dialog_lines(text)
 	$TextDialog.go()
 
-func animate_move():
-	# TODO: take in which move is being used
-	# or better yet which tanslation actions we need to take (define them in Move.gd and pass in from OpMod.gd)
-	_action_queue.append({"method": "_animate_move", "parameters": [_player_in_action, 15]})
+func animate_move(transforms: Array):
 
-func _animate_move(player: bool, rotation_value: float):
+	for transform in transforms:
+		_action_queue.append({"method": "_animate_move", "parameters": [_player_in_action, transform]})
+
+func _animate_move(player: bool, transform: Array):
+
 	var opmon_rect: TextureRect
 	var animation_player: AnimationPlayer
+	var invert_transform = !player
+
+	# Map from generic transform type used in Move class and property used for OpMon container property
+	var transform_property_map = {
+		"TRANSLATE":"rect_position",
+		"ROTATE":"rect_rotation",
+		"SCALE":"rect_scale"
+		}
 
 	# Determine whose OpMon is being animated
 	if player:
@@ -213,22 +222,28 @@ func _animate_move(player: bool, rotation_value: float):
 		opmon_rect = $OpponentOpMon
 		animation_player = $OpponentOpMon/AnimationPlayer
 		# TODO: determine inverse for ALL kinds of translation, not just rotate
-		rotation_value = rotation_value * -1
+		#rotation_value = rotation_value * -1
 
 	# Set up animation data
 	var animation := Animation.new()
 	var track_index := animation.add_track(Animation.TYPE_VALUE)
-	animation.track_set_path(track_index, ".:rect_rotation")#scale")
-	animation.length = 2 # OMG this is how many keys, not how many seconds...
-	animation.track_insert_key (track_index, 0, 0)#Vector2(1,1))#opmon_rect.get_rotation())#Vector3(0,0,0), Quat(0,0,0,0), Vector3(0,0,0))
-	animation.track_insert_key (track_index, 1, rotation_value)#Vector3(0,0,0), Quat(0,0,0,0), Vector3(0,0,0)) #These do nothing...
-	animation.track_insert_key (track_index, 2, 0)#Vector2(0.5,0.5)) # WHY DOESNT THIS DE-SCALE THEM?!?
+
+	#TODO: make multiple specified transforms actually work
+	for transform_component in transform:
+
+		animation.track_set_path(track_index, ".:" + transform_property_map[transform_component["transform"]])
+		animation.length = 2 # OMG this is how many keys, not how many seconds...
+		animation.track_insert_key (track_index, 0, 0)
+		animation.track_insert_key (track_index, 1, transform_component["value"])
+		animation.track_insert_key (track_index, 2, 0)
+		# TODO: find a way to only set this once...nicely...
+		animation_player.playback_speed = transform_component["speed"]
 
 	# Add animation to the scene
 	if animation_player.has_animation("opmon_rect"):
 		animation_player.remove_animation("opmon_rect")
 	animation_player.add_animation("opmon_rect", animation)
-	animation_player.playback_speed = 10
+	#animation_player.playback_speed = 10
 
 	# Run the animation and advance the queue
 	animation_player.play("opmon_rect")
