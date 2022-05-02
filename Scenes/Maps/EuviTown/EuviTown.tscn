@@ -88,14 +88,24 @@ script = ExtResource( 8 )
 dialog_key = "EUVITOWN_PLAYER_MAILBOX"
 
 [node name="MapZone" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionRect" type="CollisionShape2D" parent="MapZone"]
+visible = false
 position = Vector2( -256, -80 )
 shape = SubResource( 1 )
 
 [node name="PlayerHouse_Teleporter" parent="." instance=ExtResource( 10 )]
 position = Vector2( -96.8368, -193.674 )
 _map_name = "/EuviTown/PlayerHouse"
+
+[node name="RivalHouse_Teleporter" parent="." instance=ExtResource( 10 )]
+position = Vector2( 113, 0 )
+_map_name = "/EuviTown/RivalHouse"
+_position = Vector2( -1, 0 )
+
+[node name="RivalHouse_Teleporter2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 129, -32 )
+_map_name = "/EuviTown/RivalHouse"
+_position = Vector2( 7, -7 )
 
 [connection signal="body_entered" from="MapZone" to="." method="_on_map_entered"]
