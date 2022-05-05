@@ -66,6 +66,12 @@ const TYPE_EFFECTIVENESS = [[0.5, 2.0, 0.5, 1.0, 1.0, 0.5, 2.0, 0.5, 0.5, 0.5, 0
 # Associative array containing named move animation sequences
 const MOVE_ANIMATIONS = {
 	"NONE": [[]],
-#	"NOD" : [[{"transform":"ROTATE","value":15,"speed":10}]]
-	"NOD" : [[{"transform":"SCALE","value":Vector2(2,2),"speed":10}]]
+	"NOD" : [[{"transform":"ROTATE","value":15,"speed":10},
+				{"transform":"SCALE","value":Vector2(1.5,1.5),"speed":10}],
+				
+				[{"transform":"ROTATE","value":30,"speed":10},
+				{"transform":"SCALE","value":Vector2(2.0,2.0),"speed":10}],
+				
+			[{"transform":"TRANSLATE","value":Vector2(10,10),"speed":10}]]
+#	"NOD" : [[{"transform":"SCALE","value":Vector2(2,2),"speed":10}]]
 	}

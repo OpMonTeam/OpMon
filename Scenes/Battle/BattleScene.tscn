@@ -41,8 +41,8 @@ anchor_bottom = 1.0
 margin_left = 125.0
 margin_top = 207.0
 margin_right = 425.0
-margin_bottom = 473.0
-rect_pivot_offset = Vector2( 150, 133 )
+margin_bottom = 474.0
+rect_pivot_offset = Vector2( 150, 267 )
 expand = true
 stretch_mode = 5
 
@@ -53,8 +53,8 @@ method_call_mode = 1
 margin_left = 619.723
 margin_top = 31.8044
 margin_right = 919.723
-margin_bottom = 297.804
-rect_pivot_offset = Vector2( 150, 133 )
+margin_bottom = 298.804
+rect_pivot_offset = Vector2( 150, 267 )
 expand = true
 stretch_mode = 6
 

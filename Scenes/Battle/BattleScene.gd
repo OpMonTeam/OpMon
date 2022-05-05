@@ -198,16 +198,21 @@ func _dialog(text: Array):
 
 func animate_move(transforms: Array):
 
+	# Go through the list of sequential stages of the animation
 	for transform in transforms:
 		_action_queue.append({"method": "_animate_move", "parameters": [_player_in_action, transform]})
 
 func _animate_move(player: bool, transform: Array):
 
-	var opmon_rect: TextureRect
-	var animation_player: AnimationPlayer
+	var active_opmon_rect: TextureRect
+	var active_opmon_animation_player: AnimationPlayer
+
 	var invert_transform = !player
 
-	# Map from generic transform type used in Move class and property used for OpMon container property
+	var animation := Animation.new()
+	var track_index
+
+	# Map from generic transform type used in Move class to property used for OpMon container property
 	var transform_property_map = {
 		"TRANSLATE":"rect_position",
 		"ROTATE":"rect_rotation",
@@ -216,37 +221,53 @@ func _animate_move(player: bool, transform: Array):
 
 	# Determine whose OpMon is being animated
 	if player:
-		opmon_rect = $PlayerOpMon
-		animation_player = $PlayerOpMon/AnimationPlayer
+		active_opmon_rect = $PlayerOpMon
+		active_opmon_animation_player = $PlayerOpMon/AnimationPlayer
 	else:
-		opmon_rect = $OpponentOpMon
-		animation_player = $OpponentOpMon/AnimationPlayer
-		# TODO: determine inverse for ALL kinds of translation, not just rotate
-		#rotation_value = rotation_value * -1
+		active_opmon_rect = $OpponentOpMon
+		active_opmon_animation_player = $OpponentOpMon/AnimationPlayer
 
-	# Set up animation data
-	var animation := Animation.new()
-	var track_index := animation.add_track(Animation.TYPE_VALUE)
-
-	#TODO: make multiple specified transforms actually work
+	# Go through the list of simultaneous transformations to play at once
 	for transform_component in transform:
 
-		animation.track_set_path(track_index, ".:" + transform_property_map[transform_component["transform"]])
-		animation.length = 2 # OMG this is how many keys, not how many seconds...
-		animation.track_insert_key (track_index, 0, 0)
-		animation.track_insert_key (track_index, 1, transform_component["value"])
-		animation.track_insert_key (track_index, 2, 0)
-		# TODO: find a way to only set this once...nicely...
-		animation_player.playback_speed = transform_component["speed"]
+		var pre_animation_value
+		var post_animation_value = transform_component["value"]
 
-	# Add animation to the scene
-	if animation_player.has_animation("opmon_rect"):
-		animation_player.remove_animation("opmon_rect")
-	animation_player.add_animation("opmon_rect", animation)
-	#animation_player.playback_speed = 10
+		track_index = animation.add_track(Animation.TYPE_VALUE)
+
+		# Save the default value for this transformation, and determine correct inversion value if necessary
+		if transform_component["transform"] == "TRANSLATE":
+			pre_animation_value = active_opmon_rect.rect_position
+			if invert_transform:
+				post_animation_value = post_animation_value * Vector2(-1,1)
+			post_animation_value = pre_animation_value + post_animation_value
+
+		elif transform_component["transform"] == "ROTATE":
+			pre_animation_value = active_opmon_rect.rect_rotation
+			if invert_transform:
+				post_animation_value = post_animation_value * -1
+			post_animation_value = post_animation_value
+
+		elif transform_component["transform"] == "SCALE":
+			pre_animation_value = active_opmon_rect.rect_scale
+			post_animation_value = post_animation_value
+
+		animation.track_set_path(track_index, ".:" + transform_property_map[transform_component["transform"]])
+		animation.length = 2
+
+		animation.track_insert_key (track_index, 0, pre_animation_value)
+		animation.track_insert_key (track_index, 1, post_animation_value)
+		animation.track_insert_key (track_index, 2, pre_animation_value)
+
+		active_opmon_animation_player.playback_speed = transform_component["speed"]
+
+	# Add animation object to the scene
+	if active_opmon_animation_player.has_animation("opmon_rect"):
+		active_opmon_animation_player.remove_animation("opmon_rect")
+	active_opmon_animation_player.add_animation("opmon_rect", animation)
 
 	# Run the animation and advance the queue
-	animation_player.play("opmon_rect")
+	active_opmon_animation_player.play("opmon_rect")
 	_next_action()
 
 # Calls _next_action via the animation player whose signal "animation_finished" is connected to "_health_bar_stop"
