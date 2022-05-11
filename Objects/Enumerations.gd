@@ -66,6 +66,15 @@ const TYPE_EFFECTIVENESS = [[0.5, 2.0, 0.5, 1.0, 1.0, 0.5, 2.0, 0.5, 0.5, 0.5, 0
 # Associative array containing named move animation sequences
 const MOVE_ANIMATIONS = {
 
+	# Example and notes
+	# This move will have an animation in 2 parts:
+	# 	1. Mon will rotate and scale at the same time, then rotate and scale back to original transform values
+	# 	2. Mon will scale only, then revert back
+	# "MOVE_NAME" :
+	# 	[[{"transform":"ROTATE","value":10,"speed":10},
+	# 		{{"transform":"SCALE","value":Vector2(1.3,1.3),"speed":10}}],
+	# 	[{"transform":"SCALE","value":Vector2(1.3,1.3),"speed":10}]]
+
 	# Default animation (no animation)
 	"NONE":
 		[[]]
