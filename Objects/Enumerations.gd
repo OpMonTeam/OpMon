@@ -65,13 +65,41 @@ const TYPE_EFFECTIVENESS = [[0.5, 2.0, 0.5, 1.0, 1.0, 0.5, 2.0, 0.5, 0.5, 0.5, 0
 
 # Associative array containing named move animation sequences
 const MOVE_ANIMATIONS = {
-	"NONE": [[]],
-	"NOD" : [[{"transform":"ROTATE","value":15,"speed":10},
-				{"transform":"SCALE","value":Vector2(1.5,1.5),"speed":10}],
-				
-				[{"transform":"ROTATE","value":30,"speed":10},
-				{"transform":"SCALE","value":Vector2(2.0,2.0),"speed":10}],
-				
-			[{"transform":"TRANSLATE","value":Vector2(10,10),"speed":10}]]
-#	"NOD" : [[{"transform":"SCALE","value":Vector2(2,2),"speed":10}]]
+
+	# Default animation (no animation)
+	"NONE":
+		[[]]
+
+	# Basic animations that are easy to combine
+	,"NOD":
+		[[{"transform":"ROTATE","value":10,"speed":10}]]
+	,"JUMP":
+		[[{"transform":"TRANSLATE","value":Vector2(0,-30),"speed":10}]]
+	,"DIP":
+		[[{"transform":"TRANSLATE","value":Vector2(0,30),"speed":10}]]
+	,"SCOOT":
+		[[{"transform":"TRANSLATE","value":Vector2(30,0),"speed":10}]]
+	,"PULSE":
+		[[{"transform":"SCALE","value":Vector2(1.3,1.3),"speed":10}]]
+
+	# Variations on the basics
+	,"BIG_NOD":
+		[[{"transform":"ROTATE","value":15,"speed":10},
+			{"transform":"SCALE","value":Vector2(1.1,1.1),"speed":10},
+			{"transform":"TRANSLATE","value":Vector2(10,0),"speed":10}]]
+	,"SLOW_DOUBLE_DIP":
+		[[{"transform":"TRANSLATE","value":Vector2(0,30),"speed":5}],
+		[{"transform":"TRANSLATE","value":Vector2(0,30),"speed":5}]]
+	,"PULSE_THEN_SCOOT":
+		[[{"transform":"SCALE","value":Vector2(1.3,1.3),"speed":10}],
+		[{"transform":"TRANSLATE","value":Vector2(30,0),"speed":10}]]
+	,"PULSING_SCOOT":
+		[[{"transform":"SCALE","value":Vector2(1.3,1.3),"speed":10},
+			{"transform":"TRANSLATE","value":Vector2(30,0),"speed":10}]]
+	,"SLOW_DIP_THEN_SCOOT":
+		[[{"transform":"TRANSLATE","value":Vector2(0,30),"speed":5}],
+		[{"transform":"TRANSLATE","value":Vector2(30,0),"speed":10}]]
+	,"SWAY":
+		[[{"transform":"TRANSLATE","value":Vector2(-30,0),"speed":5}],
+		[{"transform":"TRANSLATE","value":Vector2(30,0),"speed":5}]]
 	}

@@ -268,6 +268,8 @@ func _animate_move(player: bool, transform: Array):
 
 	# Run the animation and advance the queue
 	active_opmon_animation_player.play("opmon_rect")
+	yield(active_opmon_animation_player, "animation_finished")
+
 	_next_action()
 
 # Calls _next_action via the animation player whose signal "animation_finished" is connected to "_health_bar_stop"
