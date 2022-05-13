@@ -196,6 +196,82 @@ func _dialog(text: Array):
 	$TextDialog.set_dialog_lines(text)
 	$TextDialog.go()
 
+func animate_move(transforms: Array):
+
+	# Go through the list of sequential stages of the animation
+	for transform in transforms:
+		_action_queue.append({"method": "_animate_move", "parameters": [_player_in_action, transform]})
+
+func _animate_move(player: bool, transform: Array):
+
+	var active_opmon_rect: TextureRect
+	var active_opmon_animation_player: AnimationPlayer
+
+	var invert_transform = !player
+
+	var animation := Animation.new()
+	var track_index
+
+	# Map from generic transform type used in Move class to property used for OpMon container property
+	var transform_property_map = {
+		"TRANSLATE":"rect_position",
+		"ROTATE":"rect_rotation",
+		"SCALE":"rect_scale"
+		}
+
+	# Determine whose OpMon is being animated
+	if player:
+		active_opmon_rect = $PlayerOpMon
+		active_opmon_animation_player = $PlayerOpMon/AnimationPlayer
+	else:
+		active_opmon_rect = $OpponentOpMon
+		active_opmon_animation_player = $OpponentOpMon/AnimationPlayer
+
+	# Go through the list of simultaneous transformations to play at once
+	for transform_component in transform:
+
+		var pre_animation_value
+		var post_animation_value = transform_component["value"]
+
+		track_index = animation.add_track(Animation.TYPE_VALUE)
+
+		# Save the default value for this transformation, and determine correct inversion value if necessary
+		if transform_component["transform"] == "TRANSLATE":
+			pre_animation_value = active_opmon_rect.rect_position
+			if invert_transform:
+				post_animation_value = post_animation_value * Vector2(-1,1)
+			post_animation_value = pre_animation_value + post_animation_value
+
+		elif transform_component["transform"] == "ROTATE":
+			pre_animation_value = active_opmon_rect.rect_rotation
+			if invert_transform:
+				post_animation_value = post_animation_value * -1
+			post_animation_value = post_animation_value
+
+		elif transform_component["transform"] == "SCALE":
+			pre_animation_value = active_opmon_rect.rect_scale
+			post_animation_value = post_animation_value
+
+		animation.track_set_path(track_index, ".:" + transform_property_map[transform_component["transform"]])
+		animation.length = 2
+
+		animation.track_insert_key (track_index, 0, pre_animation_value)
+		animation.track_insert_key (track_index, 1, post_animation_value)
+		animation.track_insert_key (track_index, 2, pre_animation_value)
+
+		active_opmon_animation_player.playback_speed = transform_component["speed"]
+
+	# Add animation object to the scene
+	if active_opmon_animation_player.has_animation("opmon_rect"):
+		active_opmon_animation_player.remove_animation("opmon_rect")
+	active_opmon_animation_player.add_animation("opmon_rect", animation)
+
+	# Run the animation and advance the queue
+	active_opmon_animation_player.play("opmon_rect")
+	yield(active_opmon_animation_player, "animation_finished")
+
+	_next_action()
+
 # Calls _next_action via the animation player whose signal "animation_finished" is connected to "_health_bar_stop"
 func _update_hp(player: bool, new_value: int):
 	var hpbar:TextureProgress = $PlayerInfobox/HP if player else $OpponentInfobox/HP

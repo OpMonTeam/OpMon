@@ -27,11 +27,11 @@ export(Array, Resource) var pre_effect = []
 export(Array, Resource) var post_effect = []
 export(Array, Resource) var fail_effect = []
 
-# TODO: Add the objects related to the animations & co
+export(String) var move_animation
 
 func _init(p_name = "", p_power = 0, p_type = Type.UNKNOWN, p_accuracy = 0, p_category = Category.PHYSICAL,
 p_never_fails = false, p_max_power_points = 50, p_priority = 0, p_pre_effect = [], p_post_effect = [],
-p_fail_effect = []):
+p_fail_effect = [], p_move_animation = "NONE"):
 	name = p_name
 	power = p_power
 	type = p_type
@@ -43,3 +43,4 @@ p_fail_effect = []):
 	pre_effect = p_pre_effect
 	post_effect = p_post_effect
 	fail_effect = p_fail_effect
+	move_animation = p_move_animation

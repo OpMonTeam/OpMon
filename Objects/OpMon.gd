@@ -6,6 +6,7 @@ const Type = preload("res://Objects/Enumerations.gd").Type
 const Stats = preload("res://Objects/Enumerations.gd").Stats
 const Status = preload("res://Objects/Enumerations.gd").Status
 const TYPE_EFFECTIVENESS = preload("res://Objects/Enumerations.gd").TYPE_EFFECTIVENESS
+const MOVE_ANIMATIONS = preload("res://Objects/Enumerations.gd").MOVE_ANIMATIONS
 
 var stats = [0, 0, 0, 0, 0, 0]
 var ev = [0, 0, 0, 0, 0, 0]
@@ -120,6 +121,10 @@ class OpMove:
 	func move(battle_scene, user: OpMon, opponent: OpMon):
 		power_points -= 1
 		battle_scene.add_dialog([tr("BATTLE_MOVE_USE").replace("{opmon}",user.get_effective_name()).replace("{move}",tr(self.data.name))])
+
+		# Animate the user of the move
+		battle_scene.animate_move(MOVE_ANIMATIONS[data.move_animation])
+
 		# Checks if the move fails
 		if (100*randf()) > (data.accuracy * (user.stats[Stats.ACC] / opponent.stats[Stats.EVA])) and not data.never_fails:
 			battle_scene.move_failed()
@@ -147,8 +152,6 @@ class OpMove:
 				if not proceed:
 					return
 			return
-		
-		# TODO: Animations here
 		
 		# Calculates and applies the damages
 		if(data.category != Move.Category.STATUS):

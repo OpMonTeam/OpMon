@@ -22,3 +22,4 @@ priority = 0
 pre_effect = [ SubResource( 1 ) ]
 post_effect = [  ]
 fail_effect = [  ]
+move_animation = "SLOW_DOUBLE_DIP"
