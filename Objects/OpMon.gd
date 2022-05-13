@@ -143,7 +143,7 @@ class OpMove:
 				return
 				
 		# Checks if the move is effective
-		var effectiveness = TYPE_EFFECTIVENESS[data.type][opponent.species.type_1] * TYPE_EFFECTIVENESS[data.type][opponent.species.type_2]
+		var effectiveness = TYPE_EFFECTIVENESS[opponent.species.type_1][data.type] * TYPE_EFFECTIVENESS[data.type][opponent.species.type_2]
 		if effectiveness == 0.0:
 			battle_scene.effectiveness(effectiveness)
 			proceed = true

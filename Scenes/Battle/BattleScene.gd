@@ -27,25 +27,40 @@ var _hp_bar_animated := false
 func init(p_player_team: OpTeam, p_opponent_team: OpTeam):
 	player_team = p_player_team
 	opponent_team = p_opponent_team
-	player_opmon = player_team.get_opmon(0)
-	opponent_opmon = opponent_team.get_opmon(0)
 	
 func _enter_tree():
-	$PlayerOpMon.texture = player_opmon.species.back_texture
-	$OpponentOpMon.texture = opponent_opmon.species.front_texture
-	$PlayerInfobox/Name.text = player_opmon.get_effective_name()
-	$OpponentInfobox/Name.text = opponent_opmon.get_effective_name()
-	$PlayerInfobox/HPLabel.text = player_opmon.get_hp_string()
-	$PlayerInfobox/HP.max_value = player_opmon.stats[Stats.HP]
-	$PlayerInfobox/HP.value = player_opmon.hp
-	$OpponentInfobox/HP.max_value = opponent_opmon.stats[Stats.HP]
-	$OpponentInfobox/HP.value = opponent_opmon.hp
+	_load_opmon(player_team.get_opmon(0), true)
+	_load_opmon(opponent_team.get_opmon(0), false)
+	
 
 func _process(_delta):
 	if _hp_bar_animated:
 		_update_hp_label()
 
+# Loads a new OpMon in the battle
+# Used at the beginning of a battle and when changing of OpMon
+func _load_opmon(mon, players: bool):
+	if players:
+		player_opmon = mon
+		$PlayerOpMon.texture = player_opmon.species.back_texture
+		$PlayerInfobox/Name.text = player_opmon.get_effective_name()
+		$PlayerInfobox/HPLabel.text = player_opmon.get_hp_string()
+		$PlayerInfobox/HP.max_value = player_opmon.stats[Stats.HP]
+		$PlayerInfobox/HP.value = player_opmon.hp
+	else:
+		opponent_opmon = mon
+		$OpponentOpMon.texture = opponent_opmon.species.front_texture
+		$OpponentInfobox/Name.text = opponent_opmon.get_effective_name()
+		$OpponentInfobox/HP.max_value = opponent_opmon.stats[Stats.HP]
+		$OpponentInfobox/HP.value = opponent_opmon.hp
+
+
+###################
+###################
 # Choices of the base dialog
+###################
+###################
+
 
 func opmon_selected():
 	pass
@@ -102,7 +117,9 @@ func move_chosen(id):
 # Calls the next action to show, and ends the turn if there is no more actions to show
 func _next_action():
 	if _action_queue.empty():
-		show_base_dialog()
+		# call_deferred to allow a pause between the interaction action of closing the
+		# eventual dialog and the one of choosing "move" in the main battle menu
+		call_deferred("show_base_dialog")
 		$TextDialog.visible = false
 	else:
 		var action = _action_queue.pop_front()
@@ -121,9 +138,14 @@ func ko():
 	else:
 		add_dialog([tr("BATTLE_KO").replace("{opmon}", opponent_opmon.get_effective_name())])
 	_action_queue.append({"method": "_ko", "parameters":[]})
-	
 
+
+###################
+###################
 # Methods queuing actions
+###################
+###################
+
 
 # The "text" parameter must be an array of Strings where one element is printed on one dialog.
 # Make sure the text is not too long to be shown.
@@ -186,21 +208,31 @@ const effectiveness_texts = {
 func effectiveness(factor: float):
 	if factor != 1.0:
 		add_dialog([tr(effectiveness_texts[factor])])
-	
-# Methods executing actions
-# Every action must, by one way or another, call back _next_action to continue the chain
 
-# Calls _next_action via $TextDialog whose signal "dialog_over" is connected to _next_action
-func _dialog(text: Array):
-	$TextDialog.reset()
-	$TextDialog.set_dialog_lines(text)
-	$TextDialog.go()
 
 func animate_move(transforms: Array):
 
 	# Go through the list of sequential stages of the animation
 	for transform in transforms:
 		_action_queue.append({"method": "_animate_move", "parameters": [_player_in_action, transform]})
+
+func close():
+	_action_queue.append({"method": "_close", "parameters": []})
+
+
+###################
+###################
+# Methods executing actions
+# Every action must, by one way or another, call back _next_action to continue the chain
+###################
+###################
+
+
+# Calls _next_action via $TextDialog whose signal "dialog_over" is connected to _next_action
+func _dialog(text: Array):
+	$TextDialog.reset()
+	$TextDialog.set_dialog_lines(text)
+	$TextDialog.go()
 
 func _animate_move(player: bool, transform: Array):
 
@@ -295,5 +327,16 @@ func _health_bar_stop(_anim_name):
 	_hp_bar_animated = false
 	_next_action()
 	
+# Always the last action by construction since added after the calculations
+# and stops them if added
 func _ko():
+	if player_team.is_ko() or opponent_team.is_ko():
+		emit_signal("closed")
+	else:
+		var ko_team = player_team if player_opmon.is_ko() else opponent_team
+		_load_opmon(ko_team.next_available(), player_opmon.is_ko())
+	_next_action()
+	
+	
+func _close():
 	emit_signal("closed")

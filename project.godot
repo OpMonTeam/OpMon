@@ -188,7 +188,6 @@ default_bus_layout=""
 
 PlayerData="*res://Utils/PlayerData.gd"
 
-
 [discord_presence]
 
 first_button/label="OpMon Website"

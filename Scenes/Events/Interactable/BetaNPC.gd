@@ -12,10 +12,13 @@ func _ready():
 	if not Engine.editor_hint:
 		var tackle = load("res://Data/GodotResources/Moves/Tackle.tres")
 		var harden = load("res://Data/GodotResources/Moves/Harden.tres")
+		var ember = load("res://Data/GodotResources/Moves/Ember.tres")
 		var bot_nature = load("res://Data/GodotResources/Natures/Bot.tres")
 		var oopmon = OpMon.new("", load("res://Data/GodotResources/Species/Carnapple.tres"), 10, 
 		[tackle, harden, null, null], bot_nature)
-		opponent_team = OpTeam.new([oopmon, null, null, null, null, null])
+		var oopmon2 = OpMon.new("", load("res://Data/GodotResources/Species/Furnurus.tres"), 10, 
+		[ember, harden, tackle, null], bot_nature)
+		opponent_team = OpTeam.new([oopmon, oopmon2, null, null, null, null])
 
 # Called when the player interacts with the NPC
 func interact(player: PlayerClass):
