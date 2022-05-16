@@ -11,6 +11,7 @@ GAMEMENU_ID,ID Card,Dresseur
 GAMEMENU_SAVE,Save,Sauvegarde
 GAMEMENU_SETTINGS,Settings,Paramètres
 TEAMMANAGER_ORDER,Order,Ordre
+TEAMMANAGER_SELECT,Select,Sélectionner
 STAT_CHANGE_ATK,attack,L'attaque
 STAT_CHANGE_DEF,defense,La défense
 STAT_CHANGE_ATKSPE,special attack,L'attaque spéciale

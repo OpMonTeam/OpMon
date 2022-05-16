@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Interface/Team/Team.gd" type="Script" id=1]
 [ext_resource path="res://Data/Fonts/main_font.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Scenes/Interface/Submenu.gd" type="Script" id=3]
 [ext_resource path="res://Data/Sprites/UI/arrChoice.png" type="Texture" id=4]
+[ext_resource path="res://OpMon-Data/Audio/sfx/sfx_nope.ogg" type="AudioStream" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -228,5 +229,9 @@ color = Color( 0.96, 0.96, 0.96, 1 )
 script = ExtResource( 3 )
 choices = [ "TEAMMANAGER_ORDER", "MENU_BACK" ]
 cursor_texture = ExtResource( 4 )
+
+[node name="Nope" type="AudioStreamPlayer" parent="."]
+pause_mode = 1
+stream = ExtResource( 5 )
 
 [connection signal="choice" from="Submenu" to="." method="_submenu_selection"]

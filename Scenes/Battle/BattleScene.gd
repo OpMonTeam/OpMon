@@ -61,11 +61,44 @@ func _load_opmon(mon, players: bool):
 ###################
 ###################
 
+var opmon_choser = null
 
-func opmon_selected():
-	pass
-	
-func item_selected():
+func _load_opmon_choser() -> void:
+	opmon_choser = load("res://Scenes/Interface/Team/Team.tscn").instance()
+	opmon_choser.set_map(self._map_manager)
+	opmon_choser.mode = opmon_choser.Mode.CHOSER
+	add_child(opmon_choser)
+	opmon_choser.connect("choice", self, "change_opmon")
+	opmon_choser.disconnect("closed", _map_manager, "unload_interface")
+	opmon_choser.connect("closed", self, "no_opmon_changed")
+
+func opmon_selected() -> void:
+	if opmon_choser == null:
+		_load_opmon_choser()
+	else:
+		opmon_choser.reset()
+		opmon_choser.visible = true
+	$BaseDialog.visible = false # Disables the base dialog
+
+# Connected to signal "choice" of opmon_choser
+func change_opmon(selection: int) -> void:
+	if selection == -1:
+		no_opmon_changed()
+	elif player_team.get_opmon(selection) == player_opmon:
+		no_opmon_changed()
+	else:
+		# Should not be K.O nor null since Team handle those cases
+		_load_opmon(player_team.get_opmon(selection), true)
+		opmon_choser.visible = false
+		$BaseDialog.visible = true
+
+# If the opmon selector has not selected any OpMon
+# Connected to sigal "closed" of opmon_choser
+func no_opmon_changed() -> void:
+	$BaseDialog.visible = true
+	opmon_choser.visible = false
+
+func item_selected() -> void:
 	pass
 
 # When the move choice has been selected in the base menu

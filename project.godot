@@ -190,9 +190,9 @@ PlayerData="*res://Utils/PlayerData.gd"
 
 [discord_presence]
 
-first_button/label="OpMon Website"
+first_button/label=""
 first_button/url="http://opmon-game.ga"
-second_button/label="Github Repository"
+second_button/label=""
 second_button/url="https://github.com/OpMonTeam/OpMon"
 
 [display]
