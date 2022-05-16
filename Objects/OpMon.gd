@@ -51,7 +51,7 @@ func _init(p_nickname: String, p_species: Species, p_level: int, p_moves: Array,
 
 # Returns the final statistics of the OpMon, with the in-battle modifications
 func get_effective_stats() -> Array:
-	var effective_stats = stats
+	var effective_stats = stats.duplicate(true)
 	# Accuracy and evasion
 	effective_stats.append(100)
 	effective_stats.append(100)
@@ -126,7 +126,7 @@ class OpMove:
 		battle_scene.animate_move(MOVE_ANIMATIONS[data.move_animation])
 
 		# Checks if the move fails
-		if (100*randf()) > (data.accuracy * (user.stats[Stats.ACC] / opponent.stats[Stats.EVA])) and not data.never_fails:
+		if (100*randf()) > (data.accuracy * (user.get_effective_stats()[Stats.ACC] / opponent.get_effective_stats()[Stats.EVA])) and not data.never_fails:
 			battle_scene.move_failed()
 			var proceed = true
 			for e in data.fail_effect:

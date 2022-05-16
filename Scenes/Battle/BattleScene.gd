@@ -76,7 +76,6 @@ func opmon_selected() -> void:
 	if opmon_choser == null:
 		_load_opmon_choser()
 	else:
-		opmon_choser.reset()
 		opmon_choser.visible = true
 	$BaseDialog.visible = false # Disables the base dialog
 
@@ -87,16 +86,21 @@ func change_opmon(selection: int) -> void:
 	elif player_team.get_opmon(selection) == player_opmon:
 		no_opmon_changed()
 	else:
-		# Should not be K.O nor null since Team handle those cases
-		_load_opmon(player_team.get_opmon(selection), true)
+		_player_in_action = true
+		# Adds the actions to change the OpMon visually
+		switch_opmon(selection)
+		# Changing OpMon behind the scenes for turn calculations
+		player_opmon = player_team.get_opmon(selection)
 		opmon_choser.visible = false
-		$BaseDialog.visible = true
+		opmon_choser.reset()
+		move_chosen(-1, true)
 
 # If the opmon selector has not selected any OpMon
 # Connected to sigal "closed" of opmon_choser
 func no_opmon_changed() -> void:
 	$BaseDialog.visible = true
 	opmon_choser.visible = false
+	opmon_choser.reset()
 
 func item_selected() -> void:
 	pass
@@ -113,22 +117,31 @@ func run_selected():
 	emit_signal("closed")
 
 # Called when a move has been chosen in the move selection menu
-func move_chosen(id):
-	remove_child(move_dialog)
+# Can also be called when an other action has been chosen and a turn starts (then id < 0)
+# id: the identifier of the move (-1 for no move)
+# action_priority: if the player has to act first (changing OpMon or using an item for example)
+func move_chosen(id: int, action_priority := false):
+	if id >= 0: # id == -1 means no move for this turn so no move has been selected
+				# id == -2 could mean "use struggle" in the future
+		remove_child(move_dialog)
 	$TextDialog.visible = true
 	var opponent_chosen = 0
 	
 	# Calculates the order of the turn
 	var order = []
-	var player_move_priority = player_opmon.moves[id].data.priority > opponent_opmon.moves[opponent_chosen].data.priority
-	var no_move_priority = player_opmon.moves[id].data.priority == opponent_opmon.moves[opponent_chosen].data.priority
-	var player_faster = player_opmon.get_effective_stats()[Stats.SPE] >= opponent_opmon.get_effective_stats()[Stats.SPE]
-	if player_move_priority or (no_move_priority and player_faster):
+	if action_priority:
 		order.append(player_opmon)
 		order.append(opponent_opmon)
 	else:
-		order.append(opponent_opmon)
-		order.append(player_opmon)
+		var player_move_priority = player_opmon.moves[id].data.priority > opponent_opmon.moves[opponent_chosen].data.priority
+		var no_move_priority = player_opmon.moves[id].data.priority == opponent_opmon.moves[opponent_chosen].data.priority
+		var player_faster = player_opmon.get_effective_stats()[Stats.SPE] >= opponent_opmon.get_effective_stats()[Stats.SPE]
+		if player_move_priority or (no_move_priority and player_faster):
+			order.append(player_opmon)
+			order.append(opponent_opmon)
+		else:
+			order.append(opponent_opmon)
+			order.append(player_opmon)
 	
 	# Processes the turn
 	for opmon in order:
@@ -141,7 +154,8 @@ func move_chosen(id):
 		else:
 			move = opponent_chosen
 			opponent = player_opmon
-		opmon.moves[move].move(self, opmon, opponent)
+		if move >= 0:
+			opmon.moves[move].move(self, opmon, opponent)
 		if opmon.is_ko() or opponent.is_ko():
 			ko()
 			break
@@ -252,6 +266,11 @@ func animate_move(transforms: Array):
 func close():
 	_action_queue.append({"method": "_close", "parameters": []})
 
+func switch_opmon(new_opmon: int):
+	var old_opmon_name = player_opmon.get_effective_name() if _player_in_action else opponent_opmon.get_effective_name()
+	var team = player_team if _player_in_action else opponent_team
+	add_dialog([tr("BATTLE_OPMON_CHANGE").replace("{opmon1}", old_opmon_name).replace("{opmon2}", team.get_opmon(new_opmon).get_effective_name())])
+	_action_queue.append({"method": "_switch_opmon", "parameters": [_player_in_action, new_opmon]})
 
 ###################
 ###################
@@ -369,7 +388,11 @@ func _ko():
 		var ko_team = player_team if player_opmon.is_ko() else opponent_team
 		_load_opmon(ko_team.next_available(), player_opmon.is_ko())
 	_next_action()
-	
+
+func _switch_opmon(_player_in_action: bool, new_opmon: int):
+	var team = player_team if _player_in_action else opponent_team
+	_load_opmon(team.get_opmon(new_opmon), _player_in_action)
+	_next_action()
 	
 func _close():
 	emit_signal("closed")
