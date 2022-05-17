@@ -15,6 +15,9 @@ var cooldown := 5
 func _ready():
 	for s in _signals:
 		connect(s, get_parent(), s)
+	update_idle_dialog()
+
+func update_idle_dialog():
 	$BigDialog/RichTextLabel.text = tr("BATTLE_BASEDIALOG_FILLER").replace("{opmon}",get_parent().player_opmon.get_effective_name())
 
 func _process(_delta):

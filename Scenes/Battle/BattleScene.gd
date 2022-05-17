@@ -49,6 +49,7 @@ func _load_opmon(mon, players: bool, start_hp := -1):
 		$PlayerInfobox/HPLabel.text = player_opmon.get_hp_string(start_hp)
 		$PlayerInfobox/HP.max_value = player_opmon.stats[Stats.HP]
 		$PlayerInfobox/HP.value = player_opmon.hp if start_hp < 0 else start_hp
+		$BaseDialog.update_idle_dialog()
 	else:
 		opponent_opmon = mon
 		$OpponentOpMon.texture = opponent_opmon.species.front_texture
