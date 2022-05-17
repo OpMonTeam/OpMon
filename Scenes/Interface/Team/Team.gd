@@ -5,13 +5,13 @@ extends Interface
 # All the different possible modes of the team manager screen
 enum Mode {
 	MANAGER, # The classic manager screen from the game menu
-	CHOSER, # Screen to chose one OpMon from the team
+	SELECTOR, # Screen to chose one OpMon from the team
 	REORDER # Switches the position of two OpMons
 }
 
 const SUBMENU_CHOICES := {
 	Mode.MANAGER: ["TEAMMANAGER_ORDER","MENU_BACK"],
-	Mode.CHOSER: ["TEAMMANAGER_SELECT", "MENU_BACK"]
+	Mode.SELECTOR: ["TEAMMANAGER_SELECT", "MENU_BACK"]
 }
 
 var mode = Mode.MANAGER
@@ -33,7 +33,7 @@ var _accept_cooldown := 5
 var _reorder_selection := -1
 
 # Allow choosing KO OpMons
-var choser_allow_ko := false
+var selector_allow_ko := false
 
 signal choice(id)
 
@@ -117,9 +117,9 @@ func _submenu_selection(selection):
 			mode = Mode.REORDER
 			$Selrect.color = curcolor_reorder
 			_reorder_select(self._selection)
-		elif mode == Mode.CHOSER:
+		elif mode == Mode.SELECTOR:
 			# Should not be null since the cursor can’t stand on a null OpMon
-			if not team.get_opmon(selection).is_ko():
+			if not team.get_opmon(self._selection).is_ko():
 				emit_signal("choice", self._selection)
 			else:
 				$Nope.play()

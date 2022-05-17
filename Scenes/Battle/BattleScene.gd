@@ -64,25 +64,59 @@ func _load_opmon(mon, players: bool, start_hp := -1):
 ###################
 
 
-var opmon_choser = null
+# Contains the OpMon selector, an instance of res://Scenes/Interface/Team/Team.tscn
+# It’s loaded the first time by _load_opmon_selector, and then reused
+var opmon_selector = null
 
-func _load_opmon_choser() -> void:
-	opmon_choser = load("res://Scenes/Interface/Team/Team.tscn").instance()
-	opmon_choser.set_map(self._map_manager)
-	opmon_choser.mode = opmon_choser.Mode.CHOSER
-	add_child(opmon_choser)
-	opmon_choser.connect("choice", self, "change_opmon")
-	opmon_choser.disconnect("closed", _map_manager, "unload_interface")
-	opmon_choser.connect("closed", self, "no_opmon_changed")
+# Different modes of the OpMon selector, 
+# they change the methods its signal are connected to
+enum SelectorMode {
+	SWITCHER,	# When the "OpMon" option is selected
+	KO,			# When the player chooses another OpMon after a KO
+	NONE		# Only used for initialisation when no connection has been made yet
+}
+
+# null = no connection
+var _selector_connections = {
+	SelectorMode.NONE : {"choice": null, "closed": null},
+	SelectorMode.SWITCHER : {"choice": "change_opmon", "closed": "no_opmon_changed"},
+	SelectorMode.KO : {"choice": "next_opmon_chosen_after_ko", "closed": null}
+}
+
+var _selector_mode = SelectorMode.NONE
+
+
+# Loads the OpMon selector
+func _load_opmon_selector(selector_mode) -> void:
+	opmon_selector = load("res://Scenes/Interface/Team/Team.tscn").instance()
+	opmon_selector.set_map(self._map_manager)
+	opmon_selector.mode = opmon_selector.Mode.SELECTOR
+	add_child(opmon_selector)
+	opmon_selector.disconnect("closed", _map_manager, "unload_interface")
+	_set_selector_mode(selector_mode)
+
+# Changes the mode of the opmon selector
+func _set_selector_mode(new_selector_mode) -> void:
+	if new_selector_mode != _selector_mode:
+		if _selector_connections[_selector_mode]["choice"] != null:
+			opmon_selector.disconnect("choice", self, _selector_connections[_selector_mode]["choice"])
+		if _selector_connections[_selector_mode]["closed"] != null:
+			opmon_selector.disconnect("closed", self, _selector_connections[_selector_mode]["closed"])
+		_selector_mode = new_selector_mode
+		if _selector_connections[_selector_mode]["choice"] != null:
+			opmon_selector.connect("choice", self, _selector_connections[_selector_mode]["choice"])
+		if _selector_connections[_selector_mode]["closed"] != null:
+			opmon_selector.connect("closed", self, _selector_connections[_selector_mode]["closed"])
 
 func opmon_selected() -> void:
-	if opmon_choser == null:
-		_load_opmon_choser()
+	if opmon_selector == null:
+		_load_opmon_selector(SelectorMode.SWITCHER)
 	else:
-		opmon_choser.visible = true
+		_set_selector_mode(SelectorMode.SWITCHER)
+		opmon_selector.visible = true
 	$BaseDialog.visible = false # Disables the base dialog
 
-# Connected to signal "choice" of opmon_choser
+# Connected to signal "choice" of opmon_selector
 func change_opmon(selection: int) -> void:
 	if selection == -1:
 		no_opmon_changed()
@@ -94,16 +128,16 @@ func change_opmon(selection: int) -> void:
 		switch_opmon(selection)
 		# Changing OpMon behind the scenes for turn calculations
 		player_opmon = player_team.get_opmon(selection)
-		opmon_choser.visible = false
-		opmon_choser.reset()
+		opmon_selector.visible = false
+		opmon_selector.reset()
 		move_chosen(-1, true)
 
 # If the opmon selector has not selected any OpMon
-# Connected to sigal "closed" of opmon_choser
+# Connected to sigal "closed" of opmon_selector
 func no_opmon_changed() -> void:
 	$BaseDialog.visible = true
-	opmon_choser.visible = false
-	opmon_choser.reset()
+	opmon_selector.visible = false
+	opmon_selector.reset()
 
 func item_selected() -> void:
 	pass
@@ -388,8 +422,23 @@ func _ko():
 	if player_team.is_ko() or opponent_team.is_ko():
 		emit_signal("closed")
 	else:
-		var ko_team = player_team if player_opmon.is_ko() else opponent_team
-		_load_opmon(ko_team.next_available(), player_opmon.is_ko())
+		if player_opmon.is_ko():
+			if opmon_selector == null:
+				_load_opmon_selector(SelectorMode.KO)
+			else:
+				_set_selector_mode(SelectorMode.KO)
+				opmon_selector.visible = true
+			# _next_action is called by next_opmon_chosen_after_ko, when
+			# the player selected a new OpMon
+		else:
+			_load_opmon(opponent_team.next_available(), false)
+			_next_action()
+
+# Called by the "choice" signal of the team manager screen called by _ko()
+func next_opmon_chosen_after_ko(opmon: int):
+	_load_opmon(opmon_selector.team.get_opmon(opmon), true)
+	opmon_selector.visible = false
+	opmon_selector.reset()
 	_next_action()
 
 func _switch_opmon(_player_in_action: bool, new_opmon: int, hp: int):
