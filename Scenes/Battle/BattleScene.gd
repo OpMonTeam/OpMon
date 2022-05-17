@@ -39,20 +39,22 @@ func _process(_delta):
 
 # Loads a new OpMon in the battle
 # Used at the beginning of a battle and when changing of OpMon
-func _load_opmon(mon, players: bool):
+# start_hp used to keep the HP bar showing pre-calculations HP when
+# switching of OpMon
+func _load_opmon(mon, players: bool, start_hp := -1):
 	if players:
 		player_opmon = mon
 		$PlayerOpMon.texture = player_opmon.species.back_texture
 		$PlayerInfobox/Name.text = player_opmon.get_effective_name()
-		$PlayerInfobox/HPLabel.text = player_opmon.get_hp_string()
+		$PlayerInfobox/HPLabel.text = player_opmon.get_hp_string(start_hp)
 		$PlayerInfobox/HP.max_value = player_opmon.stats[Stats.HP]
-		$PlayerInfobox/HP.value = player_opmon.hp
+		$PlayerInfobox/HP.value = player_opmon.hp if start_hp < 0 else start_hp
 	else:
 		opponent_opmon = mon
 		$OpponentOpMon.texture = opponent_opmon.species.front_texture
 		$OpponentInfobox/Name.text = opponent_opmon.get_effective_name()
 		$OpponentInfobox/HP.max_value = opponent_opmon.stats[Stats.HP]
-		$OpponentInfobox/HP.value = opponent_opmon.hp
+		$OpponentInfobox/HP.value = opponent_opmon.hp if start_hp < 0 else start_hp
 
 
 ###################
@@ -60,6 +62,7 @@ func _load_opmon(mon, players: bool):
 # Choices of the base dialog
 ###################
 ###################
+
 
 var opmon_choser = null
 
@@ -270,7 +273,7 @@ func switch_opmon(new_opmon: int):
 	var old_opmon_name = player_opmon.get_effective_name() if _player_in_action else opponent_opmon.get_effective_name()
 	var team = player_team if _player_in_action else opponent_team
 	add_dialog([tr("BATTLE_OPMON_CHANGE").replace("{opmon1}", old_opmon_name).replace("{opmon2}", team.get_opmon(new_opmon).get_effective_name())])
-	_action_queue.append({"method": "_switch_opmon", "parameters": [_player_in_action, new_opmon]})
+	_action_queue.append({"method": "_switch_opmon", "parameters": [_player_in_action, new_opmon, team.get_opmon(new_opmon).hp]})
 
 ###################
 ###################
@@ -389,9 +392,9 @@ func _ko():
 		_load_opmon(ko_team.next_available(), player_opmon.is_ko())
 	_next_action()
 
-func _switch_opmon(_player_in_action: bool, new_opmon: int):
+func _switch_opmon(_player_in_action: bool, new_opmon: int, hp: int):
 	var team = player_team if _player_in_action else opponent_team
-	_load_opmon(team.get_opmon(new_opmon), _player_in_action)
+	_load_opmon(team.get_opmon(new_opmon), _player_in_action, hp)
 	_next_action()
 	
 func _close():
