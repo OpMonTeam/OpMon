@@ -51,7 +51,7 @@ func _init(p_nickname: String, p_species: Species, p_level: int, p_moves: Array,
 
 # Returns the final statistics of the OpMon, with the in-battle modifications
 func get_effective_stats() -> Array:
-	var effective_stats = stats
+	var effective_stats = stats.duplicate(true)
 	# Accuracy and evasion
 	effective_stats.append(100)
 	effective_stats.append(100)
@@ -79,10 +79,12 @@ func get_effective_name() -> String:
 		return tr(species.name)
 	else:
 		return nickname
-		
-func get_hp_string() -> String:
+
+# Parameter: allows to get a hp string for a different hp
+func get_hp_string(hp_p := -1) -> String:
+	var hp = self.hp if hp_p < 0 else hp_p
 	return String(hp) + " / " + String(stats[Stats.HP])
-	
+
 	
 # In-battle modification of statistics, capped at ±6
 # Returns the actual modification
@@ -126,7 +128,7 @@ class OpMove:
 		battle_scene.animate_move(MOVE_ANIMATIONS[data.move_animation])
 
 		# Checks if the move fails
-		if (100*randf()) > (data.accuracy * (user.stats[Stats.ACC] / opponent.stats[Stats.EVA])) and not data.never_fails:
+		if (100*randf()) > (data.accuracy * (user.get_effective_stats()[Stats.ACC] / opponent.get_effective_stats()[Stats.EVA])) and not data.never_fails:
 			battle_scene.move_failed()
 			var proceed = true
 			for e in data.fail_effect:
@@ -143,7 +145,7 @@ class OpMove:
 				return
 				
 		# Checks if the move is effective
-		var effectiveness = TYPE_EFFECTIVENESS[data.type][opponent.species.type_1] * TYPE_EFFECTIVENESS[data.type][opponent.species.type_2]
+		var effectiveness = TYPE_EFFECTIVENESS[opponent.species.type_1][data.type] * TYPE_EFFECTIVENESS[data.type][opponent.species.type_2]
 		if effectiveness == 0.0:
 			battle_scene.effectiveness(effectiveness)
 			proceed = true

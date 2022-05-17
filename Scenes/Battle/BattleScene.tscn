@@ -20,9 +20,6 @@ RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
 [node name="BattleScene" type="Control"]
 theme = SubResource( 2 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Fond" type="ColorRect" parent="."]
 margin_right = 960.0

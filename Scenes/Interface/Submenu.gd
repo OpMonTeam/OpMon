@@ -36,7 +36,7 @@ func set_choices(new_choices: Array):
 		node.rect_position = Vector2(25, y) # 25: Leaves place for the cursor
 		cursor_positions.append(Vector2(5, y))
 		cursor_sizes.append(Vector2(15, node.rect_size.y))
-		y += node.rect_size.y + 10 # +5: Leaves place for the next label
+		y += node.rect_size.y + 10 # + 10: Leaves place for the next label
 		if max_x < node.rect_size.x:
 			max_x = node.rect_size.x
 		
@@ -63,8 +63,10 @@ func _input(event):
 	if not Engine.editor_hint and visible:
 		if event.is_action_pressed("ui_accept"):
 			emit_signal("choice", curpos)
+			curpos = 0
 		elif event.is_action_pressed("menu"):
 			emit_signal("choice", -1)
+			curpos = 0
 		elif event.is_action_pressed("ui_down") and curpos != (choices.size() - 1):
 			curpos += 1
 		elif event.is_action_pressed("ui_up") and curpos != 0:

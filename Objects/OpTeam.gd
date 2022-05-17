@@ -62,7 +62,15 @@ func is_ko() -> bool:
 		if(opmon != null):
 			total = total and opmon.is_ko()
 	return total
-	
+
+# Returns the next non-ko OpMon available, null if the team is KO
+func next_available() -> OpMon:
+	for opmon in _team:
+		if opmon != null:
+			if not opmon.is_ko():
+				return opmon
+	return null
+
 # Switches two OpMons
 func switch(index1: int, index2: int):
 	var op1 = _team[index1]
