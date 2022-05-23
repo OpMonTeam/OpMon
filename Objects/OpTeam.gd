@@ -76,3 +76,12 @@ func switch(index1: int, index2: int):
 	var op1 = _team[index1]
 	_team[index1] = _team[index2]
 	_team[index2] = op1
+	
+func save() -> Array:
+	var ret := []
+	for opmon in _team:
+		if opmon == null:
+			ret.append(null)
+		else:
+			ret.append(opmon.save())
+	return ret

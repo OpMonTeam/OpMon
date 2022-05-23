@@ -8,6 +8,7 @@ var team: OpTeam
 
 var current_map: String
 
+# The current player’s position, in tiles
 var current_position: Vector2
 
 func _ready():
@@ -24,3 +25,19 @@ func _ready():
 	var rosarin = OpMon.new("", load("res://Data/GodotResources/Species/Rosarin.tres"), 10, 
 	[tackle, growl, vine_whip, null], bot_nature)
 	team = OpTeam.new([rosarin, furnurus, nanolphin, null, null, null])
+
+func save() -> Dictionary:
+	return {
+		"current_map" : {
+			"name" : current_map,
+			"data" : null # Filled by MapManager
+		},
+		"player_character" : null, # Filled by MapManager
+		"team" : team.save(),
+		"player_name" : player_name
+	}
+
+func load_save(data: Dictionary) -> void:
+	current_map = data["current_map"]["name"]
+	team = data["team"]
+	player_name = data["player_name"]

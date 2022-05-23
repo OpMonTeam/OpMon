@@ -26,11 +26,14 @@ func _input(event):
 	if not subinterface_opened:
 		# Conditions on selection are here to avoid warping
 		if event.is_action_pressed("ui_accept"):
-			subinterface = load(options[selection]).instance()
-			subinterface._map_manager = _map_manager
-			subinterface_opened = true
-			subinterface.connect("closed", self, "close_subinterface")
-			$Subinterface.add_child(subinterface)
+			if selection == 4:
+				self._map_manager.save()
+			else:
+				subinterface = load(options[selection]).instance()
+				subinterface._map_manager = _map_manager
+				subinterface_opened = true
+				subinterface.connect("closed", self, "close_subinterface")
+				$Subinterface.add_child(subinterface)
 		elif event.is_action_pressed("menu"):
 			emit_signal("closed")
 		elif event.is_action_pressed("ui_down") and selection != 4:

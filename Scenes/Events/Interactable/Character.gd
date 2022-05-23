@@ -9,8 +9,10 @@ export var textures: SpriteFrames setget set_textures
 # At this moment, the player’s position is exactly aligned with the tiles.
 signal square_tick
 
+# Variable used in the editor to have string labels of vector directions
 export(String, "Left", "Right", "Up", "Down") var faced_direction: String setget set_faced_direction
 
+# Vector indicating direction in the code
 var _faced_direction: Vector2
 
 # Indicate if the player can act (the player cannot act during a dialogue or
@@ -169,3 +171,20 @@ func _end_move(_object, _key):
 
 func get_direction():
 	return _faced_direction
+
+func save() -> Dictionary:
+	return {
+		"textures" : textures.resource_path,
+		"faced_direction" : faced_direction,
+		"_faced_direction" : _faced_direction,
+		"_paused" : _paused,
+		# Rounds the position to the nearest square if the Character is moving
+		"position" : Vector2(round(position.x / _constants.TILE_SIZE) * _constants.TILE_SIZE, round(position.y / _constants.TILE_SIZE) * _constants.TILE_SIZE)
+	}
+	
+func load_save(data: Dictionary) -> void:
+	textures = data["textures"]
+	faced_direction = data["faced_direction"]
+	_faced_direction = data["_faced_direction"]
+	_paused = data["_paused"]
+	position = data["position"]

@@ -152,3 +152,12 @@ func pause_player():
 
 func unpause_player():
 	player_instance.set_paused(false)
+
+func save() -> void:
+	var to_save := player_data.save()
+	to_save["current_map"]["data"] = maps[current_map].save_events()
+	to_save["player_character"] = player_instance.save()
+	var save_file := File.new()
+	save_file.open("user://opsave.json", File.WRITE)
+	save_file.store_line(to_json(to_save))
+	save_file.close()

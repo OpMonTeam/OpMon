@@ -26,6 +26,42 @@ var hp: int
 var status = Status.NOTHING
 var nickname = ""
 
+func save() -> Dictionary:
+	var moves_saved := []
+	for move in moves:
+		if move == null:
+			moves_saved.append(null)
+		else:
+			moves_saved.append(move.save())
+	return {
+		"stats" : stats,
+		"ev" : ev,
+		"species" : species.resource_path,
+		"level" : level,
+		"moves" : moves_saved,
+		"nature" : nature.resource_path,
+		"hp" : hp,
+		"status" : status,
+		"nickname" : nickname
+	}
+
+func load_save(data: Dictionary):
+	stats = data["stats"]
+	ev = data["ev"]
+	species = load(data["species"])
+	level = data["level"]
+	var moves_loaded := []
+	for move in data["moves"]:
+		if move == null:
+			moves_loaded.append(null)
+		else:
+			moves_loaded.append(OpMove.new(load(move["move"]), move["pp"]))
+	moves = moves_loaded
+	nature = load(data["nature"])
+	hp = data["hp"]
+	status = data["status"]
+	nickname = data["nickname"]
+
 # Recalculates the stats from the base stats, evs, nature and level
 func calc_stats():
 	var base_stats = [species.base_attack, species.base_defense, species.base_special_attack, species.base_special_defense,
@@ -38,7 +74,9 @@ func calc_stats():
 			stats[i] *= 0.9
 
 # p_moves must contain four Move objects
-func _init(p_nickname: String, p_species: Species, p_level: int, p_moves: Array, p_nature: Nature):
+# Default arguments are here to generate a generic object to be loaded with load_save()
+# Don’t use an OpMon created with these default arguments
+func _init(p_nickname := "", p_species = null, p_level := 5, p_moves := [], p_nature = null):
 	nickname = p_nickname
 	species = p_species
 	level = p_level
@@ -46,7 +84,8 @@ func _init(p_nickname: String, p_species: Species, p_level: int, p_moves: Array,
 		if p_moves[i] != null:
 			moves[i] = OpMove.new(p_moves[i])
 	nature = p_nature
-	calc_stats()
+	if species != null and nature != null:
+		calc_stats()
 	hp = stats[Stats.HP]
 
 # Returns the final statistics of the OpMon, with the in-battle modifications
@@ -114,11 +153,17 @@ class OpMove:
 	
 	# Private variables used to calculate damages
 	# Hp lost by the defending OpMon
-	var hp_lost: int
-	# Used for moves that use multiple turns
-	func _init(p_data: Move):
+	var _hp_lost: int
+	
+	func save() -> Dictionary: # Loading directly in OpMon.load_save()
+		return {
+			"move" : data.resource_path,
+			"power_points" : power_points
+		}
+	
+	func _init(p_data: Move, p_power_points := -1):
 		data = p_data
-		power_points = data.max_power_points
+		power_points = data.max_power_points if p_power_points == -1 else p_power_points
 
 	func move(battle_scene, user: OpMon, opponent: OpMon):
 		power_points -= 1
@@ -163,8 +208,8 @@ class OpMove:
 				hp_lost_float *= 1.5
 			hp_lost_float *= effectiveness
 			hp_lost_float *= 0.85 + 0.15 * randf()
-			hp_lost = round(hp_lost_float)
-			opponent.hp -= hp_lost
+			_hp_lost = round(hp_lost_float)
+			opponent.hp -= _hp_lost
 			battle_scene.update_hp(false, opponent.hp)
 			battle_scene.effectiveness(effectiveness)
 		
