@@ -110,3 +110,17 @@ func _on_map_entered(body: Node):
 
 func _on_adjacent_entered(map):
 	emit_signal("map_entered", map)
+	
+func save_events() -> Dictionary:
+	var data = {}
+	for child in get_children():
+		if child.is_in_group("Persist") and child.has_method("save"):
+			data[child.get_name()] = child.save()
+		elif child.is_in_group("Persist"):
+			printerr("Warning: Node in groupe Persist named \"" + child.get_name() + "\" in \"" + get_name() + "\" does not have save() method.")
+	return data
+	
+func load_events(data: Dictionary) -> void:
+	for child in get_children():
+		if child.is_in_group("Persist") and child.has_method("load_save") and data.has(child.get_name()):
+			child.load_save(data[child.get_name()])

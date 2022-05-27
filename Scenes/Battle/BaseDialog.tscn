@@ -13,7 +13,6 @@ rect_pivot_offset = Vector2( -229, 86 )
 theme = ExtResource( 3 )
 script = ExtResource( 2 )
 __meta__ = {
-"_edit_use_anchors_": false,
 "_editor_description_": "Basic dialog used for the main choice of the battle: Moves, Items, OpMons and Run."
 }
 

@@ -46,13 +46,13 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Beta" parent="." instance=ExtResource( 3 )]
+[node name="Beta" parent="." groups=["Persist"] instance=ExtResource( 3 )]
 position = Vector2( -176, -208 )
 script = ExtResource( 7 )
 textures = ExtResource( 6 )
 faced_direction = "Down"
 
-[node name="Kid" parent="." instance=ExtResource( 3 )]
+[node name="Kid" parent="." groups=["Persist"] instance=ExtResource( 3 )]
 position = Vector2( -160, -80 )
 script = ExtResource( 4 )
 textures = ExtResource( 5 )

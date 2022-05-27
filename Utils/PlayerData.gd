@@ -6,10 +6,6 @@ var player_name: String
 
 var team: OpTeam
 
-var current_map: String
-
-var current_position: Vector2
-
 func _ready():
 	var tackle = load("res://Data/GodotResources/Moves/Tackle.tres")
 	var growl = load("res://Data/GodotResources/Moves/Growl.tres")
@@ -24,3 +20,18 @@ func _ready():
 	var rosarin = OpMon.new("", load("res://Data/GodotResources/Species/Rosarin.tres"), 10, 
 	[tackle, growl, vine_whip, null], bot_nature)
 	team = OpTeam.new([rosarin, furnurus, nanolphin, null, null, null])
+
+func save() -> Dictionary:
+	return {
+		"current_map" : {
+			"name" : null, # Filled by MapManager
+			"data" : null # Filled by MapManager
+		},
+		"player_character" : null, # Filled by MapManager
+		"team" : team.save(),
+		"player_name" : player_name
+	}
+
+func load_save(data: Dictionary) -> void:
+	team = OpTeam.new().load_save(data["team"])
+	player_name = data["player_name"]

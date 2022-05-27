@@ -20,7 +20,11 @@ var player_data: PlayerData
 
 var camera_instance: Camera2D
 
+# Interface slot
 var interface = null
+
+# Loaded data from a save
+var load_data = null
 
 # Sets a cooldown after closing the interface
 # During the cooldown, the player is still paused and the menu can’t open
@@ -28,7 +32,9 @@ var interface = null
 # -1 if the cooldown is over
 var interface_closed_delay := -1
 
-func init(p_first_map: String, p_first_player_pos: Vector2):
+# p_first_map path to the first map from the Maps directory
+# p_first_player_pos in tiles
+func init(p_first_map: String, p_first_player_pos := Vector2.ZERO):
 	_first_map = p_first_map
 	_first_player_pos = p_first_player_pos
 
@@ -39,6 +45,10 @@ func _ready():
 	camera_instance.set_map_mode()
 	player_instance.add_child(camera_instance)
 	change_map(_first_map, _first_player_pos)
+	if load_data != null:
+		maps[current_map].load_events(load_data["current_map"]["data"])
+		player_data.load_save(load_data)
+		player_instance.load_save(load_data["player_character"])
 	
 func _input(event):
 	if event.is_action_pressed("menu") and interface_closed_delay < 0 and not player_instance.is_moving():
@@ -88,7 +98,6 @@ func change_map(map_name: String, player_pos = Vector2(0,0), map_pos = Vector2(0
 	# Adds the map to the tree and loads adjacent maps
 	call_deferred("add_child", maps[current_map])
 	maps[current_map].call_deferred("add_child", player_instance)
-	player_data.current_map = current_map
 	maps[current_map].show_adjacent_maps(self, maps)
 	maps[current_map].emit_signal("map_loaded")
 
@@ -152,3 +161,27 @@ func pause_player():
 
 func unpause_player():
 	player_instance.set_paused(false)
+
+func save() -> void:
+	var to_save := player_data.save()
+	to_save["current_map"]["data"] = maps[current_map].save_events()
+	to_save["current_map"]["name"] = current_map
+	to_save["player_character"] = player_instance.save()
+	# Since the player is always paused in the menu to save
+	# and we want the player to be able to move after loading
+	to_save["player_character"]["_paused"] = false
+	var save_file := File.new()
+	save_file.open("user://opsave.json", File.WRITE)
+	save_file.store_line(to_json(to_save))
+	save_file.close()
+	
+func load_save() -> bool:
+	var save_file := File.new()
+	if save_file.open("user://opsave.json", File.READ) == 0:
+		load_data = parse_json(save_file.get_as_text())
+		self.init(load_data["current_map"]["name"])
+		# Next step in _ready()
+		return true
+	else:
+		printerr("Can’t load user save file. It might doesn’t exist.")
+		return false
