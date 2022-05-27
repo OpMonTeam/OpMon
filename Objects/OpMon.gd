@@ -55,7 +55,7 @@ func load_save(data: Dictionary):
 		if move == null:
 			moves_loaded.append(null)
 		else:
-			moves_loaded.append(OpMove.new(load(move["move"]), move["pp"]))
+			moves_loaded.append(OpMove.new(load(move["move"]), move["power_points"]))
 	moves = moves_loaded
 	nature = load(data["nature"])
 	hp = data["hp"]
@@ -76,7 +76,7 @@ func calc_stats():
 # p_moves must contain four Move objects
 # Default arguments are here to generate a generic object to be loaded with load_save()
 # Don’t use an OpMon created with these default arguments
-func _init(p_nickname := "", p_species = null, p_level := 5, p_moves := [], p_nature = null):
+func _init(p_nickname := "", p_species = null, p_level := 5, p_moves := [null, null, null, null], p_nature = null):
 	nickname = p_nickname
 	species = p_species
 	level = p_level

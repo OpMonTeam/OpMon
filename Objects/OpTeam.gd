@@ -10,7 +10,7 @@ var _team = [null, null, null, null, null, null]
 var _size = 0
 
 # The "team" parameter must be an array of 6 OpMon, with "null" if a square is empty
-func _init(team: Array):
+func _init(team := [null, null, null, null, null, null]):
 	for o in team:
 		add_opmon(o)
 
@@ -85,3 +85,10 @@ func save() -> Array:
 		else:
 			ret.append(opmon.save())
 	return ret
+
+func load_save(data: Array) -> void:
+	for opmon in data:
+		if opmon == null:
+			add_opmon(null)
+		else:
+			add_opmon(OpMon.new().load_save(opmon))

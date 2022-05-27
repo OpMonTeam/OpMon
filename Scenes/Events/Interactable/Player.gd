@@ -49,7 +49,6 @@ func _interact():
 func _end_move(_object, _key):
 	emit_signal("square_tick")
 	_moving = Vector2.ZERO
-	player_data.current_position = position / _constants.TILE_SIZE
 	_check_move()
 	if _moving == Vector2.ZERO: # If not, then the movement is over, stop the animation
 		$AnimatedSprite.stop()

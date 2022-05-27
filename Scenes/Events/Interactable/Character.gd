@@ -173,18 +173,19 @@ func get_direction():
 	return _faced_direction
 
 func save() -> Dictionary:
+	# Rounds the position to the nearest square if the Character is moving
+	var rounded_pos := Vector2(round(position.x / _constants.TILE_SIZE) * _constants.TILE_SIZE, round(position.y / _constants.TILE_SIZE) * _constants.TILE_SIZE)
 	return {
 		"textures" : textures.resource_path,
 		"faced_direction" : faced_direction,
-		"_faced_direction" : _faced_direction,
+		"_faced_direction" : [_faced_direction.x, _faced_direction.y],
 		"_paused" : _paused,
-		# Rounds the position to the nearest square if the Character is moving
-		"position" : Vector2(round(position.x / _constants.TILE_SIZE) * _constants.TILE_SIZE, round(position.y / _constants.TILE_SIZE) * _constants.TILE_SIZE)
+		"position" : [rounded_pos.x, rounded_pos.y]
 	}
 	
 func load_save(data: Dictionary) -> void:
-	textures = data["textures"]
+	textures = load(data["textures"])
 	faced_direction = data["faced_direction"]
-	_faced_direction = data["_faced_direction"]
+	_faced_direction = Vector2(data["_faced_direction"][0], data["_faced_direction"][1])
 	_paused = data["_paused"]
-	position = data["position"]
+	position = Vector2(data["position"][0], data["position"][1])

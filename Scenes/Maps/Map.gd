@@ -122,5 +122,5 @@ func save_events() -> Dictionary:
 	
 func load_events(data: Dictionary) -> void:
 	for child in get_children():
-		if child.is_in_group("Persist") and child.has_method("load") and data.has(child.get_name()):
-			child.load(data[child.get_name()])
+		if child.is_in_group("Persist") and child.has_method("load_save") and data.has(child.get_name()):
+			child.load_save(data[child.get_name()])

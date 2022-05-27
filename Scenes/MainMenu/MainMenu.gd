@@ -47,6 +47,14 @@ func pressed(id):
 		get_tree().root.add_child(map)
 		get_tree().root.remove_child(self)
 		self.call_deferred("free")
+	elif id == 1:
+		var map = load("res://Scenes/Maps/MapManager.tscn").instance()
+		if map.load_save():
+			get_tree().root.add_child(map)
+			get_tree().root.remove_child(self)
+			self.call_deferred("free")
+		else:
+			$Nope.play()
 	elif id == 3:
 		get_tree().quit()
 	else:

@@ -16,13 +16,31 @@ export(bool) var loop: bool
 export(bool) var progress_despite_obstacles: bool
 
 # Keeps track of the current step of "path"
-var _current_step: int = 0
+var _current_step := 0
 # Counts the number of tiles the current instruction has been running
-var _progress: int = 0
+var _progress := 0
 # If the movement is over
-var _stopped: bool = false
+var _stopped := false
 # A frame countdown for the "Stand" instruction
-var _pause: int = -1
+var _pause := -1
+# Flag to start moving in _process instead of _ready to be sure
+# every event is loaded
+var start := false
+
+func save() -> Dictionary:
+	var ret := .save()
+	ret["_current_step"] = _current_step
+	ret["_progress"] = _progress
+	ret["_stopped"] = _stopped
+	ret["_pause"] = _pause
+	return ret
+	
+func load_save(data: Dictionary) -> void:
+	.load_save(data)
+	_current_step = data["_current_step"]
+	_progress = data["_progress"]
+	_stopped = data["_stopped"]
+	_pause = data["_pause"]
 
 func _ready():
 	# Checks for errors before initializing
@@ -31,7 +49,7 @@ func _ready():
 	if path.size() != durations.size():
 		push_error("The array of durations does not have the same size as the array of paths.")
 	if not Engine.editor_hint:
-		_next_move()
+		start = true
 	._ready()
 
 func _next_move():
@@ -66,7 +84,10 @@ func _next_move():
 
 func _process(_delta):
 	if not Engine.editor_hint:
-		if _pause == 0: # If the "Stand" instruction is over
+		if start:
+			start = false
+			_next_move()
+		elif _pause == 0: # If the "Stand" instruction is over
 			_progress+=1
 			_pause = -1
 			_next_move()

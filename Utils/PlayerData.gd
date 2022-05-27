@@ -6,11 +6,6 @@ var player_name: String
 
 var team: OpTeam
 
-var current_map: String
-
-# The current player’s position, in tiles
-var current_position: Vector2
-
 func _ready():
 	var tackle = load("res://Data/GodotResources/Moves/Tackle.tres")
 	var growl = load("res://Data/GodotResources/Moves/Growl.tres")
@@ -29,7 +24,7 @@ func _ready():
 func save() -> Dictionary:
 	return {
 		"current_map" : {
-			"name" : current_map,
+			"name" : null, # Filled by MapManager
 			"data" : null # Filled by MapManager
 		},
 		"player_character" : null, # Filled by MapManager
@@ -38,6 +33,5 @@ func save() -> Dictionary:
 	}
 
 func load_save(data: Dictionary) -> void:
-	current_map = data["current_map"]["name"]
-	team = data["team"]
+	team = OpTeam.new().load_save(data["team"])
 	player_name = data["player_name"]
