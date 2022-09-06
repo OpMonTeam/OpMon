@@ -10,6 +10,8 @@ GAMEMENU_ENCYCLOPEDIA,OpDex,OpDex
 GAMEMENU_ID,ID Card,Dresseur
 GAMEMENU_SAVE,Save,Sauvegarde
 GAMEMENU_SETTINGS,Settings,Paramètres
+ITEM_ATTACKPLUS_NAME,Attack+,Attaque+
+ITEM_ATTACKPLUS_DESCRIPTION,Increases Attack in battle.,Augmente l’attaque en combat.
 TEAMMANAGER_ORDER,Order,Ordre
 TEAMMANAGER_SELECT,Select,Sélectionner
 STAT_CHANGE_ATK,attack,L'attaque

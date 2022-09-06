@@ -18,4 +18,3 @@ func apply(battle_scene, _move, user: OpMon, opponent: OpMon) -> bool:
 	battle_scene.stat_changed(target, stat, target.change_stat(stat, change))
 	return true
 	
-

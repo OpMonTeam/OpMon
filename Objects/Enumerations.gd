@@ -40,6 +40,16 @@ enum Stats {
 			ACC = 6,
 			EVA = 7,
 			NOTHING = -1 }
+	
+# Enumerates the categories available for the bag. Their associated number defines
+# the order in which they appear in the bag interface.
+enum BagCategory {
+	BATTLE = 0, # Items that can be used in battle (except balls)
+	BALLS = 1, # "Balls" that can capture OpMons (the name might be changed later in the development)
+	HELD = 2, # Items that have an effect when held
+	OTHER = 3, # This one might be renamed later, will at least contain a repel equivalent
+	KEY = 4 # Key items for the adventure
+}
 
 # Array of effectiveness : TYPE_EFFECTIVENESS[TYPE_1][TYPE_2] gives the effectiveness of
 # a move of type TYPE_1 on an OpMon of type TYPE_2.

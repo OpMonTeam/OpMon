@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Interface/Interface.gd"
 }, {
+"base": "Resource",
+"class": "Item",
+"language": "GDScript",
+"path": "res://Objects/Item.gd"
+}, {
+"base": "Resource",
+"class": "ItemEffect",
+"language": "GDScript",
+"path": "res://Objects/ItemEffect.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Iteractable",
 "language": "GDScript",
@@ -28,6 +38,11 @@ _global_script_classes=[ {
 "class": "Move",
 "language": "GDScript",
 "path": "res://Objects/Move.gd"
+}, {
+"base": "Resource",
+"class": "MoveEffect",
+"language": "GDScript",
+"path": "res://Objects/MoveEffect.gd"
 }, {
 "base": "Resource",
 "class": "Nature",
@@ -49,6 +64,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Objects/Species.gd"
 }, {
+"base": "Resource",
+"class": "StatPlus",
+"language": "GDScript",
+"path": "res://Data/GodotResources/Item/ItemEffects/StatPlus.gd"
+}, {
 "base": "ColorRect",
 "class": "Submenu",
 "language": "GDScript",
@@ -67,12 +87,16 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "ChangeStatEffect": "",
 "Interface": "",
+"Item": "",
+"ItemEffect": "",
 "Iteractable": "",
 "Move": "",
+"MoveEffect": "",
 "Nature": "",
 "OpMon": "",
 "OpTeam": "",
 "Species": "",
+"StatPlus": "",
 "Submenu": "",
 "Teleporter": "",
 "Trigger": ""
