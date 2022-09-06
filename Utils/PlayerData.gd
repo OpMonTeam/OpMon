@@ -6,6 +6,10 @@ var player_name: String
 
 var team: OpTeam
 
+# Keys: Item resource path
+# Values: Quantity
+var bag: Dictionary
+
 func _ready():
 	var tackle = load("res://Data/GodotResources/Moves/Tackle.tres")
 	var growl = load("res://Data/GodotResources/Moves/Growl.tres")
@@ -29,9 +33,11 @@ func save() -> Dictionary:
 		},
 		"player_character" : null, # Filled by MapManager
 		"team" : team.save(),
-		"player_name" : player_name
+		"player_name" : player_name,
+		"bag": bag
 	}
 
 func load_save(data: Dictionary) -> void:
 	team = OpTeam.new().load_save(data["team"])
 	player_name = data["player_name"]
+	bag = data["bag"]

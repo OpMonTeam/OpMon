@@ -16,14 +16,11 @@ func _init(p_stat, p_change):
 func apply_opmon_battle(battle_scene, user: OpMon, opponent: OpMon) -> bool:
 	return cse.apply(battle_scene, null, user, opponent) # Always return true
 
-# Effect that applies when used in the overworld if the item doesn’t need an OpMon to be applied to
-func apply_overworld() -> bool:
+func apply_overworld(map_manager) -> bool:
 	return false
 	
-# Effect that applies when used in the overworld on an OpMon
-func apply_opmon_overworld() -> bool:
+func apply_opmon_overworld(map_manager, user: OpMon) -> bool:
 	return false
 	
-# Effect that applies when used in battle if the item doesn’t need an OpMon to be applied to
-func apply_battle() -> bool:
+func apply_battle(battle_scene, players_team: OpTeam, opponent_team: OpTeam) -> bool:
 	return false

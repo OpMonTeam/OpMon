@@ -12,15 +12,15 @@ class_name ItemEffect
 # "not now" dialog will appear if in the overworld or "it has no effect" if in battle)
 
 # Effect that applies when used in the overworld if the item doesn’t need an OpMon to be applied to
-func apply_overworld() -> bool:
+func apply_overworld(map_manager) -> bool:
 	return false
 	
 # Effect that applies when used in the overworld on an OpMon
-func apply_opmon_overworld() -> bool:
+func apply_opmon_overworld(map_manager, user: OpMon) -> bool:
 	return false
 	
 # Effect that applies when used in battle if the item doesn’t need an OpMon to be applied to
-func apply_battle() -> bool:
+func apply_battle(battle_scene, players_team: OpTeam, opponent_team: OpTeam) -> bool:
 	return false
 
 # Effect that applies when used in battle on an OpMon
