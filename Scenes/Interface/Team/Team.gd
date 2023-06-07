@@ -72,7 +72,7 @@ func _quit_reorder_mode():
 		
 func _reorder_select(r_selection: int):
 	_reorder_selection = r_selection
-	$ReorderRect.rect_position = opmons_rects[_reorder_selection].rect_position
+	$ReorderRect.position = opmons_rects[_reorder_selection].position
 	$ReorderRect.visible = true
 
 func _input(event):
@@ -103,7 +103,7 @@ func _input(event):
 				_selection = 0
 		elif _selection > (team.size() - 1):
 			_selection = team.size() - 1
-		$Selrect.rect_position = opmons_rects[_selection].rect_position
+		$Selrect.position = opmons_rects[_selection].position
 
 func _process(_delta):
 	if _accept_cooldown != 0:

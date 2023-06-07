@@ -1,10 +1,10 @@
 extends "res://Scenes/Interface/Interface.gd"
 
 # Speed at which the dialog lines are displayed
-export var dialog_speed := 10.0
+@export var dialog_speed := 10.0
 
 # If the dialog auto-closes when finished
-export var close_when_over := true
+@export var close_when_over := true
 
 # Lines of dialog stored as an array
 var _dialog_lines: Array
@@ -57,7 +57,7 @@ func _ready():
 	# Prepare the timer
 	_timer = Timer.new()
 	add_child(_timer)
-	_timer.connect("timeout", self, "_on_Timer_timeout")
+	_timer.connect("timeout", Callable(self, "_on_Timer_timeout"))
 	_timer.set_one_shot(false)
 	_timer.set_wait_time(1/dialog_speed)
 

@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Data/Backgrounds/menuframe.png" type="Texture" id=2]
+[ext_resource path="res://Data/Backgrounds/menuframe.png" type="Texture2D" id=2]
 [ext_resource path="res://Scenes/Interface/DialogBox.gd" type="Script" id=3]
-[ext_resource path="res://Data/Sprites/UI/arrDial.png" type="Texture" id=4]
+[ext_resource path="res://Data/Sprites/UI/arrDial.png" type="Texture2D" id=4]
 [ext_resource path="res://OpMon-Data/Audio/sfx/sfx_dialog_change.ogg" type="AudioStream" id=5]
-[ext_resource path="res://Data/Fonts/main_font.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Data/Fonts/main_font.ttf" type="FontFile" id=6]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="FontFile" id=2]
 size = 8
 font_data = ExtResource( 6 )
 
@@ -18,22 +18,22 @@ RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
 resource_name = "idle"
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_position")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 238, 22 ), Vector2( 238, 18 ) ]
 }
 
 [node name="DialogBox" type="Control"]
-margin_right = 480.0
-margin_bottom = 320.0
-rect_scale = Vector2( 2, 2 )
+offset_right = 480.0
+offset_bottom = 320.0
+scale = Vector2( 2, 2 )
 theme = SubResource( 3 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -41,11 +41,11 @@ __meta__ = {
 }
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
-margin_left = 48.0
-margin_top = 260.0
-margin_right = 304.0
-margin_bottom = 300.0
-rect_scale = Vector2( 1.5, 1.5 )
+offset_left = 48.0
+offset_top = 260.0
+offset_right = 304.0
+offset_bottom = 300.0
+scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 2 )
 patch_margin_left = 16
 patch_margin_top = 16
@@ -56,20 +56,20 @@ __meta__ = {
 }
 
 [node name="Text" type="RichTextLabel" parent="NinePatchRect"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 248.0
-margin_bottom = 32.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 248.0
+offset_bottom = 32.0
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="DialArrow" type="TextureRect" parent="NinePatchRect"]
-margin_left = 238.0
-margin_top = 22.0
-margin_right = 248.0
-margin_bottom = 32.0
+offset_left = 238.0
+offset_top = 22.0
+offset_right = 248.0
+offset_bottom = 32.0
 texture = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false

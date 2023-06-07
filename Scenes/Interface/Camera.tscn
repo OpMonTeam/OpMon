@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Interface/Camera.gd" type="Script" id=1]
 
-[node name="Camera" type="Camera2D"]
+[node name="Camera3D" type="Camera2D"]
 anchor_mode = 0
 current = true
 zoom = Vector2( 0.5, 0.5 )

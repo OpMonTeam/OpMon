@@ -4,8 +4,8 @@ class_name StatPlus
 
 const Stats = preload("res://Objects/Enumerations.gd").Stats
 
-export(Stats) var stat
-export(int) var change
+@export var stat: Stats
+@export var change: int
 var cse: ChangeStatEffect
 
 func _init(p_stat, p_change):

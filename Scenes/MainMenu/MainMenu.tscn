@@ -1,153 +1,137 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://bfrakbi6wo64u"]
 
-[ext_resource path="res://OpMon-Data/Audio/sfx/sfx_nope.ogg" type="AudioStream" id=1]
-[ext_resource path="res://Data/Backgrounds/menuframe.png" type="Texture" id=2]
-[ext_resource path="res://Data/Fonts/main_font.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://Scenes/MainMenu/MainMenu.gd" type="Script" id=4]
-[ext_resource path="res://OpMon-Data/Audio/sfx/sfx_select_buttons.ogg" type="AudioStream" id=5]
-[ext_resource path="res://OpMon-Data/Audio/music/title.ogg" type="AudioStream" id=6]
+[ext_resource type="AudioStream" uid="uid://cx5jm6ygu78xq" path="res://OpMon-Data/Audio/sfx/sfx_nope.ogg" id="1"]
+[ext_resource type="Texture2D" uid="uid://dokdrfxtwvvk3" path="res://Data/Backgrounds/menuframe.png" id="2"]
+[ext_resource type="FontFile" uid="uid://c5pnk4yop31d" path="res://Data/Fonts/main_font.ttf" id="3"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/MainMenu.gd" id="4"]
+[ext_resource type="AudioStream" uid="uid://b53nqo27v7nl3" path="res://OpMon-Data/Audio/sfx/sfx_select_buttons.ogg" id="5"]
+[ext_resource type="AudioStream" uid="uid://b6w18xtq8l0t7" path="res://OpMon-Data/Audio/music/title.ogg" id="6"]
 
-[sub_resource type="DynamicFont" id=2]
-size = 8
-font_data = ExtResource( 3 )
+[sub_resource type="FontFile" id="2"]
+fallbacks = Array[Font]([ExtResource("3")])
+face_index = null
+embolden = null
+transform = null
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
-[sub_resource type="Theme" id=1]
-default_font = SubResource( 2 )
-Label/colors/font_color = Color( 0, 0, 0, 1 )
+[sub_resource type="Theme" id="1"]
+default_font = SubResource("2")
+Label/colors/font_color = Color(0, 0, 0, 1)
 
 [node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -480.0
-margin_bottom = -320.0
-rect_scale = Vector2( 2, 2 )
-theme = SubResource( 1 )
-script = ExtResource( 4 )
+offset_right = -480.0
+offset_bottom = -320.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme = SubResource("1")
+script = ExtResource("4")
 
 [node name="Background" type="ColorRect" parent="."]
-margin_right = 480.0
-margin_bottom = 320.0
-color = Color( 0.376471, 0.431373, 0.854902, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 320.0
+color = Color(0.376471, 0.431373, 0.854902, 1)
 
 [node name="MainMenuButtons" type="VBoxContainer" parent="."]
-margin_left = 112.0
-margin_top = 4.0
-margin_right = 208.0
-margin_bottom = 316.0
+layout_mode = 0
+offset_left = 112.0
+offset_top = 4.0
+offset_right = 208.0
+offset_bottom = 316.0
 
 [node name="NewGameButton" type="NinePatchRect" parent="MainMenuButtons"]
-modulate = Color( 0.31, 0.31, 0.31, 1 )
-margin_right = 256.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 256, 32 )
-texture = ExtResource( 2 )
+modulate = Color(0.31, 0.31, 0.31, 1)
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+texture = ExtResource("2")
 patch_margin_left = 16
 patch_margin_top = 16
 patch_margin_right = 16
 patch_margin_bottom = 16
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="NewGameLabel" type="Label" parent="MainMenuButtons/NewGameButton"]
-margin_left = 16.0
-margin_right = 224.0
-margin_bottom = 32.0
+layout_mode = 0
+offset_left = 8.0
+offset_top = -4.0
+offset_right = 248.0
+offset_bottom = 28.0
 text = "MAINMENU_NEW_GAME"
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+vertical_alignment = 2
 
 [node name="LoadGameButton" type="NinePatchRect" parent="MainMenuButtons"]
-modulate = Color( 0.313726, 0.313726, 0.313726, 1 )
-margin_top = 36.0
-margin_right = 256.0
-margin_bottom = 68.0
-rect_min_size = Vector2( 256, 32 )
-texture = ExtResource( 2 )
+modulate = Color(0.313726, 0.313726, 0.313726, 1)
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+texture = ExtResource("2")
 patch_margin_left = 16
 patch_margin_top = 16
 patch_margin_right = 16
 patch_margin_bottom = 16
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="LoadGameLabel" type="Label" parent="MainMenuButtons/LoadGameButton"]
-margin_left = 16.0
-margin_right = 224.0
-margin_bottom = 32.0
+layout_mode = 0
+offset_left = 8.0
+offset_top = -4.0
+offset_right = 260.0
+offset_bottom = 28.0
 text = "MAINMENU_LOAD_GAME"
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+vertical_alignment = 2
 
 [node name="SettingsButton" type="NinePatchRect" parent="MainMenuButtons"]
-modulate = Color( 0.313726, 0.313726, 0.313726, 1 )
-margin_top = 72.0
-margin_right = 256.0
-margin_bottom = 104.0
-rect_min_size = Vector2( 256, 32 )
-texture = ExtResource( 2 )
+modulate = Color(0.313726, 0.313726, 0.313726, 1)
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+texture = ExtResource("2")
 patch_margin_left = 16
 patch_margin_top = 16
 patch_margin_right = 16
 patch_margin_bottom = 16
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="SettingsLabel" type="Label" parent="MainMenuButtons/SettingsButton"]
-margin_left = 16.0
-margin_right = 224.0
-margin_bottom = 32.0
+layout_mode = 0
+offset_left = 8.0
+offset_top = -4.0
+offset_right = 226.0
+offset_bottom = 28.0
 text = "MAINMENU_SETTINGS"
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+vertical_alignment = 2
 
 [node name="QuitButton" type="NinePatchRect" parent="MainMenuButtons"]
-modulate = Color( 0.313726, 0.313726, 0.313726, 1 )
-margin_top = 108.0
-margin_right = 256.0
-margin_bottom = 140.0
-rect_min_size = Vector2( 256, 32 )
-texture = ExtResource( 2 )
+modulate = Color(0.313726, 0.313726, 0.313726, 1)
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+texture = ExtResource("2")
 patch_margin_left = 16
 patch_margin_top = 16
 patch_margin_right = 16
 patch_margin_bottom = 16
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="QuitLabel" type="Label" parent="MainMenuButtons/QuitButton"]
-margin_left = 16.0
-margin_right = 224.0
-margin_bottom = 32.0
+layout_mode = 0
+offset_left = 8.0
+offset_top = -4.0
+offset_right = 216.0
+offset_bottom = 28.0
 text = "MAINMENU_QUIT"
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+vertical_alignment = 2
 
 [node name="Nope" type="AudioStreamPlayer" parent="."]
-pause_mode = 1
-stream = ExtResource( 1 )
+process_mode = 1
+stream = ExtResource("1")
 
 [node name="Change" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource("5")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
+stream = ExtResource("6")
 autoplay = true

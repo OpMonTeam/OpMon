@@ -3,8 +3,8 @@
 [ext_resource path="res://Scenes/Interface/Fade.gd" type="Script" id=1]
 
 [node name="ColorRect" type="ColorRect"]
-margin_right = 856.0
-margin_bottom = 420.0
+offset_right = 856.0
+offset_bottom = 420.0
 color = Color( 0, 0, 0, 0 )
 script = ExtResource( 1 )
 __meta__ = {

@@ -2,7 +2,7 @@ extends Node
 
 # File containing several enumerations used in the different objects
 
-enum Type {	UNKNOWN = 18,
+enum Type {	NONE = 18,
 			LIQUID = 3,
 			BURNING = 6,
 			VEGETAL = 10,
