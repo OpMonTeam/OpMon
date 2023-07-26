@@ -1,10 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://d0p7vse2gfwr2"]
 
-[ext_resource path="res://Scenes/Interface/Camera.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://Scenes/Interface/Camera.gd" id="1"]
 
 [node name="Camera3D" type="Camera2D"]
 anchor_mode = 0
-current = true
-zoom = Vector2( 0.5, 0.5 )
+zoom = Vector2(2, 2)
 editor_draw_drag_margin = true
-script = ExtResource( 1 )
+script = ExtResource("1")

@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://clueo45h8bvwm"]
+[gd_scene load_steps=12 format=3 uid="uid://clueo45h8bvwm"]
 
 [ext_resource type="Texture2D" uid="uid://3my3ar8woqy8" path="res://OpMon-Data/Tileset/tileset.png" id="1"]
-[ext_resource type="PackedScene" path="res://Scenes/Events/Interactable/Character.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://c7s75w0ldamla" path="res://Scenes/Events/Interactable/Character.tscn" id="2"]
 [ext_resource type="Script" path="res://Scenes/Events/Interactable/DialogNPC.gd" id="3"]
 [ext_resource type="SpriteFrames" uid="uid://bl2fqw14hgjqd" path="res://Data/Sprites/chara/kid.tres" id="4"]
 [ext_resource type="PackedScene" path="res://Scenes/Events/Trigger/Teleporter.tscn" id="5"]
@@ -196,13 +196,8 @@ sources/1 = SubResource("TileSetAtlasSource_aiwxc")
 sources/2 = SubResource("TileSetAtlasSource_gq7ku")
 sources/3 = SubResource("TileSetAtlasSource_urn25")
 
-[sub_resource type="RectangleShape2D" id="4"]
-size = Vector2(208, 152)
-
 [node name="MapTest" type="Node2D"]
 script = ExtResource("6")
-adjacent_maps_names = ["EuviTown"]
-adjacent_maps_positions = [Vector2(-51, -9)]
 
 [node name="DetailLayer" type="TileMap" parent="."]
 z_index = 1
@@ -225,18 +220,14 @@ layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0
 [node name="Character" parent="." instance=ExtResource("2")]
 position = Vector2(96, 48)
 script = ExtResource("3")
-textures = ExtResource("4")
 dialog_key = "EUVITOWN_KID_DIALOG"
+textures = ExtResource("4")
 
 [node name="HouseTeleporter" parent="." instance=ExtResource("5")]
 position = Vector2(192, 80)
-_map_name = "MapHouse"
+_map_name = "EuviTown/MapHouse"
 _position = Vector2(3, 3)
 
 [node name="MapZone" type="Area2D" parent="."]
-
-[node name="CollisionRect" type="CollisionShape2D" parent="MapZone"]
-position = Vector2(240, 152)
-shape = SubResource("4")
 
 [connection signal="body_entered" from="MapZone" to="." method="_on_map_entered"]

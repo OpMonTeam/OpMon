@@ -19,7 +19,7 @@ func _process(_delta):
 		if not Engine.is_editor_hint():
 			_check_move()
 		queue_redraw()
-		
+
 # Checks if the player wants to move the character and starts
 # the movement if so.
 func _check_move():

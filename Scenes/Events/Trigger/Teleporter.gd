@@ -25,12 +25,11 @@ func end():
 	super.end()
 	_fade = _map_manager.fade(0.5)
 	# Waits for the end of the fading animation to teleport the player
-	_fade.get_node("Tween").connect("tween_completed", Callable(self, "teleport"))
+	_fade.tween.tween_callback(Callable(self, "teleport"))
 	
 	
-func teleport(_object, _key):
+func teleport():
 	_map_manager.change_map(_map_name, _position) # Teleports the player
-	_fade.get_node("Tween").disconnect("tween_completed", Callable(self, "teleport"))
 	_map_manager.unfade(0.5, _fade)
 	
 func map_loaded():

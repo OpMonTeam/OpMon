@@ -55,6 +55,9 @@ func _ready():
 	# Sets the texture and the faced direction
 	$AnimatedSprite2D.frames = textures
 	faced_direction = faced_direction # TODO: check if it works without this line
+	_create_tweens()
+	
+func _create_tweens():
 	tween = get_tree().create_tween()
 	tween.set_ease(Tween.EASE_IN)
 	tween.set_trans(Tween.TRANS_LINEAR)
@@ -113,6 +116,8 @@ func move(direction: Vector2):
 	elif direction == Vector2.LEFT:
 		$AnimatedSprite2D.flip_h = true
 		$AnimatedSprite2D.animation = "walk_side"
+	
+	_create_tweens()
 	
 	var next = position
 	# If there is no collisions, do a real movement.

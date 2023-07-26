@@ -138,19 +138,17 @@ func get_map_key(map) -> String:
 	return ""
 	
 func fade(duration: float):
-	var fade: ColorRect = load(_constants.PATH_FADE_SCENE).instantiate()
-	var tween = fade.get_node("Tween")
+	var fade: Fade = load(_constants.PATH_FADE_SCENE).instantiate()
+	var tween = fade.tween
 	fade.set_size(get_viewport().size)
+	fade.duration = duration
 	$Interface.add_child(fade)
-	tween.interpolate_property(fade, "alpha", 0.0, 1.0, duration)
-	tween.start()
 	return fade
 	
-func unfade(duration: float, fade: ColorRect):
-	var tween = fade.get_node("Tween")
-	tween.interpolate_property(fade, "alpha", 1.0, 0.0, duration)
-	tween.start()
-	tween.connect("tween_completed", Callable(self, "remove_fade"))
+func unfade(duration: float, fade: Fade):
+	fade.unfade(duration)
+	
+	fade.tween.tween_callback(Callable(self, "remove_fade"))
 	
 func remove_fade(object, _key):
 	object.call_deferred("queue_free")

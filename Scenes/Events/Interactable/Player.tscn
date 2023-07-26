@@ -14,6 +14,7 @@ textures = ExtResource("4")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = ExtResource("4")
+animation = &"walk_down"
 
 [node name="CharacterCollision" parent="." index="2"]
 shape = SubResource("1")
