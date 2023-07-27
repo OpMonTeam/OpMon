@@ -214,7 +214,7 @@ func show_base_dialog():
 	$BaseDialog.visible = true
 
 func _update_hp_label():
-	$PlayerInfobox/HPLabel.text = String($PlayerInfobox/HP.value) + " / " + String(player_opmon.stats[Stats.HP])
+	$PlayerInfobox/HPLabel.text = String.num($PlayerInfobox/HP.value) + " / " + String.num(player_opmon.stats[Stats.HP])
 
 # Executed when one on the OpMons is KO
 func ko():
@@ -332,6 +332,7 @@ func _animate_move(player: bool, transform: Array):
 	var invert_transform = !player
 
 	var animation := Animation.new()
+	var animlib := AnimationLibrary.new()
 	var track_index
 
 	# Map from generic transform type used in Move class to property used for OpMon container property
@@ -350,6 +351,7 @@ func _animate_move(player: bool, transform: Array):
 		active_opmon_animation_player = $OpponentOpMon/AnimationPlayer
 
 	# Go through the list of simultaneous transformations to play at once
+	# TODO: Check if its possible to have a library of animations for each move
 	for transform_component in transform:
 
 		var pre_animation_value
@@ -381,39 +383,32 @@ func _animate_move(player: bool, transform: Array):
 		animation.track_insert_key (track_index, 1, post_animation_value)
 		animation.track_insert_key (track_index, 2, pre_animation_value)
 
-		active_opmon_animation_player.playback_speed = transform_component["speed"]
+		active_opmon_animation_player.speed_scale = transform_component["speed"]
 
 	# Add animation object to the scene
 	if active_opmon_animation_player.has_animation("opmon_rect"):
-		active_opmon_animation_player.remove_animation_library("opmon_rect")
-	active_opmon_animation_player.add_animation_library("opmon_rect", animation)
+		active_opmon_animation_player.remove_animation_library("")
+	animlib.add_animation("opmon_rect", animation)
+	active_opmon_animation_player.add_animation_library("", animlib)
 
 	# Run the animation and advance the queue
 	active_opmon_animation_player.play("opmon_rect")
-	await active_opmon_animation_player.animation_finished
+	if active_opmon_animation_player.is_playing():
+		await active_opmon_animation_player.animation_finished
 
 	_next_action()
 
 # Calls _next_action via the animation player whose signal "animation_finished" is connected to "_health_bar_stop"
 func _update_hp(player: bool, new_value: int):
 	var hpbar:TextureProgressBar = $PlayerInfobox/HP if player else $OpponentInfobox/HP
-	var animation_player: AnimationPlayer = $PlayerInfobox/HP/AnimationPlayer if player else $OpponentInfobox/HP/AnimationPlayer
-	var animation := Animation.new()
-	var track_index := animation.add_track(Animation.TYPE_VALUE)
-	animation.track_set_path(track_index, ".:value")
-	animation.length = 1
-	animation.track_insert_key(track_index, 0, hpbar.value)
-	animation.track_insert_key(track_index, 1, new_value)
-	if animation_player.has_animation("hpbar"):
-		animation_player.remove_animation_library("hpbar")
-	animation_player.add_animation_library("hpbar", animation)
-	animation_player.play("hpbar")
+	var tween := create_tween()
+	tween.tween_property(hpbar, "value", new_value, 1)
+	tween.tween_callback(_health_bar_stop)
 	_hp_bar_animated = true
+	tween.play()
 	
 # Calls _next_action for _update_hp
-func _health_bar_stop(_anim_name):
-	$PlayerInfobox/HP/AnimationPlayer.stop()
-	$OpponentInfobox/HP/AnimationPlayer.stop()
+func _health_bar_stop():
 	_hp_bar_animated = false
 	_next_action()
 	

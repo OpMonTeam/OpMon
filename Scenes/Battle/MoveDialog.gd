@@ -14,12 +14,12 @@ func _ready():
 	connect("move_chosen", Callable(get_parent(), "move_chosen"))
 	for i in range(4):
 		if _moves[i] != null:
-			get_node("MovesDialog/Move" + String(i)).text = _moves[i].data.name
+			get_node("MovesDialog/Move" + String.num(i)).text = _moves[i].data.name
 	print_infobox()
 	
 func print_infobox():
 	if _moves[_curpos] != null:
-		$Infobox/PP.text = "PP: " + String(_moves[_curpos].power_points) + " / " + String(_moves[_curpos].data.max_power_points)
+		$Infobox/PP.text = "PP: " + String.num(_moves[_curpos].power_points) + " / " + String.num(_moves[_curpos].data.max_power_points)
 	else:
 		$Infobox/PP.text = "PP: -- / --"
 

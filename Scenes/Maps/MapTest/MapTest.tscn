@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://clueo45h8bvwm"]
+[gd_scene load_steps=14 format=3 uid="uid://clueo45h8bvwm"]
 
 [ext_resource type="Texture2D" uid="uid://3my3ar8woqy8" path="res://OpMon-Data/Tileset/tileset.png" id="1"]
 [ext_resource type="PackedScene" uid="uid://c7s75w0ldamla" path="res://Scenes/Events/Interactable/Character.tscn" id="2"]
@@ -6,6 +6,8 @@
 [ext_resource type="SpriteFrames" uid="uid://bl2fqw14hgjqd" path="res://Data/Sprites/chara/kid.tres" id="4"]
 [ext_resource type="PackedScene" path="res://Scenes/Events/Trigger/Teleporter.tscn" id="5"]
 [ext_resource type="Script" path="res://Scenes/Maps/Map.gd" id="6"]
+[ext_resource type="Script" path="res://Scenes/Events/Interactable/BetaNPC.gd" id="7_tv7ag"]
+[ext_resource type="SpriteFrames" uid="uid://bkvw6f81371xh" path="res://Data/Sprites/chara/beta.tres" id="8_nnq5g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j8pkg"]
 texture = ExtResource("1")
@@ -229,5 +231,11 @@ _map_name = "EuviTown/MapHouse"
 _position = Vector2(3, 3)
 
 [node name="MapZone" type="Area2D" parent="."]
+
+[node name="Beta" parent="." groups=["Persist"] instance=ExtResource("2")]
+position = Vector2(128, 80)
+script = ExtResource("7_tv7ag")
+textures = ExtResource("8_nnq5g")
+faced_direction = "Down"
 
 [connection signal="body_entered" from="MapZone" to="." method="_on_map_entered"]
