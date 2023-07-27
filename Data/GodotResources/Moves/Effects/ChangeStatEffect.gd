@@ -1,12 +1,12 @@
-extends Resource
+extends MoveEffect
 
 class_name ChangeStatEffect
 
 const Stats = preload("res://Objects/Enumerations.gd").Stats
 
-export(Stats) var stat
-export(int) var change
-export(bool) var to_opponent
+@export var stat: Stats
+@export var change: int
+@export var to_opponent: bool
 
 func _init(p_stat = Stats.ATK, p_change = 0, p_to_opponent = false):
 	stat = p_stat

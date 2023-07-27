@@ -14,7 +14,7 @@ var cooldown := 5
 
 func _ready():
 	for s in _signals:
-		connect(s, get_parent(), s)
+		connect(s, Callable(get_parent(), s))
 	update_idle_dialog()
 
 func update_idle_dialog():
@@ -39,4 +39,4 @@ func _input(event):
 			emit_signal(_signals[_curpos])
 			cooldown = 5
 		if olcur != _curpos: # Update the position only if the position has changed
-			$SmallDialog/Arrow.rect_position = _positions[_curpos]
+			$SmallDialog/Arrow.position = _positions[_curpos]

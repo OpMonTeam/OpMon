@@ -122,7 +122,7 @@ func get_effective_name() -> String:
 # Parameter: allows to get a hp string for a different hp
 func get_hp_string(hp_p := -1) -> String:
 	var hp = self.hp if hp_p < 0 else hp_p
-	return String(hp) + " / " + String(stats[Stats.HP])
+	return str(hp) + " / " + str(stats[Stats.HP])
 
 	
 # In-battle modification of statistics, capped at ±6

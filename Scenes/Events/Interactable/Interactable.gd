@@ -1,5 +1,5 @@
 # Represents anything the player can interact with.
-extends KinematicBody2D
+extends CharacterBody2D
 
 class_name Iteractable
 

@@ -39,8 +39,8 @@ func init(p_first_map: String, p_first_player_pos := Vector2.ZERO):
 	_first_player_pos = p_first_player_pos
 
 func _ready():
-	player_instance = load(_constants.PATH_PLAYER_SCENE).instance()
-	camera_instance = load(_constants.PATH_CAMERA_SCENE).instance()
+	player_instance = load(_constants.PATH_PLAYER_SCENE).instantiate()
+	camera_instance = load(_constants.PATH_CAMERA_SCENE).instantiate()
 	player_data = get_node("/root/PlayerData")
 	camera_instance.set_map_mode()
 	player_instance.add_child(camera_instance)
@@ -52,7 +52,7 @@ func _ready():
 	
 func _input(event):
 	if event.is_action_pressed("menu") and interface_closed_delay < 0 and not player_instance.is_moving():
-		var menu = load("res://Scenes/GameMenu/GameMenu.tscn").instance()
+		var menu = load("res://Scenes/GameMenu/GameMenu.tscn").instantiate()
 		pause_player()
 		load_interface(menu)
 	
@@ -90,8 +90,8 @@ func change_map(map_name: String, player_pos = Vector2(0,0), map_pos = Vector2(0
 		maps.erase(key)
 	# Loads the new map
 	current_map = map_name
-	maps[map_name] = load(_constants.PATH_MAP_SCENE + map_name + ".tscn").instance()
-	maps[current_map].connect("map_entered", self, "map_entered")
+	maps[map_name] = load(_constants.PATH_MAP_SCENE + map_name + ".tscn").instantiate()
+	maps[current_map].connect("map_entered", Callable(self, "map_entered"))
 	# Sets the positions
 	maps[current_map].position = map_pos * _constants.TILE_SIZE
 	player_instance.position = player_pos * _constants.TILE_SIZE
@@ -107,7 +107,7 @@ func change_map(map_name: String, player_pos = Vector2(0,0), map_pos = Vector2(0
 func map_entered(map):
 	if next_map == "":
 		next_map = get_map_key(map)
-		player_instance.connect("square_tick",self,"switch_map")
+		player_instance.connect("square_tick", Callable(self, "switch_map"))
 
 # Called when the player enters a map already shown on the screen and has finished walking on a square.
 # Switches the main map to the new one
@@ -128,7 +128,7 @@ func switch_map():
 		current_map = next_map
 		player_data.current_map = current_map
 	next_map = ""
-	player_instance.disconnect("square_tick",self,"switch_map")
+	player_instance.disconnect("square_tick", Callable(self, "switch_map"))
 
 
 func get_map_key(map) -> String:
@@ -138,19 +138,17 @@ func get_map_key(map) -> String:
 	return ""
 	
 func fade(duration: float):
-	var fade: ColorRect = load(_constants.PATH_FADE_SCENE).instance()
-	var tween: Tween = fade.get_node("Tween")
+	var fade: Fade = load(_constants.PATH_FADE_SCENE).instantiate()
+	var tween = fade.tween
 	fade.set_size(get_viewport().size)
+	fade.duration = duration
 	$Interface.add_child(fade)
-	tween.interpolate_property(fade, "alpha", 0.0, 1.0, duration)
-	tween.start()
 	return fade
 	
-func unfade(duration: float, fade: ColorRect):
-	var tween: Tween = fade.get_node("Tween")
-	tween.interpolate_property(fade, "alpha", 1.0, 0.0, duration)
-	tween.start()
-	tween.connect("tween_completed", self, "remove_fade")
+func unfade(duration: float, fade: Fade):
+	fade.unfade(duration)
+	
+	fade.tween.tween_callback(Callable(self, "remove_fade"))
 	
 func remove_fade(object, _key):
 	object.call_deferred("queue_free")
@@ -170,18 +168,19 @@ func save() -> void:
 	# Since the player is always paused in the menu to save
 	# and we want the player to be able to move after loading
 	to_save["player_character"]["_paused"] = false
-	var save_file := File.new()
-	save_file.open("user://opsave.json", File.WRITE)
-	save_file.store_line(to_json(to_save))
+	var save_file := FileAccess.open("user://opsave.json", FileAccess.WRITE)
+	save_file.store_line(JSON.new().stringify(to_save))
 	save_file.close()
 	
 func load_save() -> bool:
-	var save_file := File.new()
-	if save_file.open("user://opsave.json", File.READ) == 0:
-		load_data = parse_json(save_file.get_as_text())
+	if FileAccess.file_exists("user://opsave.json"):
+		var save_file := FileAccess.open("user://opsave.json", FileAccess.READ)
+		var test_json_conv = JSON.new()
+		test_json_conv.parse(save_file.get_as_text())
+		load_data = test_json_conv.get_data()
 		self.init(load_data["current_map"]["name"])
 		# Next step in _ready()
 		return true
 	else:
-		printerr("Can’t load user save file. It might doesn’t exist.")
+		printerr("No save file found.")
 		return false

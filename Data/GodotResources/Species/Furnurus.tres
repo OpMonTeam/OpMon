@@ -1,11 +1,11 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" script_class="Species" load_steps=4 format=3 uid="uid://d37ptos3cgfsk"]
 
-[ext_resource path="res://Objects/Species.gd" type="Script" id=1]
-[ext_resource path="res://OpMon-Data/Sprites/opmons/4-0.png" type="Texture" id=2]
-[ext_resource path="res://OpMon-Data/Sprites/opmons/4-1.png" type="Texture" id=3]
+[ext_resource type="Script" path="res://Objects/Species.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://s5haf553fcj6" path="res://OpMon-Data/Sprites/opmons/4-0.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://83iryh0ln4yn" path="res://OpMon-Data/Sprites/opmons/4-1.png" id="3"]
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource("1")
 name = "OPNAME_FURNURUS"
 opdex_number = 4
 type_1 = 6
@@ -19,7 +19,7 @@ base_special_attack = 60
 base_special_defense = 50
 base_speed = 65
 base_hp = 39
-ev_given = [ 0 ]
+ev_given = Array[int]([0])
 capture_rate = 255
-front_texture = ExtResource( 3 )
-back_texture = ExtResource( 2 )
+front_texture = ExtResource("3")
+back_texture = ExtResource("2")

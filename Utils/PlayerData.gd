@@ -38,6 +38,7 @@ func save() -> Dictionary:
 	}
 
 func load_save(data: Dictionary) -> void:
-	team = OpTeam.new().load_save(data["team"])
+	team = OpTeam.new()
+	team.load_save(data["team"])
 	player_name = data["player_name"]
 	bag = data["bag"]

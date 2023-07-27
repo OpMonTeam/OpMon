@@ -8,7 +8,7 @@
 [node name="Door" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
 position = Vector2( 8, 6 )
 scale = Vector2( 0.523809, 0.5 )
 frames = ExtResource( 2 )
