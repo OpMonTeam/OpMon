@@ -1,39 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfrakbi6wo64u"]
+[gd_scene load_steps=7 format=3 uid="uid://bfrakbi6wo64u"]
 
 [ext_resource type="AudioStream" uid="uid://cx5jm6ygu78xq" path="res://OpMon-Data/Audio/sfx/sfx_nope.ogg" id="1"]
+[ext_resource type="Theme" uid="uid://cir3f60kwn7dv" path="res://Data/Fonts/Dialog_Theme.tres" id="1_bdd0d"]
 [ext_resource type="Texture2D" uid="uid://dokdrfxtwvvk3" path="res://Data/Backgrounds/menuframe.png" id="2"]
-[ext_resource type="FontFile" uid="uid://c5pnk4yop31d" path="res://Data/Fonts/main_font.ttf" id="3"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/MainMenu.gd" id="4"]
 [ext_resource type="AudioStream" uid="uid://b53nqo27v7nl3" path="res://OpMon-Data/Audio/sfx/sfx_select_buttons.ogg" id="5"]
 [ext_resource type="AudioStream" uid="uid://b6w18xtq8l0t7" path="res://OpMon-Data/Audio/music/title.ogg" id="6"]
 
-[sub_resource type="FontFile" id="2"]
-fallbacks = Array[Font]([ExtResource("3")])
-face_index = null
-embolden = null
-transform = null
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-
-[sub_resource type="Theme" id="1"]
-default_font = SubResource("2")
-Label/colors/font_color = Color(0, 0, 0, 1)
-
-[node name="MainMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -480.0
-offset_bottom = -320.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-theme = SubResource("1")
+[node name="MainMenu" type="ColorRect"]
+custom_minimum_size = Vector2(960, 640)
+offset_right = 480.0
+offset_bottom = 320.0
+theme = ExtResource("1_bdd0d")
+color = Color(0.376471, 0.431373, 0.854902, 1)
 script = ExtResource("4")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -43,16 +22,23 @@ offset_bottom = 320.0
 color = Color(0.376471, 0.431373, 0.854902, 1)
 
 [node name="MainMenuButtons" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 112.0
-offset_top = 4.0
-offset_right = 208.0
-offset_bottom = 316.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -146.0
+offset_right = 146.0
+offset_bottom = 174.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(146, -20)
+alignment = 1
 
 [node name="NewGameButton" type="NinePatchRect" parent="MainMenuButtons"]
 modulate = Color(0.31, 0.31, 0.31, 1)
 custom_minimum_size = Vector2(256, 32)
 layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("2")
 patch_margin_left = 16
 patch_margin_top = 16
@@ -60,11 +46,14 @@ patch_margin_right = 16
 patch_margin_bottom = 16
 
 [node name="NewGameLabel" type="Label" parent="MainMenuButtons/NewGameButton"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 8.0
-offset_top = -4.0
-offset_right = 248.0
-offset_bottom = 28.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 text = "MAINMENU_NEW_GAME"
 vertical_alignment = 2
 
@@ -72,6 +61,7 @@ vertical_alignment = 2
 modulate = Color(0.313726, 0.313726, 0.313726, 1)
 custom_minimum_size = Vector2(256, 32)
 layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("2")
 patch_margin_left = 16
 patch_margin_top = 16
@@ -79,11 +69,16 @@ patch_margin_right = 16
 patch_margin_bottom = 16
 
 [node name="LoadGameLabel" type="Label" parent="MainMenuButtons/LoadGameButton"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 8.0
-offset_top = -4.0
-offset_right = 260.0
-offset_bottom = 28.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "MAINMENU_LOAD_GAME"
 vertical_alignment = 2
 
@@ -91,6 +86,7 @@ vertical_alignment = 2
 modulate = Color(0.313726, 0.313726, 0.313726, 1)
 custom_minimum_size = Vector2(256, 32)
 layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("2")
 patch_margin_left = 16
 patch_margin_top = 16
@@ -98,11 +94,14 @@ patch_margin_right = 16
 patch_margin_bottom = 16
 
 [node name="SettingsLabel" type="Label" parent="MainMenuButtons/SettingsButton"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 8.0
-offset_top = -4.0
-offset_right = 226.0
-offset_bottom = 28.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 text = "MAINMENU_SETTINGS"
 vertical_alignment = 2
 
@@ -110,6 +109,7 @@ vertical_alignment = 2
 modulate = Color(0.313726, 0.313726, 0.313726, 1)
 custom_minimum_size = Vector2(256, 32)
 layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("2")
 patch_margin_left = 16
 patch_margin_top = 16
@@ -117,11 +117,16 @@ patch_margin_right = 16
 patch_margin_bottom = 16
 
 [node name="QuitLabel" type="Label" parent="MainMenuButtons/QuitButton"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 8.0
-offset_top = -4.0
-offset_right = 216.0
-offset_bottom = 28.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "MAINMENU_QUIT"
 vertical_alignment = 2
 

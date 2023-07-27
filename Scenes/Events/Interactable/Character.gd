@@ -52,6 +52,7 @@ var _interaction_requested = null
 var _interaction_distance: float
 
 func _ready():
+	super._ready()
 	# Sets the texture and the faced direction
 	$AnimatedSprite2D.frames = textures
 	faced_direction = faced_direction # TODO: check if it works without this line

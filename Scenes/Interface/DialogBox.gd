@@ -1,7 +1,7 @@
 extends "res://Scenes/Interface/Interface.gd"
 
 # Speed at which the dialog lines are displayed
-@export var dialog_speed := 10.0
+@export var dialog_speed := 30.0
 
 # If the dialog auto-closes when finished
 @export var close_when_over := true
@@ -47,8 +47,8 @@ func go():
 	_start_new_line();
 
 	# Start the animation of the dial arrow
-	$NinePatchRect/DialArrow.get_node("AnimationPlayer").current_animation = "idle"
-	$NinePatchRect/DialArrow.get_node("AnimationPlayer").playback_active = true
+	$NinePatchRect/DialArrow/AnimationPlayer.current_animation = "idle"
+	$NinePatchRect/DialArrow/AnimationPlayer.playback_active = true
 
 func _ready():
 	if _map_manager != null:
