@@ -1,5 +1,7 @@
 extends Interface
 
+class_name BattleScene
+
 const Stats = preload("res://Objects/Enumerations.gd").Stats
 
 var player_team: OpTeam
@@ -275,10 +277,18 @@ const stat_names = {
 #	6 : "breached the roof"
 #}
 
-func stat_changed(target: OpMon, stat, change):
+func stat_changed(target: OpMon, stat: Stats, change: int) -> void:
 	var changed_string = tr("STAT_CHANGE_DIALOG").replace("{opmon}", target.get_effective_name()).replace("{stat}", tr(stat_names[stat])).replace("{change}", tr(("STAT_CHANGE_LOWER" if change < 0 else "STAT_CHANGE_HIGHER")))
 	add_dialog([changed_string])
-	
+
+func heal(target: OpMon, hp_gained: int) -> void:
+	var heal_string = ""
+	if target.hp == target.stats[Stats.HP]:
+		heal_string = tr("HEAL_FULL_DIALOG").replace("{opmon}", target.get_effective_name())
+	else:
+		heal_string = tr("HEAL_PARTIAL_DIALOG").replace("{opmon}", target.get_effective_name()).replace("{hp}", String.num(hp_gained))	
+	add_dialog([heal_string])
+
 func move_failed():
 	add_dialog([tr("BATTLE_MOVE_FAILED")])
 

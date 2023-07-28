@@ -140,6 +140,8 @@ text = "[OpMon Name]"
 [node name="TextDialog" parent="." instance=ExtResource("6")]
 visible = false
 anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_top = 476.0
 offset_bottom = 476.0
 dialog_speed = 20.0

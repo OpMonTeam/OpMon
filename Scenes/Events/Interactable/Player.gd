@@ -1,3 +1,6 @@
+# This class represents the Player as the character moving on the map.
+# For the Player as a set of data, see Playerdata
+
 @tool
 extends "res://Scenes/Events/Interactable/Character.gd"
 

@@ -22,7 +22,7 @@ var level: int
 # Must contain OpMove objects
 var moves = [null, null, null, null]
 var nature: Nature
-var hp: int
+var hp: int: set = set_hp
 var status = Status.NOTHING
 var nickname = ""
 
@@ -61,6 +61,14 @@ func load_save(data: Dictionary):
 	hp = data["hp"]
 	status = data["status"]
 	nickname = data["nickname"]
+
+# Avoids going below zero or above max HP
+func set_hp(new_hp: int) -> void:
+	hp = new_hp
+	if new_hp < 0:
+		new_hp = 0
+	elif new_hp > stats[Stats.HP]:
+		new_hp = stats[Stats.HP]
 
 # Recalculates the stats from the base stats, evs, nature and level
 func calc_stats():

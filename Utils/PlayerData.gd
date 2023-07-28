@@ -6,8 +6,8 @@ var player_name: String
 
 var team: OpTeam
 
-# Keys: Item resource path
-# Values: Quantity
+# Keys: Item
+# Values: Quantity (int)
 var bag: Dictionary
 
 func _ready():
@@ -24,6 +24,8 @@ func _ready():
 	var rosarin = OpMon.new("", load("res://Data/GodotResources/Species/Rosarin.tres"), 10, 
 	[tackle, growl, vine_whip, null], bot_nature)
 	team = OpTeam.new([rosarin, furnurus, nanolphin, null, null, null])
+	bag[load("res://Data/GodotResources/Item/Potion.tres")] = 3
+	bag[load("res://Data/GodotResources/Item/XAttack.tres")] = 2
 
 func save() -> Dictionary:
 	return {

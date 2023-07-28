@@ -2,6 +2,8 @@
 # It also manages the player in the overworld.
 extends Node
 
+class_name MapManager
+
 const _constants = preload("res://Utils/Constants.gd")
 
 var _first_map := ""

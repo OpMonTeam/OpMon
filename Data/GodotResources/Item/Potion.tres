@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://ccx5ryhvuqt0m"]
+
+[ext_resource type="Script" path="res://Data/GodotResources/Item/ItemEffects/Heal.gd" id="1_586c7"]
+[ext_resource type="Script" path="res://Objects/Item.gd" id="1_nnbf0"]
+
+[sub_resource type="Resource" id="Resource_2vcr7"]
+script = ExtResource("1_586c7")
+hp = 20
+
+[resource]
+script = ExtResource("1_nnbf0")
+id = "ITEM_POTION"
+applies_to_opmon = true
+consumes = true
+effect_used = Array[Resource("res://Objects/ItemEffect.gd")]([SubResource("Resource_2vcr7")])

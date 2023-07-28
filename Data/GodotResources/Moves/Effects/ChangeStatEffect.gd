@@ -13,7 +13,7 @@ func _init(p_stat = Stats.ATK, p_change = 0, p_to_opponent = false):
 	change = p_change
 	to_opponent = p_to_opponent
 
-func apply(battle_scene, _move, user: OpMon, opponent: OpMon) -> bool:
+func apply(battle_scene: BattleScene, _move, user: OpMon, opponent: OpMon) -> bool:
 	var target = opponent if to_opponent else user
 	battle_scene.stat_changed(target, stat, target.change_stat(stat, change))
 	return true
