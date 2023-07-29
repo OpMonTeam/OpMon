@@ -7,11 +7,11 @@ OpMon is a Pokémon-inspired game project imagined in 2012 and started in septem
 The project is fully open source! The spirit of the development is that anyone can participate and add their trace: places, OpMons, moves, items, characters… You can obviously also praticipate to the code. For more information about how to contriubute, read [this document](https://github.com/OpMonTeam/OpMon/blob/master/CONTRIBUTING.md).
 
 ## Links
-* [Opmon Lazuli's website](http://opmon-game.ga)
+* [Opmon Lazuli's website](http://opmon.milkyroute.net)
 * [Monthly Reports](https://github.com/OpMonTeam/OpMon/wiki/Monthly-reports)
 * [Credits](https://github.com/OpMonTeam/OpMon/blob/master/Credits.md)
 * [Data repository](https://github.com/OpMonTeam/OpMon-Data)
-* [Github repo for the game website, opmon-game.ga](https://github.com/OpMonTeam/OpMon-Website)
+* [Github repo for the game website, opmon.milkyroute.net](https://github.com/OpMonTeam/OpMon-Website)
 
 ## How to play the game?
 
