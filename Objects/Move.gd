@@ -10,7 +10,7 @@ const Type = preload("res://Objects/Enumerations.gd").Type
 enum Category {PHYSICAL, SPECIAL, STATUS}
 
 @export_group("Properties")
-@export var name: String
+@export var id: String # used for storage in the code and the transations
 @export_range(0, 200) var power: int
 @export var type: Type
 @export_range(0, 100) var accuracy: int
@@ -32,10 +32,10 @@ enum Category {PHYSICAL, SPECIAL, STATUS}
 @export_group("Animations")
 @export var move_animation: String
 
-func _init(p_name = "", p_power = 0, p_type = Type.NONE, p_accuracy = 0, p_category = Category.PHYSICAL,
+func _init(p_id = "", p_power = 0, p_type = Type.NONE, p_accuracy = 0, p_category = Category.PHYSICAL,
 p_never_fails = false, p_max_power_points = 50, p_priority = 0, p_pre_effect: Array[MoveEffect] = [], p_post_effect: Array[MoveEffect] = [],
 p_fail_effect: Array[MoveEffect] = [], p_move_animation = "NONE"):
-	name = p_name
+	id = p_id
 	power = p_power
 	type = p_type
 	accuracy = p_accuracy

@@ -6,8 +6,9 @@
 
 [resource]
 script = ExtResource("1")
-name = "OPNAME_FURNURUS"
+id = "FURNURUS"
 opdex_number = 4
+evolution_id = ""
 type_1 = 6
 type_2 = -1
 height = 0.0

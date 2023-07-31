@@ -123,7 +123,7 @@ func is_ko() -> bool:
 	
 func get_effective_name() -> String:
 	if nickname == "":
-		return tr(species.name)
+		return tr("OPNAME_" + species.id)
 	else:
 		return nickname
 
@@ -175,7 +175,7 @@ class OpMove:
 
 	func move(battle_scene, user: OpMon, opponent: OpMon):
 		power_points -= 1
-		battle_scene.add_dialog([tr("BATTLE_MOVE_USE").replace("{opmon}",user.get_effective_name()).replace("{move}",tr(self.data.name))])
+		battle_scene.add_dialog([tr("BATTLE_MOVE_USE").replace("{opmon}",user.get_effective_name()).replace("{move}",tr("MOVENAME_" + self.data.id))])
 
 		# Animate the user of the move
 		battle_scene.animate_move(MOVE_ANIMATIONS[data.move_animation])

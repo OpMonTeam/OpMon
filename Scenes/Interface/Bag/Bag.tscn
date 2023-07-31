@@ -16,14 +16,14 @@ offset_right = 960.0
 offset_bottom = 640.0
 color = Color(0.67451, 0.67451, 0.67451, 1)
 
-[node name="List" type="ColorRect" parent="Background"]
+[node name="List" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 304.0
 offset_top = 152.0
 offset_right = 688.0
 offset_bottom = 632.0
 
-[node name="TextureRect" type="TextureRect" parent="Background/List"]
+[node name="TextureRect" type="TextureRect" parent="List"]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 8.0
@@ -32,7 +32,7 @@ offset_bottom = 40.0
 texture = ExtResource("1")
 expand_mode = 1
 
-[node name="ArrowUp" type="TextureRect" parent="Background/List"]
+[node name="ArrowUp" type="TextureRect" parent="List"]
 layout_mode = 0
 offset_left = 374.0
 offset_top = 8.0
@@ -43,7 +43,7 @@ texture = ExtResource("1")
 expand_mode = 1
 flip_h = true
 
-[node name="ArrowUp2" type="TextureRect" parent="Background/List"]
+[node name="ArrowUp2" type="TextureRect" parent="List"]
 layout_mode = 0
 offset_left = 376.0
 offset_top = 452.0
@@ -53,7 +53,7 @@ rotation = 1.5708
 texture = ExtResource("1")
 expand_mode = 1
 
-[node name="Items" type="VBoxContainer" parent="Background/List"]
+[node name="Items" type="VBoxContainer" parent="List"]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 8.0
@@ -61,47 +61,48 @@ offset_right = 344.0
 offset_bottom = 472.0
 theme = ExtResource("3_u35m5")
 
-[node name="Item1" type="HBoxContainer" parent="Background/List/Items"]
+[node name="Template" type="HBoxContainer" parent="List/Items"]
+visible = false
 layout_mode = 2
 
-[node name="Name" type="Label" parent="Background/List/Items/Item1"]
+[node name="Name" type="Label" parent="List/Items/Template"]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Item 1"
 
-[node name="Quantity" type="Label" parent="Background/List/Items/Item1"]
+[node name="Quantity" type="Label" parent="List/Items/Template"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "x1"
 
-[node name="Item2" type="HBoxContainer" parent="Background/List/Items"]
+[node name="Item2" type="HBoxContainer" parent="List/Items"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="Background/List/Items/Item2"]
+[node name="Label2" type="Label" parent="List/Items/Item2"]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Item 2"
 
-[node name="Quantity" type="Label" parent="Background/List/Items/Item2"]
+[node name="Quantity" type="Label" parent="List/Items/Item2"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "x5"
 
-[node name="CategorySelector" type="ColorRect" parent="Background"]
+[node name="CategorySelector" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 304.0
 offset_top = 8.0
 offset_right = 952.0
 offset_bottom = 72.0
 
-[node name="Container" type="HBoxContainer" parent="Background/CategorySelector"]
+[node name="Container" type="HBoxContainer" parent="CategorySelector"]
 layout_mode = 0
 offset_left = 8.0
 offset_right = 640.0
 offset_bottom = 64.0
 alignment = 1
 
-[node name="ArrowLeft" type="TextureRect" parent="Background/CategorySelector/Container"]
+[node name="ArrowLeft" type="TextureRect" parent="CategorySelector/Container"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -110,11 +111,11 @@ texture = ExtResource("1")
 expand_mode = 1
 flip_h = true
 
-[node name="Category1" type="TextureRect" parent="Background/CategorySelector/Container"]
+[node name="Category1" type="TextureRect" parent="CategorySelector/Container"]
 editor_description = "TODO"
 layout_mode = 2
 
-[node name="ArrowRight" type="TextureRect" parent="Background/CategorySelector/Container"]
+[node name="ArrowRight" type="TextureRect" parent="CategorySelector/Container"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -122,14 +123,14 @@ size_flags_vertical = 4
 texture = ExtResource("1")
 expand_mode = 1
 
-[node name="CategoryName" type="ColorRect" parent="Background"]
+[node name="CategoryName" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 304.0
 offset_top = 80.0
 offset_right = 952.0
 offset_bottom = 144.0
 
-[node name="Container" type="HBoxContainer" parent="Background/CategoryName"]
+[node name="Container" type="HBoxContainer" parent="CategoryName"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -137,28 +138,28 @@ offset_right = 640.0
 offset_bottom = 56.0
 alignment = 1
 
-[node name="Label" type="Label" parent="Background/CategoryName/Container"]
+[node name="Label" type="Label" parent="CategoryName/Container"]
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Bag category"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ItemDescription" type="ColorRect" parent="Background"]
+[node name="ItemDescription" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 696.0
 offset_top = 152.0
 offset_right = 952.0
 offset_bottom = 432.0
 
-[node name="ItemSprite" type="TextureRect" parent="Background/ItemDescription"]
+[node name="ItemSprite" type="TextureRect" parent="ItemDescription"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 80.0
 offset_bottom = 80.0
 
-[node name="Description" type="Label" parent="Background/ItemDescription"]
+[node name="Description" type="Label" parent="ItemDescription"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 96.0
@@ -167,7 +168,7 @@ offset_bottom = 272.0
 theme_override_font_sizes/font_size = 16
 text = "Item Description"
 
-[node name="Mons" type="ColorRect" parent="Background"]
+[node name="Mons" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0

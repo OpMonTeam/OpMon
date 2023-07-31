@@ -11,8 +11,8 @@ enum UseType {
 	BATTLE_OPMON
 }
 
-# Item ID used in the translations so the name key is ITEM_{id}_NAME and
-# the description key is ITEM_{id}_DESCRIPTION
+# Item ID used for storage in the code and in the translations:
+# the name key is ITEM_{id}_NAME and the description key is ITEM_{id}_DESCRIPTION
 @export var id: String
 # true if the player has to choose an opmon to which apply the item
 @export var applies_to_opmon: bool
@@ -25,7 +25,7 @@ enum UseType {
 # « can’t use this item » only if none of the effects returns true
 @export var effect_used: Array[ItemEffect] # (Array, Resource)
 
-func _init(p_id, p_applies_to_opmon, p_consumes, p_effect_used):
+func _init(p_id = "", p_applies_to_opmon = false, p_consumes = false, p_effect_used: Array[ItemEffect] = []):
 	id = p_id
 	applies_to_opmon = p_applies_to_opmon
 	consumes = p_consumes

@@ -11,7 +11,7 @@ to_opponent = true
 
 [resource]
 script = ExtResource("1")
-name = "MOVENAME_GROWL"
+id = "GROWL"
 power = 0
 type = 9
 accuracy = 100

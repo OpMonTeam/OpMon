@@ -14,7 +14,7 @@ func _ready():
 	connect("move_chosen", Callable(get_parent(), "move_chosen"))
 	for i in range(4):
 		if _moves[i] != null:
-			get_node("MovesDialog/Move" + String.num(i)).text = _moves[i].data.name
+			get_node("MovesDialog/Move" + String.num(i)).text = "MOVENAME_" + _moves[i].data.id
 	print_infobox()
 	
 func print_infobox():

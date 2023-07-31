@@ -11,7 +11,7 @@ to_opponent = false
 
 [resource]
 script = ExtResource("1")
-name = "MOVENAME_HARDEN"
+id = "HARDEN"
 power = 0
 type = 9
 accuracy = 100
@@ -19,7 +19,7 @@ category = 2
 never_fails = true
 max_power_points = 30
 priority = 0
-pre_effect = [SubResource("1")]
-post_effect = []
-fail_effect = []
+pre_effect = Array[Resource("res://Objects/MoveEffect.gd")]([SubResource("1")])
+post_effect = Array[Resource("res://Objects/MoveEffect.gd")]([])
+fail_effect = Array[Resource("res://Objects/MoveEffect.gd")]([])
 move_animation = "SLOW_DOUBLE_DIP"

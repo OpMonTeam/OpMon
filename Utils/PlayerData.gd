@@ -6,11 +6,45 @@ var player_name: String
 
 var team: OpTeam
 
-# Keys: Item
+# Lists of loaded resources
+# Keys: IDs (String)
+var res_species: Dictionary
+var res_move: Dictionary
+var res_nature: Dictionary
+var res_item: Dictionary
+
+# Keys: Item ID (String)
 # Values: Quantity (int)
 var bag: Dictionary
 
+# Loads every resource in a given directory.
+# Warning: don’t forget to include "/" at the end of the directory.
+func _load_dir(path: String) -> Array[Resource]:
+	var dir = DirAccess.open(path)
+	var files := dir.get_files()
+	var ret: Array[Resource] = []
+	for file in files:
+		if file.ends_with(".tres"):
+			ret.append(load(path + file))
+	return ret
+
+func _load_resources():
+	print("Loading resources...")
+	for species in _load_dir("res://Data/GodotResources/Species/"):
+		res_species[species.id] = species
+	print("Species loaded.")
+	for move in _load_dir("res://Data/GodotResources/Moves/"):
+		res_move[move.id] = move
+	print("Moves loaded.")
+	for nature in _load_dir("res://Data/GodotResources/Natures/"):
+		res_nature[nature.id] = nature
+	print("Natures loaded.")
+	for item in _load_dir("res://Data/GodotResources/Items/"):
+		res_item[item.id] = item
+	print("Items loaded. All resources are now loaded.")
+
 func _ready():
+	_load_resources()
 	var tackle = load("res://Data/GodotResources/Moves/Tackle.tres")
 	var growl = load("res://Data/GodotResources/Moves/Growl.tres")
 	var ember = load("res://Data/GodotResources/Moves/Ember.tres")
