@@ -61,21 +61,36 @@ offset_right = 344.0
 offset_bottom = 472.0
 theme = ExtResource("3_u35m5")
 
-[node name="Template" type="HBoxContainer" parent="List/Items"]
+[node name="Item0" type="HBoxContainer" parent="List/Items"]
 visible = false
 layout_mode = 2
 
-[node name="Name" type="Label" parent="List/Items/Template"]
+[node name="Name" type="Label" parent="List/Items/Item0"]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Item 1"
 
-[node name="Quantity" type="Label" parent="List/Items/Template"]
+[node name="Quantity" type="Label" parent="List/Items/Item0"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item1" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item1"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item1"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "x1"
 
 [node name="Item2" type="HBoxContainer" parent="List/Items"]
+visible = false
 layout_mode = 2
 
 [node name="Label2" type="Label" parent="List/Items/Item2"]
@@ -87,6 +102,132 @@ text = "Item 2"
 layout_mode = 2
 size_flags_horizontal = 10
 text = "x5"
+
+[node name="Item3" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item3"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item3"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item4" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item4"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item4"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item5" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item5"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item5"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item6" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item6"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item6"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item7" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item7"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item7"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item8" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item8"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item8"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item9" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item9"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item9"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item10" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item10"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item10"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item11" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item11"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item11"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
 
 [node name="CategorySelector" type="ColorRect" parent="."]
 layout_mode = 0

@@ -1,6 +1,6 @@
 extends Node
 # This singleton contains player-related data like name, id, or team
-# This is this class that will be saved and loaded
+# It also contains some resources (OpMon species, moves, natures, items)
 
 var player_name: String
 
@@ -45,21 +45,15 @@ func _load_resources():
 
 func _ready():
 	_load_resources()
-	var tackle = load("res://Data/GodotResources/Moves/Tackle.tres")
-	var growl = load("res://Data/GodotResources/Moves/Growl.tres")
-	var ember = load("res://Data/GodotResources/Moves/Ember.tres")
-	var vine_whip = load("res://Data/GodotResources/Moves/VineWhip.tres")
-	var water_gun = load("res://Data/GodotResources/Moves/WaterGun.tres")
-	var bot_nature = load("res://Data/GodotResources/Natures/Bot.tres")
-	var furnurus = OpMon.new("", load("res://Data/GodotResources/Species/Furnurus.tres"), 10,
-	[tackle, growl, ember, null], bot_nature)
-	var nanolphin = OpMon.new("", load("res://Data/GodotResources/Species/Nanolphin.tres"), 10, 
-	[tackle, growl, water_gun, null], bot_nature)
-	var rosarin = OpMon.new("", load("res://Data/GodotResources/Species/Rosarin.tres"), 10, 
-	[tackle, growl, vine_whip, null], bot_nature)
+	var furnurus = OpMon.new("", res_species["FURNURUS"], 10,
+	[res_move["TACKLE"], res_move["GROWL"], res_move["EMBER"], null], res_nature["BOT"])
+	var nanolphin = OpMon.new("", res_species["NANOLPHIN"], 10, 
+	[res_move["TACKLE"], res_move["GROWL"], res_move["WATER_GUN"], null], res_nature["BOT"])
+	var rosarin = OpMon.new("", res_species["ROSARIN"], 10, 
+	[res_move["TACKLE"], res_move["GROWL"], res_move["VINE_WHIP"], null], res_nature["BOT"])
 	team = OpTeam.new([rosarin, furnurus, nanolphin, null, null, null])
-	bag[load("res://Data/GodotResources/Item/Potion.tres")] = 3
-	bag[load("res://Data/GodotResources/Item/XAttack.tres")] = 2
+	bag["POTION"] = 3
+	bag["XATTACK"] = 2
 
 func save() -> Dictionary:
 	return {

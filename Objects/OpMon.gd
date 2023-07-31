@@ -36,10 +36,10 @@ func save() -> Dictionary:
 	return {
 		"stats" : stats,
 		"ev" : ev,
-		"species" : species.resource_path,
+		"species" : species.id,
 		"level" : level,
 		"moves" : moves_saved,
-		"nature" : nature.resource_path,
+		"nature" : nature.id,
 		"hp" : hp,
 		"status" : status,
 		"nickname" : nickname
@@ -48,16 +48,16 @@ func save() -> Dictionary:
 func load_save(data: Dictionary):
 	stats = data["stats"]
 	ev = data["ev"]
-	species = load(data["species"])
+	species = PlayerData.res_species[data["species"]]
 	level = data["level"]
 	var moves_loaded := []
 	for move in data["moves"]:
 		if move == null:
 			moves_loaded.append(null)
 		else:
-			moves_loaded.append(OpMove.new(load(move["move"]), move["power_points"]))
+			moves_loaded.append(OpMove.new(PlayerData.res_move[move["move"]], move["power_points"]))
 	moves = moves_loaded
-	nature = load(data["nature"])
+	nature = PlayerData.res_nature[data["nature"]]
 	hp = data["hp"]
 	status = data["status"]
 	nickname = data["nickname"]
@@ -165,7 +165,7 @@ class OpMove:
 	
 	func save() -> Dictionary: # Loading directly in OpMon.load_save()
 		return {
-			"move" : data.resource_path,
+			"move" : data.id,
 			"power_points" : power_points
 		}
 	

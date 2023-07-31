@@ -4,7 +4,7 @@ class_name Heal
 
 @export var hp: int
 
-func _init(p_hp: int):
+func _init(p_hp := 0):
 	hp = p_hp
 
 func apply_opmon_battle(battle_scene: BattleScene, user: OpMon, opponent: OpMon) -> bool:
