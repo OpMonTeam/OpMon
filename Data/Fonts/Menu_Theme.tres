@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cpw3rvof6qohv"]
+
+[ext_resource type="FontFile" uid="uid://c5pnk4yop31d" path="res://Data/Fonts/main_font.ttf" id="1_o5cdq"]
+
+[resource]
+default_font = ExtResource("1_o5cdq")
+default_font_size = 24
+Label/colors/font_color = Color(0, 0, 0, 1)

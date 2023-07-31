@@ -144,6 +144,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 offset_top = 476.0
 offset_bottom = 476.0
+grow_horizontal = 1
+grow_vertical = 1
 dialog_speed = 20.0
 close_when_over = false
 
