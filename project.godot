@@ -151,7 +151,7 @@ menu={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://OpMon-Data/translations.en.translation", "res://OpMon-Data/translations.fr.translation")
+locale/translations=PackedStringArray("res://Data/translations.en.translation", "res://Data/translations.fr.translation")
 
 [locale]
 
