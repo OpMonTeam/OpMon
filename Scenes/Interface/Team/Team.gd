@@ -9,9 +9,9 @@ enum Mode {
 	REORDER # Switches the position of two OpMons
 }
 
-const SUBMENU_CHOICES := {
-	Mode.MANAGER: ["TEAMMANAGER_ORDER","MENU_BACK"],
-	Mode.SELECTOR: ["TEAMMANAGER_SELECT", "MENU_BACK"]
+var SUBMENU_CHOICES := {
+	Mode.MANAGER: ["TEAMMANAGER_ORDER","MENU_BACK"] as Array[String],
+	Mode.SELECTOR: ["TEAMMANAGER_SELECT", "MENU_BACK"] as Array[String]
 }
 
 var mode = Mode.MANAGER

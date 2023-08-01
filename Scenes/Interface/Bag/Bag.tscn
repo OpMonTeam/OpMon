@@ -217,6 +217,33 @@ layout_mode = 2
 size_flags_horizontal = 10
 text = "x1"
 
+[node name="Item11" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item11"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item11"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="HideBar" type="ColorRect" parent="List"]
+layout_mode = 0
+offset_top = 472.0
+offset_right = 384.0
+offset_bottom = 480.0
+
+[node name="HideBar2" type="ColorRect" parent="List"]
+layout_mode = 0
+offset_top = 479.0
+offset_right = 384.0
+offset_bottom = 487.0
+color = Color(0.67451, 0.67451, 0.67451, 1)
+
 [node name="CategorySelector" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 304.0

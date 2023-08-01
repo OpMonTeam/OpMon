@@ -3,7 +3,7 @@ extends Interface
 # The number of items the list can show. In reality, the list can show one more item,
 # but the twelfth item implies by its placement that there is more items below, so
 # it must not be present at the end of the list.
-const LIST_SIZE := 10
+const LIST_SIZE := 11
 
 # The different modes of the bag
 enum Mode {
@@ -21,11 +21,15 @@ var _current_list_size := 0 # Number of items currently shown on the list
 
 # Updates the list with the currently shown items
 func _update_items():
-	# Range: either the limit is the shown list size or the full item size.
-	for i in range(_first_item, min(_first_item + LIST_SIZE + 1, _all_items.size())):
-		_item_boxes[i].get_child(0).text = "ITEMNAME_" + _all_items[i]
-		_item_boxes[i].get_child(1).text = "x" + String.num(PlayerData.bag[_all_items[i]])
-		_item_boxes[i].visible = true
+	_current_list_size = 0
+	for i in range(_first_item, _first_item + LIST_SIZE + 1):
+		if i < _all_items.size(): # There is still items
+			_item_boxes[i - _first_item].get_child(0).text = "ITEMNAME_" + _all_items[i]
+			_item_boxes[i - _first_item].get_child(1).text = "x" + String.num(PlayerData.bag[_all_items[i]])
+			_item_boxes[i - _first_item].visible = true
+			_current_list_size += 1
+		else: # No items left
+			_item_boxes[i - _first_item].visible = false
 
 func _ready():
 	_item_boxes = [
@@ -39,7 +43,8 @@ func _ready():
 		$List/Items/Item7,
 		$List/Items/Item8,
 		$List/Items/Item9,
-		$List/Items/Item10
+		$List/Items/Item10,
+		$List/Items/Item11
 	]
 	_all_items = PlayerData.bag.keys()
 	_all_items.sort()
@@ -56,7 +61,7 @@ func _input(event):
 		if _cur_pos_rel == LIST_SIZE - 1 and _first_item + LIST_SIZE < _all_items.size():
 			_first_item += 1
 			_update_items()
-		elif _cur_pos_rel < LIST_SIZE:
+		elif _cur_pos_rel < LIST_SIZE - 1 and _cur_pos_rel < _current_list_size:
 			_cur_pos_rel += 1
 	
 	$List/Selector.position = Vector2($List/Selector.position.x, 8 + _cur_pos_rel*40)

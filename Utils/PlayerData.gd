@@ -41,6 +41,11 @@ func _load_resources():
 	print("Natures loaded.")
 	for item in _load_dir("res://Data/GodotResources/Items/"):
 		res_item[item.id] = item
+	#TODO: Temporary filling the player’s inventory for testing purposes. Don’t
+	# forget to delete
+	for i in range(20):
+		res_item["DUMMY_" + String.num(i)] = Item.new("DUMMY_" + String.num(i))
+		bag["DUMMY_" + String.num(i)] = i
 	print("Items loaded. All resources are now loaded.")
 
 func _ready():
