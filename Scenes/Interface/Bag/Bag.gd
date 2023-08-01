@@ -3,7 +3,7 @@ extends Interface
 # The number of items the list can show. In reality, the list can show one more item,
 # but the twelfth item implies by its placement that there is more items below, so
 # it must not be present at the end of the list.
-const LIST_SIZE := 11
+const LIST_SIZE := 10
 
 # The different modes of the bag
 enum Mode {
@@ -16,22 +16,16 @@ var _all_items: Array # an array of all the items in the bag (items IDs)
 
 
 var _cur_pos_rel := 0 # Cursor position on the current screen
-var _cur_pos_abs := 0 # Cursor position on the full list of items
+var _first_item := 0 # Position of the first item in the shown list in the item array
 var _current_list_size := 0 # Number of items currently shown on the list
 
-func _init_items():
-	_all_items = PlayerData.bag.keys()
-	_all_items.sort()
-	
-	var i := 0
-	
-	for item in _all_items:
-		if i > LIST_SIZE:
-			break
-		_item_boxes[i].get_child(0).text = "ITEMNAME_" + item
-		_item_boxes[i].get_child(1).text = "x" + String.num(PlayerData.bag[item])
+# Updates the list with the currently shown items
+func _update_items():
+	# Range: either the limit is the shown list size or the full item size.
+	for i in range(_first_item, min(_first_item + LIST_SIZE + 1, _all_items.size())):
+		_item_boxes[i].get_child(0).text = "ITEMNAME_" + _all_items[i]
+		_item_boxes[i].get_child(1).text = "x" + String.num(PlayerData.bag[_all_items[i]])
 		_item_boxes[i].visible = true
-		i+=1
 
 func _ready():
 	_item_boxes = [
@@ -45,10 +39,27 @@ func _ready():
 		$List/Items/Item7,
 		$List/Items/Item8,
 		$List/Items/Item9,
-		$List/Items/Item10,
-		$List/Items/Item11
+		$List/Items/Item10
 	]
-	_init_items()
+	_all_items = PlayerData.bag.keys()
+	_all_items.sort()
+	_update_items()
+
+func _input(event):
+	if event.is_action_pressed("ui_up"):
+		if _cur_pos_rel == 0 and _first_item > 0:
+			_first_item -= 1
+			_update_items()
+		elif _cur_pos_rel > 0:
+			_cur_pos_rel -= 1
+	elif event.is_action_pressed("ui_down"):
+		if _cur_pos_rel == LIST_SIZE - 1 and _first_item + LIST_SIZE < _all_items.size():
+			_first_item += 1
+			_update_items()
+		elif _cur_pos_rel < LIST_SIZE:
+			_cur_pos_rel += 1
+	
+	$List/Selector.position = Vector2($List/Selector.position.x, 8 + _cur_pos_rel*40)
 
 func _process(delta):
 	pass

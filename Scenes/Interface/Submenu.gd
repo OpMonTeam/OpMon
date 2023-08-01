@@ -6,7 +6,7 @@ class_name Submenu
 # Returns the identifier of the option chosen. Returns -1 if no option chosen (submenu closed)
 signal choice(curpos)
 
-@export var choices: Array: set = set_choices
+@export var choices: Array[String]: set = set_choices
 @export var cursor_texture: Texture2D: set = set_cursor_texture
 
 var choices_nodes: Array
@@ -16,7 +16,7 @@ var cursor := TextureRect.new()
 
 var curpos: int
 
-func set_choices(new_choices: Array):
+func set_choices(new_choices: Array[String]):
 	choices = new_choices
 	# Clears old nodes
 	for choice_node in choices_nodes:

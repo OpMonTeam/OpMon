@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj1cwqnk6ko4a"]
+[gd_scene load_steps=6 format=3 uid="uid://bj1cwqnk6ko4a"]
 
 [ext_resource type="Texture2D" uid="uid://bmrmuv5nvgor7" path="res://Data/Sprites/UI/arrChoice.png" id="1"]
 [ext_resource type="Script" path="res://Scenes/Interface/Bag/Bag.gd" id="2_wc0kd"]
 [ext_resource type="Theme" uid="uid://cpw3rvof6qohv" path="res://Data/Fonts/Menu_Theme.tres" id="3_u35m5"]
+[ext_resource type="Script" path="res://Scenes/Interface/Submenu.gd" id="4_hpnxt"]
+[ext_resource type="Texture2D" uid="uid://djweqkgewlmtb" path="res://Data/Sprites/UI/cursor.png" id="5_1tnir"]
 
 [node name="Bag" type="Control"]
 layout_mode = 3
@@ -23,7 +25,7 @@ offset_top = 152.0
 offset_right = 688.0
 offset_bottom = 632.0
 
-[node name="TextureRect" type="TextureRect" parent="List"]
+[node name="Selector" type="TextureRect" parent="List"]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 8.0
@@ -43,7 +45,7 @@ texture = ExtResource("1")
 expand_mode = 1
 flip_h = true
 
-[node name="ArrowUp2" type="TextureRect" parent="List"]
+[node name="ArrowDown" type="TextureRect" parent="List"]
 layout_mode = 0
 offset_left = 376.0
 offset_top = 452.0
@@ -215,20 +217,6 @@ layout_mode = 2
 size_flags_horizontal = 10
 text = "x1"
 
-[node name="Item11" type="HBoxContainer" parent="List/Items"]
-visible = false
-layout_mode = 2
-
-[node name="Name" type="Label" parent="List/Items/Item11"]
-layout_mode = 2
-size_flags_horizontal = 2
-text = "Item 1"
-
-[node name="Quantity" type="Label" parent="List/Items/Item11"]
-layout_mode = 2
-size_flags_horizontal = 10
-text = "x1"
-
 [node name="CategorySelector" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 304.0
@@ -315,3 +303,16 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 296.0
 offset_bottom = 632.0
+
+[node name="Submenu" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 696.0
+offset_top = 488.0
+offset_right = 1016.0
+offset_bottom = 631.0
+pivot_offset = Vector2(0, 143)
+color = Color(0.960784, 0.960784, 0.960784, 1)
+script = ExtResource("4_hpnxt")
+choices = Array[String](["ITEMMENU_USE", "ITEMMENU_THROW", "MENU_BACK"])
+cursor_texture = ExtResource("5_1tnir")
