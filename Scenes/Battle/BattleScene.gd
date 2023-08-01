@@ -1,5 +1,7 @@
 extends Interface
 
+class_name BattleScene
+
 const Stats = preload("res://Objects/Enumerations.gd").Stats
 
 var player_team: OpTeam
@@ -89,25 +91,25 @@ var _selector_mode = SelectorMode.NONE
 
 # Loads the OpMon selector
 func _load_opmon_selector(selector_mode) -> void:
-	opmon_selector = load("res://Scenes/Interface/Team/Team.tscn").instance()
+	opmon_selector = load("res://Scenes/Interface/Team/Team.tscn").instantiate()
 	opmon_selector.set_map(self._map_manager)
 	opmon_selector.mode = opmon_selector.Mode.SELECTOR
 	add_child(opmon_selector)
-	opmon_selector.disconnect("closed", _map_manager, "unload_interface")
+	opmon_selector.disconnect("closed", Callable(_map_manager, "unload_interface"))
 	_set_selector_mode(selector_mode)
 
 # Changes the mode of the opmon selector
 func _set_selector_mode(new_selector_mode) -> void:
 	if new_selector_mode != _selector_mode:
 		if _selector_connections[_selector_mode]["choice"] != null:
-			opmon_selector.disconnect("choice", self, _selector_connections[_selector_mode]["choice"])
+			opmon_selector.disconnect("choice", Callable(self, _selector_connections[_selector_mode]["choice"]))
 		if _selector_connections[_selector_mode]["closed"] != null:
-			opmon_selector.disconnect("closed", self, _selector_connections[_selector_mode]["closed"])
+			opmon_selector.disconnect("closed", Callable(self, _selector_connections[_selector_mode]["closed"]))
 		_selector_mode = new_selector_mode
 		if _selector_connections[_selector_mode]["choice"] != null:
-			opmon_selector.connect("choice", self, _selector_connections[_selector_mode]["choice"])
+			opmon_selector.connect("choice", Callable(self, _selector_connections[_selector_mode]["choice"]))
 		if _selector_connections[_selector_mode]["closed"] != null:
-			opmon_selector.connect("closed", self, _selector_connections[_selector_mode]["closed"])
+			opmon_selector.connect("closed", Callable(self, _selector_connections[_selector_mode]["closed"]))
 
 func opmon_selected() -> void:
 	if opmon_selector == null:
@@ -146,9 +148,9 @@ func item_selected() -> void:
 # When the move choice has been selected in the base menu
 func move_selected():
 	$BaseDialog.visible = false
-	move_dialog = load("res://Scenes/Battle/MoveDialog.tscn").instance()
+	move_dialog = load("res://Scenes/Battle/MoveDialog.tscn").instantiate()
 	move_dialog.set_moves(player_opmon.moves)
-	move_dialog.rect_position = $BaseDialog.rect_position
+	move_dialog.position = $BaseDialog.position
 	add_child(move_dialog)
 
 func run_selected():
@@ -201,7 +203,7 @@ func move_chosen(id: int, action_priority := false):
 
 # Calls the next action to show, and ends the turn if there is no more actions to show
 func _next_action():
-	if _action_queue.empty():
+	if _action_queue.is_empty():
 		# call_deferred to allow a pause between the interaction action of closing the
 		# eventual dialog and the one of choosing "move" in the main battle menu
 		call_deferred("show_base_dialog")
@@ -214,7 +216,7 @@ func show_base_dialog():
 	$BaseDialog.visible = true
 
 func _update_hp_label():
-	$PlayerInfobox/HPLabel.text = String($PlayerInfobox/HP.value) + " / " + String(player_opmon.stats[Stats.HP])
+	$PlayerInfobox/HPLabel.text = String.num($PlayerInfobox/HP.value) + " / " + String.num(player_opmon.stats[Stats.HP])
 
 # Executed when one on the OpMons is KO
 func ko():
@@ -275,10 +277,18 @@ const stat_names = {
 #	6 : "breached the roof"
 #}
 
-func stat_changed(target: OpMon, stat, change):
+func stat_changed(target: OpMon, stat: Stats, change: int) -> void:
 	var changed_string = tr("STAT_CHANGE_DIALOG").replace("{opmon}", target.get_effective_name()).replace("{stat}", tr(stat_names[stat])).replace("{change}", tr(("STAT_CHANGE_LOWER" if change < 0 else "STAT_CHANGE_HIGHER")))
 	add_dialog([changed_string])
-	
+
+func heal(target: OpMon, hp_gained: int) -> void:
+	var heal_string = ""
+	if target.hp == target.stats[Stats.HP]:
+		heal_string = tr("HEAL_FULL_DIALOG").replace("{opmon}", target.get_effective_name())
+	else:
+		heal_string = tr("HEAL_PARTIAL_DIALOG").replace("{opmon}", target.get_effective_name()).replace("{hp}", String.num(hp_gained))	
+	add_dialog([heal_string])
+
 func move_failed():
 	add_dialog([tr("BATTLE_MOVE_FAILED")])
 
@@ -332,13 +342,14 @@ func _animate_move(player: bool, transform: Array):
 	var invert_transform = !player
 
 	var animation := Animation.new()
+	var animlib := AnimationLibrary.new()
 	var track_index
 
 	# Map from generic transform type used in Move class to property used for OpMon container property
 	var transform_property_map = {
-		"TRANSLATE":"rect_position",
-		"ROTATE":"rect_rotation",
-		"SCALE":"rect_scale"
+		"TRANSLATE":"position",
+		"ROTATE":"rotation",
+		"SCALE":"scale"
 		}
 
 	# Determine whose OpMon is being animated
@@ -350,6 +361,7 @@ func _animate_move(player: bool, transform: Array):
 		active_opmon_animation_player = $OpponentOpMon/AnimationPlayer
 
 	# Go through the list of simultaneous transformations to play at once
+	# TODO: Check if its possible to have a library of animations for each move
 	for transform_component in transform:
 
 		var pre_animation_value
@@ -359,19 +371,19 @@ func _animate_move(player: bool, transform: Array):
 
 		# Save the default value for this transformation, and determine correct inversion value if necessary
 		if transform_component["transform"] == "TRANSLATE":
-			pre_animation_value = active_opmon_rect.rect_position
+			pre_animation_value = active_opmon_rect.position
 			if invert_transform:
 				post_animation_value = post_animation_value * Vector2(-1,1)
 			post_animation_value = pre_animation_value + post_animation_value
 
 		elif transform_component["transform"] == "ROTATE":
-			pre_animation_value = active_opmon_rect.rect_rotation
+			pre_animation_value = active_opmon_rect.rotation
 			if invert_transform:
 				post_animation_value = post_animation_value * -1
 			post_animation_value = post_animation_value
 
 		elif transform_component["transform"] == "SCALE":
-			pre_animation_value = active_opmon_rect.rect_scale
+			pre_animation_value = active_opmon_rect.scale
 			post_animation_value = post_animation_value
 
 		animation.track_set_path(track_index, ".:" + transform_property_map[transform_component["transform"]])
@@ -381,39 +393,32 @@ func _animate_move(player: bool, transform: Array):
 		animation.track_insert_key (track_index, 1, post_animation_value)
 		animation.track_insert_key (track_index, 2, pre_animation_value)
 
-		active_opmon_animation_player.playback_speed = transform_component["speed"]
+		active_opmon_animation_player.speed_scale = transform_component["speed"]
 
 	# Add animation object to the scene
 	if active_opmon_animation_player.has_animation("opmon_rect"):
-		active_opmon_animation_player.remove_animation("opmon_rect")
-	active_opmon_animation_player.add_animation("opmon_rect", animation)
+		active_opmon_animation_player.remove_animation_library("")
+	animlib.add_animation("opmon_rect", animation)
+	active_opmon_animation_player.add_animation_library("", animlib)
 
 	# Run the animation and advance the queue
 	active_opmon_animation_player.play("opmon_rect")
-	yield(active_opmon_animation_player, "animation_finished")
+	if active_opmon_animation_player.is_playing():
+		await active_opmon_animation_player.animation_finished
 
 	_next_action()
 
 # Calls _next_action via the animation player whose signal "animation_finished" is connected to "_health_bar_stop"
 func _update_hp(player: bool, new_value: int):
-	var hpbar:TextureProgress = $PlayerInfobox/HP if player else $OpponentInfobox/HP
-	var animation_player: AnimationPlayer = $PlayerInfobox/HP/AnimationPlayer if player else $OpponentInfobox/HP/AnimationPlayer
-	var animation := Animation.new()
-	var track_index := animation.add_track(Animation.TYPE_VALUE)
-	animation.track_set_path(track_index, ".:value")
-	animation.length = 1
-	animation.track_insert_key(track_index, 0, hpbar.value)
-	animation.track_insert_key(track_index, 1, new_value)
-	if animation_player.has_animation("hpbar"):
-		animation_player.remove_animation("hpbar")
-	animation_player.add_animation("hpbar", animation)
-	animation_player.play("hpbar")
+	var hpbar:TextureProgressBar = $PlayerInfobox/HP if player else $OpponentInfobox/HP
+	var tween := create_tween()
+	tween.tween_property(hpbar, "value", new_value, 1)
+	tween.tween_callback(_health_bar_stop)
 	_hp_bar_animated = true
+	tween.play()
 	
 # Calls _next_action for _update_hp
-func _health_bar_stop(_anim_name):
-	$PlayerInfobox/HP/AnimationPlayer.stop()
-	$OpponentInfobox/HP/AnimationPlayer.stop()
+func _health_bar_stop():
 	_hp_bar_animated = false
 	_next_action()
 	

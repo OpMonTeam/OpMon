@@ -1,16 +1,40 @@
+@tool
 # Describes the physics of a basic character
-tool
 extends "res://Scenes/Events/Interactable/Interactable.gd"
 
-export var textures: SpriteFrames setget set_textures
+@export var textures: SpriteFrames:
+	set(new_textures):
+		$AnimatedSprite2D.frames = new_textures
+		textures = new_textures
 
 # Signal launched when the character finishes walking on a square (and will be going onto the next one
 # one if its programmation tells so)
 # At this moment, the player’s position is exactly aligned with the tiles.
 signal square_tick
 
+var tween: Tween
+var tile_reservation_tween: Tween
+
 # Variable used in the editor to have string labels of vector directions
-export(String, "Left", "Right", "Up", "Down") var faced_direction: String setget set_faced_direction
+@export var faced_direction: String:
+	set(new_faced_direction):
+		faced_direction = new_faced_direction
+		if faced_direction == "Up":
+			_faced_direction = Vector2.UP
+			$AnimatedSprite2D.flip_h = false
+			$AnimatedSprite2D.animation = "walk_up"
+		elif faced_direction == "Down":
+			_faced_direction = Vector2.DOWN
+			$AnimatedSprite2D.flip_h = false
+			$AnimatedSprite2D.animation = "walk_down"
+		elif faced_direction == "Right":
+			_faced_direction = Vector2.RIGHT
+			$AnimatedSprite2D.flip_h = false
+			$AnimatedSprite2D.animation = "walk_side"
+		elif faced_direction == "Left":
+			_faced_direction = Vector2.LEFT
+			$AnimatedSprite2D.flip_h = true
+			$AnimatedSprite2D.animation = "walk_side"
 
 # Vector indicating direction in the code
 var _faced_direction: Vector2
@@ -27,33 +51,20 @@ var _interaction_requested = null
 # The distance between the player and the character when the interaction has been requested.
 var _interaction_distance: float
 
-func set_textures(new_textures: SpriteFrames):
-	$AnimatedSprite.frames = new_textures
-	textures = new_textures
-
-func set_faced_direction(new_faced_direction: String):
-	faced_direction = new_faced_direction
-	if faced_direction == "Up":
-		_faced_direction = Vector2.UP
-		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.animation = "walk_up"
-	elif faced_direction == "Down":
-		_faced_direction = Vector2.DOWN
-		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.animation = "walk_down"
-	elif faced_direction == "Right":
-		_faced_direction = Vector2.RIGHT
-		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.animation = "walk_side"
-	elif faced_direction == "Left":
-		_faced_direction = Vector2.LEFT
-		$AnimatedSprite.flip_h = true
-		$AnimatedSprite.animation = "walk_side"
-
 func _ready():
+	super._ready()
 	# Sets the texture and the faced direction
-	set_textures(textures)
-	set_faced_direction(faced_direction)
+	$AnimatedSprite2D.frames = textures
+	faced_direction = faced_direction # TODO: check if it works without this line
+	_create_tweens()
+	
+func _create_tweens():
+	tween = get_tree().create_tween()
+	tween.set_ease(Tween.EASE_IN)
+	tween.set_trans(Tween.TRANS_LINEAR)
+	tile_reservation_tween = $TileReservation.create_tween()
+	tile_reservation_tween.set_ease(Tween.EASE_IN)
+	tile_reservation_tween.set_trans(Tween.TRANS_LINEAR)
 
 func interact(_player):
 	# If the player requested an interaction but the character is moving,
@@ -69,13 +80,13 @@ func interact(_player):
 
 func _process(_delta):
 	if not _paused:
-		update()
+		queue_redraw()
 	
 
 func _get_collider(direction: Vector2):
 	var local_target_position = direction * _constants.TILE_SIZE
 	var raycast = $RayCast2D
-	$RayCast2D.cast_to = local_target_position # Sets the position to check
+	$RayCast2D.target_position = local_target_position # Sets the position to check
 	$RayCast2D.force_raycast_update ( )
 	if $RayCast2D.is_colliding(): # Checks the collision
 		return $RayCast2D.get_collider()
@@ -95,17 +106,19 @@ func move(direction: Vector2):
 	_faced_direction = direction
 	# Chooses the animation to play
 	if direction == Vector2.UP:
-		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.animation = "walk_up"
+		$AnimatedSprite2D.flip_h = false
+		$AnimatedSprite2D.animation = "walk_up"
 	elif direction == Vector2.DOWN:
-		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.animation = "walk_down"
+		$AnimatedSprite2D.flip_h = false
+		$AnimatedSprite2D.animation = "walk_down"
 	elif direction == Vector2.RIGHT:
-		$AnimatedSprite.flip_h = false
-		$AnimatedSprite.animation = "walk_side"
+		$AnimatedSprite2D.flip_h = false
+		$AnimatedSprite2D.animation = "walk_side"
 	elif direction == Vector2.LEFT:
-		$AnimatedSprite.flip_h = true
-		$AnimatedSprite.animation = "walk_side"
+		$AnimatedSprite2D.flip_h = true
+		$AnimatedSprite2D.animation = "walk_side"
+	
+	_create_tweens()
 	
 	var next = position
 	# If there is no collisions, do a real movement.
@@ -116,20 +129,18 @@ func move(direction: Vector2):
 		$TileReservation.set_position(direction  * _constants.TILE_SIZE + Vector2(8,8))
 		# Makes the collision used for the reservation move against the player's movements
 		# so it stays in the same tile on the map.
-		$TileReservation.get_node("Tween").interpolate_property(
-			$TileReservation, "position", $TileReservation.position, 
-			$CharacterCollision.position, _constants.WALK_SPEED, 
-			Tween.TRANS_LINEAR, Tween.EASE_IN)
-		$TileReservation.get_node("Tween").start()
+		tile_reservation_tween.tween_property($TileReservation, "position", 
+			$CharacterCollision.position, _constants.WALK_SPEED)
+		tile_reservation_tween.play()
 		$TileReservation.disabled = false
 	# Starts the movement if position and next are different.
-	$Tween.interpolate_property(self, "position", position, next, 
-		_constants.WALK_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
-	$Tween.start()
+	tween.tween_property(self, "position", next, _constants.WALK_SPEED)
+	tween.tween_callback(_end_move)
+	tween.play()
 	
 
 	# Starts the animation that will loop until the movement is over.
-	$AnimatedSprite.play()
+	$AnimatedSprite2D.play()
 	return ret
 
 func face(direction: Vector2):
@@ -155,13 +166,13 @@ func _check_pending_interaction():
 
 # The movement is stopped if it has explicitely been stopped by calling stop_move
 # Function connected to the end of the Tween
-func _end_move(_object, _key):
+func _end_move():
 	emit_signal("square_tick")
 	_check_pending_interaction()
 	# This method might set _moving to true if the player continues moving
 	if _moving == Vector2.ZERO or _paused: # If not, then the movement is over, stop the animation
-		$AnimatedSprite.stop()
-		$AnimatedSprite.frame = 0
+		$AnimatedSprite2D.stop()
+		$AnimatedSprite2D.frame = 0
 		$TileReservation.disabled = true
 	else:
 		_moving = Vector2.ZERO

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" script_class="Nature" load_steps=2 format=3 uid="uid://c8h3rhe7isy65"]
 
-[ext_resource path="res://Objects/Nature.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://Objects/Nature.gd" id="1"]
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource("1")
+id = "BOT"
 bonus = -1
 malus = -1

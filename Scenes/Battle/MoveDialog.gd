@@ -11,15 +11,15 @@ func set_moves(moves = [null, null, null, null]):
 	_moves = moves
 
 func _ready():
-	connect("move_chosen", get_parent(), "move_chosen")
+	connect("move_chosen", Callable(get_parent(), "move_chosen"))
 	for i in range(4):
 		if _moves[i] != null:
-			get_node("MovesDialog/Move" + String(i)).text = _moves[i].data.name
+			get_node("MovesDialog/Move" + String.num(i)).text = "MOVENAME_" + _moves[i].data.id
 	print_infobox()
 	
 func print_infobox():
 	if _moves[_curpos] != null:
-		$Infobox/PP.text = "PP: " + String(_moves[_curpos].power_points) + " / " + String(_moves[_curpos].data.max_power_points)
+		$Infobox/PP.text = "PP: " + String.num(_moves[_curpos].power_points) + " / " + String.num(_moves[_curpos].data.max_power_points)
 	else:
 		$Infobox/PP.text = "PP: -- / --"
 
@@ -37,5 +37,5 @@ func _input(event):
 		elif event.is_action_pressed("ui_accept"):
 			emit_signal("move_chosen", _curpos)
 		if olcur != _curpos: # Update the cursor and the infobox only if the position has changed
-			$MovesDialog/Arrow.rect_position = _positions[_curpos]
+			$MovesDialog/Arrow.position = _positions[_curpos]
 			print_infobox()

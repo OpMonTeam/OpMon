@@ -12,10 +12,10 @@ var just_moved := false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_buttons = [get_node("MainMenuButtons/NewGameButton") as NinePatchRect, 
-			   get_node("MainMenuButtons/LoadGameButton") as NinePatchRect,
-			   get_node("MainMenuButtons/SettingsButton") as NinePatchRect, 
-			   get_node("MainMenuButtons/QuitButton") as NinePatchRect]
-	connect("button_pressed", self, "pressed")
+				get_node("MainMenuButtons/LoadGameButton") as NinePatchRect,
+				get_node("MainMenuButtons/SettingsButton") as NinePatchRect, 
+				get_node("MainMenuButtons/QuitButton") as NinePatchRect]
+	connect("button_pressed", Callable(self, "pressed"))
 	_buttons[_selection].modulate = Color(1,1,1,1)
 	randomize()
 
@@ -42,13 +42,13 @@ func _process(_delta):
 
 func pressed(id):
 	if id == 0:
-		var map = load("res://Scenes/Maps/MapManager.tscn").instance()
-		map.init("/EuviTown/EuviTown", Vector2(-6,-11))
+		var map = load("res://Scenes/Maps/MapManager.tscn").instantiate()
+		map.init("/MapTest/MapTest", Vector2(5,5))
 		get_tree().root.add_child(map)
 		get_tree().root.remove_child(self)
 		self.call_deferred("free")
 	elif id == 1:
-		var map = load("res://Scenes/Maps/MapManager.tscn").instance()
+		var map = load("res://Scenes/Maps/MapManager.tscn").instantiate()
 		if map.load_save():
 			get_tree().root.add_child(map)
 			get_tree().root.remove_child(self)

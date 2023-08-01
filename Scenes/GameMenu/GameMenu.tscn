@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/GameMenu/GameMenu.gd" type="Script" id=1]
-[ext_resource path="res://Data/Fonts/main_font.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Data/Fonts/main_font.ttf" type="FontFile" id=2]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="FontFile" id=3]
 size = 24
 font_data = ExtResource( 2 )
 
@@ -14,7 +14,7 @@ Label/fonts/font = null
 [node name="GameMenu" type="Control"]
 anchor_right = 0.417
 anchor_bottom = 0.625
-margin_right = -0.320038
+offset_right = -0.320038
 theme = SubResource( 4 )
 script = ExtResource( 1 )
 
@@ -28,10 +28,10 @@ __meta__ = {
 }
 
 [node name="OpMonLabel" type="Label" parent="."]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 192.0
-margin_bottom = 136.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 136.0
 text = "GAMEMENU_OPMON"
 align = 1
 valign = 1
@@ -41,10 +41,10 @@ __meta__ = {
 }
 
 [node name="BagLabel" type="Label" parent="."]
-margin_left = 208.0
-margin_top = 8.0
-margin_right = 392.0
-margin_bottom = 136.0
+offset_left = 208.0
+offset_top = 8.0
+offset_right = 392.0
+offset_bottom = 136.0
 text = "GAMEMENU_BAG"
 align = 1
 valign = 1
@@ -54,10 +54,10 @@ __meta__ = {
 }
 
 [node name="OpDexLabel" type="Label" parent="."]
-margin_left = 8.0
-margin_top = 144.0
-margin_right = 192.0
-margin_bottom = 269.0
+offset_left = 8.0
+offset_top = 144.0
+offset_right = 192.0
+offset_bottom = 269.0
 text = "GAMEMENU_ENCYCLOPEDIA"
 align = 1
 valign = 1
@@ -67,10 +67,10 @@ __meta__ = {
 }
 
 [node name="IDLabel" type="Label" parent="."]
-margin_left = 208.0
-margin_top = 144.0
-margin_right = 392.0
-margin_bottom = 269.0
+offset_left = 208.0
+offset_top = 144.0
+offset_right = 392.0
+offset_bottom = 269.0
 text = "GAMEMENU_ID"
 align = 1
 valign = 1
@@ -80,10 +80,10 @@ __meta__ = {
 }
 
 [node name="SaveLabel" type="Label" parent="."]
-margin_left = 8.0
-margin_top = 269.0
-margin_right = 192.0
-margin_bottom = 394.0
+offset_left = 8.0
+offset_top = 269.0
+offset_right = 192.0
+offset_bottom = 394.0
 text = "GAMEMENU_SAVE"
 align = 1
 valign = 1
@@ -93,10 +93,10 @@ __meta__ = {
 }
 
 [node name="SettingsLabel" type="Label" parent="."]
-margin_left = 208.0
-margin_top = 269.0
-margin_right = 392.0
-margin_bottom = 394.0
+offset_left = 208.0
+offset_top = 269.0
+offset_right = 392.0
+offset_bottom = 394.0
 text = "GAMEMENU_SETTINGS"
 align = 1
 valign = 1
@@ -106,10 +106,10 @@ __meta__ = {
 }
 
 [node name="ChoiceRect" type="ColorRect" parent="."]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 192.0
-margin_bottom = 136.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 136.0
 color = Color( 1, 1, 1, 0.45098 )
 
 [node name="Subinterface" type="Node" parent="."]

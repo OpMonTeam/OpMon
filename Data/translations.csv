@@ -1,56 +1,82 @@
-﻿keys,en,fr
-MAINMENU_NEW_GAME,New game,Nouvelle partie
-MAINMENU_LOAD_GAME,Load game,Charger une partie
-MAINMENU_SETTINGS,Settings,Paramètres
-MAINMENU_QUIT,Quit,Quitter
-MENU_BACK,Back,Retour
-GAMEMENU_OPMON,OpMon,OpMon
-GAMEMENU_BAG,Bag,Sac
-GAMEMENU_ENCYCLOPEDIA,OpDex,OpDex
-GAMEMENU_ID,ID Card,Dresseur
-GAMEMENU_SAVE,Save,Sauvegarde
-GAMEMENU_SETTINGS,Settings,Paramètres
-TEAMMANAGER_ORDER,Order,Ordre
-TEAMMANAGER_SELECT,Select,Sélectionner
-STAT_CHANGE_ATK,attack,L'attaque
-STAT_CHANGE_DEF,defense,La défense
-STAT_CHANGE_ATKSPE,special attack,L'attaque spéciale
-STAT_CHANGE_DEFSPE,special defense,La défense spéciale
-STAT_CHANGE_SPE,speed,La vitesse
-STAT_CHANGE_EVA,evasion,L'esquive
-STAT_CHANGE_HP,maximum HP,Le maximum de PV
-STAT_CHANGE_ACC,accuracy,La précision
-STAT_CHANGE_LOWER,has lowered,a baissé
-STAT_CHANGE_HIGHER,has increased,a augmenté
-STAT_CHANGE_DIALOG,{opmon}'s {stat} {change}!,{stat} de {opmon} {change} !
-BATTLE_MOVE_FAILED,But the move failed!,Mais l'attaque a échoué !
-BATTLE_MOVE_USE,{opmon} uses {move}!,{opmon} utilise {move} !
-BATTLE_BASEDIALOG_FILLER, What should {opmon} do?, Que doit faire {opmon} ?
-BATTLE_BASEDIALOG_MOVES,Moves,Capacités
-BATTLE_BASEDIALOG_OPMON,OpMon,OpMon
-BATTLE_BASEDIALOG_ITEMS,Items,Sac
-BATTLE_BASEDIALOG_RUN,Run,Fuite
-BATTLE_KO,{opmon} is KO!,{opmon} est KO !
-BATTLE_OPMON_CHANGE,"Come back, {opmon1}! {opmon2}, go!","Reviens, {opmon1} ! {opmon2}, vas-y !"
-MOVE_EFFECTIVENESS_NONE,But it's ineffective...,Mais c'est inefficace...
-MOVE_EFFECTIVENESS_VERYLOW,It's barely effective...,C'est à peine efficace...
-MOVE_EFFECTIVENESS_LOW,It's not very effective...,Ce n'est pas trés efficace...
-MOVE_EFFECTIVENESS_HIGH,It's super effective!,C'est super efficace !
-MOVE_EFFECTIVENESS_VERYHIGH,It's hyper effective!,C'est hyper efficace !
-EUVITOWN_KID_DIALOG_0,"Hey, I like shorts!","Hey, j'aime les shorts!"
-EUVITOWN_KID_DIALOG_1,...I don't know why I said that.,...Je sais pas pourquoi j'ai dit ça.
-EUVITOWN_FIELD_SIGN_0,Flower battlefield,Terrain de combat fleuri
-EUVITOWN_DESCRIPTION_SIGN_0,Euvi Town: a recent town in a peaceful cove.,Faubourg Euvi: un village récent au sein d'une crique tranquille.
-EUVITOWN_PLAYER_MAILBOX_0,Your home.,Chez toi.
-EUVITOWN_RIVAL_MAILBOX_0,Someone's home.,Chez quelqu'un.
-EUVITOWN_KIWAI_MAILBOX_0,Professor Kiwaï's laboratory.,Laboratoire du Professeur Kiwaï.
-MOVENAME_GROWL,Growl,Rugissement
-MOVENAME_HARDEN,Harden,Armure
-MOVENAME_TACKLE,Tackle,Charge
-MOVENAME_WATERGUN,Water Gun,Pistolet à eau
-MOVENAME_EMBER,Ember,Flammèche
-MOVENAME_VINEWHIP,Vine Whip,Fouet Lianes
-OPNAME_CARNAPPLE,Carnapple,Carnipomme
-OPNAME_FURNURUS,Furnurus,Oursiflamme
-OPNAME_ROSARIN,Rosarin,Rosarin
-OPNAME_NANOLPHIN,Nanolphin,Nanolphin
+keys,en,fr
+MAINMENU_NEW_GAME,"New game","Nouvelle partie"
+MAINMENU_LOAD_GAME,"Load game","Charger une partie"
+MAINMENU_SETTINGS,"Settings","Paramètres"
+MAINMENU_QUIT,"Quit","Quitter"
+GAMEMENU_OPMON,"OpMon","OpMon"
+GAMEMENU_BAG,"Bag","Sac"
+GAMEMENU_ENCYCLOPEDIA,"OpDex","OpDex"
+GAMEMENU_ID,"ID Card","Dresseur"
+GAMEMENU_SAVE,"Save","Sauvegarde"
+GAMEMENU_SETTINGS,"Settings","Paramètres"
+STAT_CHANGE_ATK,"attack","L'attaque"
+STAT_CHANGE_DEF,"defense","La défense"
+STAT_CHANGE_ATKSPE,"special attack","L'attaque spéciale"
+STAT_CHANGE_DEFSPE,"special defense","La défense spéciale"
+STAT_CHANGE_SPE,"speed","La vitesse"
+STAT_CHANGE_EVA,"evasion","L'esquive"
+STAT_CHANGE_HP,"maximum HP","Le maximum de PV"
+STAT_CHANGE_ACC,"accuracy","La précision"
+STAT_CHANGE_LOWER,"has lowered","a baissé"
+STAT_CHANGE_HIGHER,"has increased","a augmenté"
+STAT_CHANGE_DIALOG,"{opmon}’s {stat} {change}!","{stat} de {opmon} {change} !"
+HEAL_PARTIAL_DIALOG,"{opmon} recovered {hp} HP!","{opmon} a récupéré {hp} PV !"
+HEAL_FULL_DIALOG,"{opmon} fully recovered!","{opmon} à récupéré tous ses PV !"
+BATTLE_MOVE_FAILED,"But the move failed!","Mais l’attaque a échoué !"
+BATTLE_MOVE_USE,"{opmon} uses {move}!","{opmon} utilise {move} !"
+BATTLE_BASEDIALOG_FILLER," What should {opmon} do?"," Que doit faire {opmon} ?"
+BATTLE_BASEDIALOG_MOVES,"Moves","Capacités"
+BATTLE_BASEDIALOG_OPMON,"OpMon","OpMon"
+BATTLE_BASEDIALOG_ITEMS,"Items","Sac"
+BATTLE_BASEDIALOG_RUN,"Run","Fuite"
+BATTLE_KO,"{opmon} is KO!","{opmon} est KO !"
+MOVE_EFFECTIVENESS_NONE,"But it's ineffective...","Mais c'est inefficace..."
+MOVE_EFFECTIVENESS_VERYLOW,"It's barely effective...","C’est à peine efficace..."
+MOVE_EFFECTIVENESS_LOW,"It's not very effective...","Ce n’est pas très efficace..."
+MOVE_EFFECTIVENESS_HIGH,"It's super effective!","C’est super efficace !"
+MOVE_EFFECTIVENESS_VERYHIGH,"It’s hyper effective!","C’est hyper efficace !"
+EUVITOWN_KID_DIALOG_0,"Hey, I like shorts!","Hey, j'aime les shorts !"
+EUVITOWN_KID_DIALOG_1,"... I don't know why I said that.","... Je sais pas pourquoi j'ai dit ça."
+EUVITOWN_FIELD_SIGN_0,"Flower battlefield","Terrain de combat fleuri"
+EUVITOWN_DESCRIPTION_SIGN_0,"Euvi Town: a recent town in a peaceful cove.","Faubourg Euvi: un village récent au sein d'une crique tranquille."
+EUVITOWN_PLAYER_MAILBOX_0,"Your home.","Chez toi."
+EUVITOWN_RIVAL_MAILBOX_0,"Someone's home.","Chez quelqu'un."
+EUVITOWN_KIWAI_MAILBOX_0,"Professor Kiwaï's laboratory.","Laboratoire du Professeur Kiwaï."
+MOVENAME_GROWL,"Growl","Rugissement"
+MOVENAME_HARDEN,"Harden","Armure"
+MOVENAME_TACKLE,"Tackle","Charge"
+MOVENAME_VINE_WHIP,"Vine Whip","Fouet Lianes"
+MOVENAME_EMBER,"Ember","Flammèche"
+MOVENAME_WATER_GUN,"Water Gun","Pistolet à O"
+OPNAME_CARNAPPLE,"Carnapple","Carnipomme"
+OPNAME_FURNURUS,"Furnurus","Oursiflamme"
+OPNAME_ROSARIN,"Rosarin","Rosarin"
+OPNAME_NANOLPHIN,"Nanolphin","Nanophin"
+ITEMNAME_XATTACK,"X Attack","Attaque +"
+ITEMNAME_POTION,"Potion","Potion"
+ITEMDESC_XATTACK,"Increases attack stat","Augmente la statistique d'attaque"
+ITEMDESC_POTION,"Heals 20 HP","Soigne 20 PV"
+ITEMMENU_USE,"Use","Utiliser"
+ITEMMENU_THROW,"Throw","Jeter"
+ITEMNAME_DUMMY_0,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_1,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_2,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_3,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_4,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_5,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_6,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_7,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_8,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_9,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_10,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_11,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_12,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_13,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_14,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_15,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_16,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_17,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_18,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_19,"Dummy Item","Objet test"
+ITEMNAME_DUMMY_20,"Dummy Item","Objet test"
+

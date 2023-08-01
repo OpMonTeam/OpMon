@@ -2,7 +2,7 @@ extends Interface
 
 var labels := []
 
-var options := ["res://Scenes/Interface/Team/Team.tscn", "", "", "", "", ""]
+var options := ["res://Scenes/Interface/Team/Team.tscn", "res://Scenes/Interface/Bag/Bag.tscn", "", "", "", ""]
 
 var selection := 0
 
@@ -20,7 +20,7 @@ func _ready():
 	labels.append($IDLabel)
 	labels.append($SaveLabel)
 	labels.append($SettingsLabel)
-	self.rect_position = (Vector2(960,640) / 2) - (self.rect_size / 2)
+	self.position = (Vector2(960,640) / 2) - (self.size / 2)
 
 func _input(event):
 	if not subinterface_opened:
@@ -29,10 +29,10 @@ func _input(event):
 			if selection == 4:
 				self._map_manager.save()
 			else:
-				subinterface = load(options[selection]).instance()
+				subinterface = load(options[selection]).instantiate()
 				subinterface._map_manager = _map_manager
 				subinterface_opened = true
-				subinterface.connect("closed", self, "close_subinterface")
+				subinterface.connect("closed", Callable(self, "close_subinterface"))
 				$Subinterface.add_child(subinterface)
 		elif event.is_action_pressed("menu"):
 			emit_signal("closed")
@@ -48,7 +48,7 @@ func _input(event):
 				selection = 0
 		elif selection > 5:
 			selection = 5
-		$ChoiceRect.rect_position = labels[selection].rect_position
+		$ChoiceRect.position = labels[selection].position
 	
 func _process(_delta):
 	if subinterface_cooldown > 0:

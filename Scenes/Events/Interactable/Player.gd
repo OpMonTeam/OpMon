@@ -1,4 +1,7 @@
-tool
+# This class represents the Player as the character moving on the map.
+# For the Player as a set of data, see Playerdata
+
+@tool
 extends "res://Scenes/Events/Interactable/Character.gd"
 
 const InteractableClass = preload("Interactable.gd")
@@ -6,20 +9,20 @@ const InteractableClass = preload("Interactable.gd")
 var player_data: PlayerData
 
 func _ready():
-	._ready()
+	super._ready()
 	player_data = get_node("/root/PlayerData")
 
 func _input(event):
-	if not Engine.editor_hint:
+	if not Engine.is_editor_hint():
 		if event.is_action_pressed("interact") and not _paused:
 			_interact()
 
 func _process(_delta):
 	if not self._paused:
-		if not Engine.editor_hint:
+		if not Engine.is_editor_hint():
 			_check_move()
-		update()
-		
+		queue_redraw()
+
 # Checks if the player wants to move the character and starts
 # the movement if so.
 func _check_move():
@@ -46,13 +49,13 @@ func _interact():
 		collider.interact(self)
 
 # Function connected to the end of the Tween
-func _end_move(_object, _key):
+func _end_move():
 	emit_signal("square_tick")
 	_moving = Vector2.ZERO
 	_check_move()
 	if _moving == Vector2.ZERO: # If not, then the movement is over, stop the animation
-		$AnimatedSprite.stop()
-		$AnimatedSprite.frame = 0
+		$AnimatedSprite2D.stop()
+		$AnimatedSprite2D.frame = 0
 	# If _moving is true, the animation continues
 
 func is_moving():

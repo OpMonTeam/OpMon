@@ -1,17 +1,17 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" script_class="Move" load_steps=4 format=3 uid="uid://b1pq2suvej5ne"]
 
-[ext_resource path="res://Objects/Move.gd" type="Script" id=1]
-[ext_resource path="res://Data/GodotResources/Moves/Effects/ChangeStatEffect.gd" type="Script" id=2]
+[ext_resource type="Script" path="res://Objects/Move.gd" id="1"]
+[ext_resource type="Script" path="res://Data/GodotResources/Moves/Effects/ChangeStatEffect.gd" id="2"]
 
-[sub_resource type="Resource" id=1]
-script = ExtResource( 2 )
+[sub_resource type="Resource" id="1"]
+script = ExtResource("2")
 stat = 0
 change = -1
 to_opponent = true
 
 [resource]
-script = ExtResource( 1 )
-name = "MOVENAME_GROWL"
+script = ExtResource("1")
+id = "GROWL"
 power = 0
 type = 9
 accuracy = 100
@@ -19,7 +19,7 @@ category = 2
 never_fails = false
 max_power_points = 40
 priority = 0
-pre_effect = [ SubResource( 1 ) ]
-post_effect = [  ]
-fail_effect = [  ]
+pre_effect = Array[Resource("res://Objects/MoveEffect.gd")]([SubResource("1")])
+post_effect = Array[Resource("res://Objects/MoveEffect.gd")]([])
+fail_effect = Array[Resource("res://Objects/MoveEffect.gd")]([])
 move_animation = "SWAY"

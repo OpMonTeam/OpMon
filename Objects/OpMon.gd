@@ -22,7 +22,7 @@ var level: int
 # Must contain OpMove objects
 var moves = [null, null, null, null]
 var nature: Nature
-var hp: int
+var hp: int: set = set_hp
 var status = Status.NOTHING
 var nickname = ""
 
@@ -36,10 +36,10 @@ func save() -> Dictionary:
 	return {
 		"stats" : stats,
 		"ev" : ev,
-		"species" : species.resource_path,
+		"species" : species.id,
 		"level" : level,
 		"moves" : moves_saved,
-		"nature" : nature.resource_path,
+		"nature" : nature.id,
 		"hp" : hp,
 		"status" : status,
 		"nickname" : nickname
@@ -48,19 +48,27 @@ func save() -> Dictionary:
 func load_save(data: Dictionary):
 	stats = data["stats"]
 	ev = data["ev"]
-	species = load(data["species"])
+	species = PlayerData.res_species[data["species"]]
 	level = data["level"]
 	var moves_loaded := []
 	for move in data["moves"]:
 		if move == null:
 			moves_loaded.append(null)
 		else:
-			moves_loaded.append(OpMove.new(load(move["move"]), move["power_points"]))
+			moves_loaded.append(OpMove.new(PlayerData.res_move[move["move"]], move["power_points"]))
 	moves = moves_loaded
-	nature = load(data["nature"])
+	nature = PlayerData.res_nature[data["nature"]]
 	hp = data["hp"]
 	status = data["status"]
 	nickname = data["nickname"]
+
+# Avoids going below zero or above max HP
+func set_hp(new_hp: int) -> void:
+	hp = new_hp
+	if new_hp < 0:
+		new_hp = 0
+	elif new_hp > stats[Stats.HP]:
+		new_hp = stats[Stats.HP]
 
 # Recalculates the stats from the base stats, evs, nature and level
 func calc_stats():
@@ -115,14 +123,14 @@ func is_ko() -> bool:
 	
 func get_effective_name() -> String:
 	if nickname == "":
-		return tr(species.name)
+		return tr("OPNAME_" + species.id)
 	else:
 		return nickname
 
 # Parameter: allows to get a hp string for a different hp
 func get_hp_string(hp_p := -1) -> String:
 	var hp = self.hp if hp_p < 0 else hp_p
-	return String(hp) + " / " + String(stats[Stats.HP])
+	return str(hp) + " / " + str(stats[Stats.HP])
 
 	
 # In-battle modification of statistics, capped at ±6
@@ -157,7 +165,7 @@ class OpMove:
 	
 	func save() -> Dictionary: # Loading directly in OpMon.load_save()
 		return {
-			"move" : data.resource_path,
+			"move" : data.id,
 			"power_points" : power_points
 		}
 	
@@ -167,7 +175,7 @@ class OpMove:
 
 	func move(battle_scene, user: OpMon, opponent: OpMon):
 		power_points -= 1
-		battle_scene.add_dialog([tr("BATTLE_MOVE_USE").replace("{opmon}",user.get_effective_name()).replace("{move}",tr(self.data.name))])
+		battle_scene.add_dialog([tr("BATTLE_MOVE_USE").replace("{opmon}",user.get_effective_name()).replace("{move}",tr("MOVENAME_" + self.data.id))])
 
 		# Animate the user of the move
 		battle_scene.animate_move(MOVE_ANIMATIONS[data.move_animation])

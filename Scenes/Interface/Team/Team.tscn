@@ -1,237 +1,209 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://bqox68mawuc6k"]
 
-[ext_resource path="res://Scenes/Interface/Team/Team.gd" type="Script" id=1]
-[ext_resource path="res://Data/Fonts/main_font.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://Scenes/Interface/Submenu.gd" type="Script" id=3]
-[ext_resource path="res://Data/Sprites/UI/arrChoice.png" type="Texture" id=4]
-[ext_resource path="res://OpMon-Data/Audio/sfx/sfx_nope.ogg" type="AudioStream" id=5]
+[ext_resource type="Script" path="res://Scenes/Interface/Team/Team.gd" id="1"]
+[ext_resource type="FontFile" uid="uid://c5pnk4yop31d" path="res://Data/Fonts/main_font.ttf" id="2"]
+[ext_resource type="Script" path="res://Scenes/Interface/Submenu.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://bmrmuv5nvgor7" path="res://Data/Sprites/UI/arrChoice.png" id="4"]
+[ext_resource type="AudioStream" uid="uid://cx5jm6ygu78xq" path="res://OpMon-Data/Audio/sfx/sfx_nope.ogg" id="5"]
 
-[sub_resource type="DynamicFont" id=1]
-size = 24
-font_data = ExtResource( 2 )
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("2")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
-[sub_resource type="Theme" id=2]
-default_font = SubResource( 1 )
-Label/colors/font_color = Color( 0, 0, 0, 1 )
+[sub_resource type="Theme" id="2"]
+default_font = SubResource("1")
+Label/colors/font_color = Color(0, 0, 0, 1)
 
 [node name="TeamManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = SubResource( 2 )
-script = ExtResource( 1 )
+theme = SubResource("2")
+script = ExtResource("1")
 
 [node name="Background" type="ColorRect" parent="."]
-margin_right = 960.0
-margin_bottom = 640.0
-color = Color( 0.67451, 0.67451, 0.67451, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_right = 960.0
+offset_bottom = 640.0
+color = Color(0.67451, 0.67451, 0.67451, 1)
 
 [node name="Mon1" type="ColorRect" parent="."]
-margin_left = 24.0
-margin_top = 24.0
-margin_right = 472.0
-margin_bottom = 205.0
-rect_pivot_offset = Vector2( 400, 88 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 472.0
+offset_bottom = 205.0
+pivot_offset = Vector2(400, 88)
 
 [node name="Name" type="Label" parent="Mon1"]
-margin_left = 112.0
-margin_top = 8.0
-margin_right = 404.0
-margin_bottom = 72.0
+layout_mode = 0
+offset_left = 112.0
+offset_top = 8.0
+offset_right = 404.0
+offset_bottom = 72.0
 text = "{opmon_name}"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Pict" type="TextureRect" parent="Mon1"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 104.0
-margin_bottom = 104.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 104.0
+offset_bottom = 104.0
 
 [node name="Mon2" type="ColorRect" parent="."]
-margin_left = 488.0
-margin_top = 24.0
-margin_right = 936.0
-margin_bottom = 205.0
-rect_pivot_offset = Vector2( 280, 96 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 488.0
+offset_top = 24.0
+offset_right = 936.0
+offset_bottom = 205.0
+pivot_offset = Vector2(280, 96)
 
 [node name="Name" type="Label" parent="Mon2"]
-margin_left = 112.0
-margin_top = 8.0
-margin_right = 404.0
-margin_bottom = 72.0
+layout_mode = 0
+offset_left = 112.0
+offset_top = 8.0
+offset_right = 404.0
+offset_bottom = 72.0
 text = "{opmon_name}"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Pict" type="TextureRect" parent="Mon2"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 104.0
-margin_bottom = 104.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 104.0
+offset_bottom = 104.0
 
 [node name="Mon6" type="ColorRect" parent="."]
-margin_left = 488.0
-margin_top = 424.0
-margin_right = 936.0
-margin_bottom = 605.0
-rect_pivot_offset = Vector2( 400, 88 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 488.0
+offset_top = 424.0
+offset_right = 936.0
+offset_bottom = 605.0
+pivot_offset = Vector2(400, 88)
 
 [node name="Name" type="Label" parent="Mon6"]
-margin_left = 112.0
-margin_top = 8.0
-margin_right = 404.0
-margin_bottom = 72.0
+layout_mode = 0
+offset_left = 112.0
+offset_top = 8.0
+offset_right = 404.0
+offset_bottom = 72.0
 text = "{opmon_name}"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Pict" type="TextureRect" parent="Mon6"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 104.0
-margin_bottom = 104.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 104.0
+offset_bottom = 104.0
 
 [node name="Mon5" type="ColorRect" parent="."]
-margin_left = 24.0
-margin_top = 424.0
-margin_right = 472.0
-margin_bottom = 605.0
-rect_pivot_offset = Vector2( 400, 88 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 24.0
+offset_top = 424.0
+offset_right = 472.0
+offset_bottom = 605.0
+pivot_offset = Vector2(400, 88)
 
 [node name="Name" type="Label" parent="Mon5"]
-margin_left = 112.0
-margin_top = 8.0
-margin_right = 404.0
-margin_bottom = 72.0
+layout_mode = 0
+offset_left = 112.0
+offset_top = 8.0
+offset_right = 404.0
+offset_bottom = 72.0
 text = "{opmon_name}"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Pict" type="TextureRect" parent="Mon5"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 104.0
-margin_bottom = 104.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 104.0
+offset_bottom = 104.0
 
 [node name="Mon4" type="ColorRect" parent="."]
-margin_left = 488.0
-margin_top = 224.0
-margin_right = 936.0
-margin_bottom = 405.0
-rect_pivot_offset = Vector2( 400, 88 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 488.0
+offset_top = 224.0
+offset_right = 936.0
+offset_bottom = 405.0
+pivot_offset = Vector2(400, 88)
 
 [node name="Name" type="Label" parent="Mon4"]
-margin_left = 112.0
-margin_top = 8.0
-margin_right = 404.0
-margin_bottom = 72.0
+layout_mode = 0
+offset_left = 112.0
+offset_top = 8.0
+offset_right = 404.0
+offset_bottom = 72.0
 text = "{opmon_name}"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Pict" type="TextureRect" parent="Mon4"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 104.0
-margin_bottom = 104.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 104.0
+offset_bottom = 104.0
 
 [node name="Mon3" type="ColorRect" parent="."]
-margin_left = 24.0
-margin_top = 224.0
-margin_right = 472.0
-margin_bottom = 405.0
-rect_pivot_offset = Vector2( 400, 88 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 24.0
+offset_top = 224.0
+offset_right = 472.0
+offset_bottom = 405.0
+pivot_offset = Vector2(400, 88)
 
 [node name="Name" type="Label" parent="Mon3"]
-margin_left = 112.0
-margin_top = 8.0
-margin_right = 404.0
-margin_bottom = 72.0
+layout_mode = 0
+offset_left = 112.0
+offset_top = 8.0
+offset_right = 404.0
+offset_bottom = 72.0
 text = "{opmon_name}"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Pict" type="TextureRect" parent="Mon3"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 104.0
-margin_bottom = 104.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 104.0
+offset_bottom = 104.0
 
 [node name="Selrect" type="ColorRect" parent="."]
-margin_left = 24.0
-margin_top = 24.0
-margin_right = 472.0
-margin_bottom = 205.0
-color = Color( 0.984314, 0.792157, 0.792157, 0.407843 )
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 472.0
+offset_bottom = 205.0
+color = Color(0.984314, 0.792157, 0.792157, 0.407843)
 
 [node name="ReorderRect" type="ColorRect" parent="."]
 visible = false
-margin_left = 25.0
-margin_top = 25.0
-margin_right = 473.0
-margin_bottom = 206.0
-color = Color( 0.984314, 0.792157, 0.792157, 0.407843 )
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 473.0
+offset_bottom = 206.0
+color = Color(0.984314, 0.792157, 0.792157, 0.407843)
 
 [node name="Submenu" type="ColorRect" parent="."]
 visible = false
-margin_left = 5.0
-margin_top = 545.0
-margin_right = 406.0
-margin_bottom = 636.0
-rect_scale = Vector2( 1.5, 1.5 )
-rect_pivot_offset = Vector2( 0, 91 )
-color = Color( 0.96, 0.96, 0.96, 1 )
-script = ExtResource( 3 )
-choices = [ "TEAMMANAGER_ORDER", "MENU_BACK" ]
-cursor_texture = ExtResource( 4 )
+layout_mode = 0
+offset_left = 5.0
+offset_top = 545.0
+offset_right = 284.0
+offset_bottom = 620.0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(0, 75)
+color = Color(0.960784, 0.960784, 0.960784, 1)
+script = ExtResource("3")
+choices = ["TEAMMANAGER_ORDER", "MENU_BACK"]
+cursor_texture = ExtResource("4")
 
 [node name="Nope" type="AudioStreamPlayer" parent="."]
-pause_mode = 1
-stream = ExtResource( 5 )
+process_mode = 1
+stream = ExtResource("5")
 
 [connection signal="choice" from="Submenu" to="." method="_submenu_selection"]

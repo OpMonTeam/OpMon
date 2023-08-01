@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://clot0dqmu38wj"]
+
+[ext_resource type="Script" path="res://Data/GodotResources/Items/ItemEffects/StatPlus.gd" id="1_66cpn"]
+[ext_resource type="Script" path="res://Objects/Item.gd" id="2_d4kru"]
+
+[sub_resource type="Resource" id="Resource_rl00e"]
+script = ExtResource("1_66cpn")
+stat = 0
+change = 1
+
+[resource]
+script = ExtResource("2_d4kru")
+id = "XATTACK"
+applies_to_opmon = true
+consumes = true
+effect_used = Array[Resource("res://Objects/ItemEffect.gd")]([SubResource("Resource_rl00e")])

@@ -1,0 +1,359 @@
+[gd_scene load_steps=6 format=3 uid="uid://bj1cwqnk6ko4a"]
+
+[ext_resource type="Texture2D" uid="uid://bmrmuv5nvgor7" path="res://Data/Sprites/UI/arrChoice.png" id="1"]
+[ext_resource type="Script" path="res://Scenes/Interface/Bag/Bag.gd" id="2_wc0kd"]
+[ext_resource type="Theme" uid="uid://cpw3rvof6qohv" path="res://Data/Fonts/Menu_Theme.tres" id="3_u35m5"]
+[ext_resource type="Script" path="res://Scenes/Interface/Submenu.gd" id="4_hpnxt"]
+[ext_resource type="Theme" uid="uid://cir3f60kwn7dv" path="res://Data/Fonts/Dialog_Theme.tres" id="4_wtqv5"]
+
+[node name="Bag" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("3_u35m5")
+script = ExtResource("2_wc0kd")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 960.0
+offset_bottom = 640.0
+color = Color(0.67451, 0.67451, 0.67451, 1)
+
+[node name="List" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 304.0
+offset_top = 152.0
+offset_right = 688.0
+offset_bottom = 632.0
+
+[node name="Selector" type="TextureRect" parent="List"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 48.0
+offset_bottom = 40.0
+texture = ExtResource("1")
+expand_mode = 1
+
+[node name="ArrowUp" type="TextureRect" parent="List"]
+layout_mode = 0
+offset_left = 374.0
+offset_top = 8.0
+offset_right = 394.0
+offset_bottom = 28.0
+rotation = 1.5708
+texture = ExtResource("1")
+expand_mode = 1
+flip_h = true
+
+[node name="ArrowDown" type="TextureRect" parent="List"]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 452.0
+offset_right = 396.0
+offset_bottom = 472.0
+rotation = 1.5708
+texture = ExtResource("1")
+expand_mode = 1
+
+[node name="Items" type="VBoxContainer" parent="List"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 8.0
+offset_right = 344.0
+offset_bottom = 472.0
+theme = ExtResource("3_u35m5")
+
+[node name="Item0" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item0"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item0"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item1" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item1"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item1"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item2" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="List/Items/Item2"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 2"
+
+[node name="Quantity" type="Label" parent="List/Items/Item2"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x5"
+
+[node name="Item3" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item3"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item3"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item4" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item4"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item4"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item5" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item5"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item5"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item6" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item6"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item6"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item7" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item7"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item7"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item8" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item8"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item8"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item9" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item9"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item9"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item10" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item10"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item10"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="Item11" type="HBoxContainer" parent="List/Items"]
+visible = false
+layout_mode = 2
+
+[node name="Name" type="Label" parent="List/Items/Item11"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Item 1"
+
+[node name="Quantity" type="Label" parent="List/Items/Item11"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "x1"
+
+[node name="HideBar" type="ColorRect" parent="List"]
+layout_mode = 0
+offset_top = 472.0
+offset_right = 384.0
+offset_bottom = 480.0
+
+[node name="HideBar2" type="ColorRect" parent="List"]
+layout_mode = 0
+offset_top = 479.0
+offset_right = 384.0
+offset_bottom = 487.0
+color = Color(0.67451, 0.67451, 0.67451, 1)
+
+[node name="CategorySelector" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 304.0
+offset_top = 8.0
+offset_right = 952.0
+offset_bottom = 72.0
+
+[node name="Container" type="HBoxContainer" parent="CategorySelector"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 640.0
+offset_bottom = 64.0
+alignment = 1
+
+[node name="ArrowLeft" type="TextureRect" parent="CategorySelector/Container"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+texture = ExtResource("1")
+expand_mode = 1
+flip_h = true
+
+[node name="Category1" type="TextureRect" parent="CategorySelector/Container"]
+editor_description = "TODO"
+layout_mode = 2
+
+[node name="ArrowRight" type="TextureRect" parent="CategorySelector/Container"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+texture = ExtResource("1")
+expand_mode = 1
+
+[node name="CategoryName" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 304.0
+offset_top = 80.0
+offset_right = 952.0
+offset_bottom = 144.0
+
+[node name="Container" type="HBoxContainer" parent="CategoryName"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 640.0
+offset_bottom = 56.0
+alignment = 1
+
+[node name="Label" type="Label" parent="CategoryName/Container"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Bag category"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemDescription" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 696.0
+offset_top = 152.0
+offset_right = 952.0
+offset_bottom = 432.0
+
+[node name="ItemSprite" type="TextureRect" parent="ItemDescription"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 80.0
+offset_bottom = 80.0
+
+[node name="Description" type="RichTextLabel" parent="ItemDescription"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 96.0
+offset_right = 248.0
+offset_bottom = 272.0
+theme = ExtResource("4_wtqv5")
+theme_type_variation = &"RichTextLabel"
+theme_override_font_sizes/normal_font_size = 16
+text = "Item description"
+scroll_active = false
+
+[node name="Mons" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 296.0
+offset_bottom = 632.0
+
+[node name="Container" type="VBoxContainer" parent="Mons"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 616.0
+
+[node name="Container" type="Container" parent="Mons/Container"]
+layout_mode = 2
+
+[node name="Submenu" type="ColorRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(256, 191)
+layout_mode = 0
+offset_left = 696.0
+offset_top = 440.0
+offset_right = 1016.0
+offset_bottom = 631.0
+pivot_offset = Vector2(0, 191)
+color = Color(0.960784, 0.960784, 0.960784, 1)
+script = ExtResource("4_hpnxt")
+choices = Array[String](["ITEMMENU_USE", "ITEMMENU_THROW", "MENU_BACK"])
+cursor_texture = ExtResource("1")
