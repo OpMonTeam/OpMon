@@ -2,7 +2,7 @@ extends Interface
 
 var labels := []
 
-var options := ["res://Scenes/Interface/Team/Team.tscn", "", "", "", "", ""]
+var options := ["res://Scenes/Interface/Team/Team.tscn", "res://Scenes/Interface/Bag/Bag.tscn", "", "", "", ""]
 
 var selection := 0
 

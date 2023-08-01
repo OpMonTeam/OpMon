@@ -19,6 +19,10 @@ var _cur_pos_rel := 0 # Cursor position on the current screen
 var _first_item := 0 # Position of the first item in the shown list in the item array
 var _current_list_size := 0 # Number of items currently shown on the list
 
+# Prevents the ui_accept action of the Submenu from reactivating the submenu at
+# the same time as closing it
+var _accept_cooldown = 5
+
 # Updates the list with the currently shown items
 func _update_items():
 	_current_list_size = 0
@@ -30,6 +34,10 @@ func _update_items():
 			_current_list_size += 1
 		else: # No items left
 			_item_boxes[i - _first_item].visible = false
+	_update_description()
+
+func _update_description():
+	$ItemDescription/Description.text = "ITEMDESC_" + _all_items[_cur_pos_rel + _first_item]
 
 func _ready():
 	_item_boxes = [
@@ -46,25 +54,39 @@ func _ready():
 		$List/Items/Item10,
 		$List/Items/Item11
 	]
-	_all_items = PlayerData.bag.keys()
+	_all_items = PlayerData.bag.keys().filter(func(item): return PlayerData.bag[item] > 0)
 	_all_items.sort()
 	_update_items()
+	$Submenu.connect("choice", _submenu_selection)
 
 func _input(event):
-	if event.is_action_pressed("ui_up"):
-		if _cur_pos_rel == 0 and _first_item > 0:
-			_first_item -= 1
-			_update_items()
-		elif _cur_pos_rel > 0:
-			_cur_pos_rel -= 1
-	elif event.is_action_pressed("ui_down"):
-		if _cur_pos_rel == LIST_SIZE - 1 and _first_item + LIST_SIZE < _all_items.size():
-			_first_item += 1
-			_update_items()
-		elif _cur_pos_rel < LIST_SIZE - 1 and _cur_pos_rel < _current_list_size:
-			_cur_pos_rel += 1
-	
-	$List/Selector.position = Vector2($List/Selector.position.x, 8 + _cur_pos_rel*40)
+	if not $Submenu.visible and _accept_cooldown == 0 and self.visible:
+		if event.is_action_pressed("ui_up"):
+			if _cur_pos_rel == 0 and _first_item > 0:
+				_first_item -= 1
+				_update_items()
+			elif _cur_pos_rel > 0:
+				_cur_pos_rel -= 1
+			_update_description()
+		elif event.is_action_pressed("ui_down"):
+			if _cur_pos_rel == LIST_SIZE - 1 and _first_item + LIST_SIZE < _all_items.size():
+				_first_item += 1
+				_update_items()
+			elif _cur_pos_rel < LIST_SIZE - 1 and _cur_pos_rel < _current_list_size:
+				_cur_pos_rel += 1
+			_update_description()
+		elif event.is_action_pressed("ui_accept"):
+			_accept_cooldown = 5
+			$Submenu.visible = true
+		elif event.is_action_pressed("ui_cancel"):
+			emit_signal("closed")
+		
+		$List/Selector.position = Vector2($List/Selector.position.x, 8 + _cur_pos_rel*40)
 
 func _process(delta):
-	pass
+	if _accept_cooldown != 0:
+		_accept_cooldown -= 1
+
+func _submenu_selection(selection):
+	$Submenu.visible = false
+	_accept_cooldown = 5

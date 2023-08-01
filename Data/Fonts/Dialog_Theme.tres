@@ -705,3 +705,4 @@ cache/0/15/0/kerning_overrides/15/0 = Vector2(0, 0)
 default_font = SubResource("1")
 Label/colors/font_color = Color(0, 0, 0, 1)
 RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+RichTextLabel/font_sizes/bold_font_size = 16
