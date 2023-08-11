@@ -5,6 +5,8 @@ extends Interface
 # it must not be present at the end of the list.
 const LIST_SIZE := 11
 
+const Stats = preload("res://Objects/Enumerations.gd").Stats
+
 # The different modes of the bag
 enum Mode {
 	OVERWORLD, # If the bag is opened from the game menu
@@ -13,7 +15,6 @@ enum Mode {
 
 var _item_boxes: Array[HBoxContainer] # each container contains the name and quantity of an item
 var _all_items: Array # an array of all the items in the bag (items IDs)
-
 
 var _cur_pos_rel := 0 # Cursor position on the current screen
 var _first_item := 0 # Position of the first item in the shown list in the item array
@@ -39,6 +40,16 @@ func _update_items():
 func _update_description():
 	$ItemDescription/Description.text = "ITEMDESC_" + _all_items[_cur_pos_rel + _first_item]
 
+func _load_opmons():
+	for i in range(6):
+		var opmon = PlayerData.team.get_opmon(i)
+		if opmon != null:
+			get_node("Mons/Container/Mon" + str(i+1) + "/Sprite").texture = opmon.species.front_texture
+			get_node("Mons/Container/Mon" + str(i+1) + "/Data/Name").text = opmon.get_effective_name()
+			get_node("Mons/Container/Mon" + str(i+1) + "/Data/HP").max_value = opmon.stats[Stats.HP]
+			get_node("Mons/Container/Mon" + str(i+1) + "/Data/HP").value = opmon.hp
+			get_node("Mons/Container/Mon" + str(i+1)).visible = true
+
 func _ready():
 	_item_boxes = [
 		$List/Items/Item0, 
@@ -54,9 +65,11 @@ func _ready():
 		$List/Items/Item10,
 		$List/Items/Item11
 	]
+	
 	_all_items = PlayerData.bag.keys().filter(func(item): return PlayerData.bag[item] > 0)
 	_all_items.sort()
 	_update_items()
+	_load_opmons()
 	$Submenu.connect("choice", _submenu_selection)
 
 func _input(event):
