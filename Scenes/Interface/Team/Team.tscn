@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqox68mawuc6k"]
+[gd_scene load_steps=10 format=3 uid="uid://bqox68mawuc6k"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/Team/Team.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://c5pnk4yop31d" path="res://Data/Fonts/main_font.ttf" id="2"]
 [ext_resource type="Script" path="res://Scenes/Interface/Submenu.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://d1og4tsn2ljvw" path="res://Data/Sprites/battle/health_bar.png" id="3_brk4p"]
 [ext_resource type="Texture2D" uid="uid://bmrmuv5nvgor7" path="res://Data/Sprites/UI/arrChoice.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bxa8aw5ek5to7" path="res://Data/Sprites/battle/health_jauge.png" id="4_ixosb"]
 [ext_resource type="AudioStream" uid="uid://cx5jm6ygu78xq" path="res://OpMon-Data/Audio/sfx/sfx_nope.ogg" id="5"]
 
 [sub_resource type="FontFile" id="1"]
@@ -24,6 +26,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("2")
 script = ExtResource("1")
 
@@ -56,6 +60,16 @@ offset_top = 8.0
 offset_right = 104.0
 offset_bottom = 104.0
 
+[node name="HP" type="TextureProgressBar" parent="Mon1"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 48.0
+offset_right = 266.0
+offset_bottom = 81.0
+scale = Vector2(1.5, 1.5)
+texture_under = ExtResource("3_brk4p")
+texture_progress = ExtResource("4_ixosb")
+
 [node name="Mon2" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 488.0
@@ -78,6 +92,15 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 104.0
 offset_bottom = 104.0
+
+[node name="HP" type="TextureProgressBar" parent="Mon2"]
+offset_left = 112.0
+offset_top = 48.0
+offset_right = 266.0
+offset_bottom = 81.0
+scale = Vector2(1.5, 1.5)
+texture_under = ExtResource("3_brk4p")
+texture_progress = ExtResource("4_ixosb")
 
 [node name="Mon6" type="ColorRect" parent="."]
 layout_mode = 0
@@ -102,6 +125,15 @@ offset_top = 8.0
 offset_right = 104.0
 offset_bottom = 104.0
 
+[node name="HP" type="TextureProgressBar" parent="Mon6"]
+offset_left = 112.0
+offset_top = 48.0
+offset_right = 266.0
+offset_bottom = 81.0
+scale = Vector2(1.5, 1.5)
+texture_under = ExtResource("3_brk4p")
+texture_progress = ExtResource("4_ixosb")
+
 [node name="Mon5" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 24.0
@@ -124,6 +156,15 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 104.0
 offset_bottom = 104.0
+
+[node name="HP" type="TextureProgressBar" parent="Mon5"]
+offset_left = 112.0
+offset_top = 48.0
+offset_right = 266.0
+offset_bottom = 81.0
+scale = Vector2(1.5, 1.5)
+texture_under = ExtResource("3_brk4p")
+texture_progress = ExtResource("4_ixosb")
 
 [node name="Mon4" type="ColorRect" parent="."]
 layout_mode = 0
@@ -148,6 +189,15 @@ offset_top = 8.0
 offset_right = 104.0
 offset_bottom = 104.0
 
+[node name="HP" type="TextureProgressBar" parent="Mon4"]
+offset_left = 112.0
+offset_top = 48.0
+offset_right = 266.0
+offset_bottom = 81.0
+scale = Vector2(1.5, 1.5)
+texture_under = ExtResource("3_brk4p")
+texture_progress = ExtResource("4_ixosb")
+
 [node name="Mon3" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 24.0
@@ -171,12 +221,21 @@ offset_top = 8.0
 offset_right = 104.0
 offset_bottom = 104.0
 
+[node name="HP" type="TextureProgressBar" parent="Mon3"]
+offset_left = 112.0
+offset_top = 48.0
+offset_right = 266.0
+offset_bottom = 81.0
+scale = Vector2(1.5, 1.5)
+texture_under = ExtResource("3_brk4p")
+texture_progress = ExtResource("4_ixosb")
+
 [node name="Selrect" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 24.0
-offset_top = 24.0
+offset_top = 25.0
 offset_right = 472.0
-offset_bottom = 205.0
+offset_bottom = 206.0
 color = Color(0.984314, 0.792157, 0.792157, 0.407843)
 
 [node name="ReorderRect" type="ColorRect" parent="."]
@@ -199,7 +258,7 @@ scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(0, 75)
 color = Color(0.960784, 0.960784, 0.960784, 1)
 script = ExtResource("3")
-choices = ["TEAMMANAGER_ORDER", "MENU_BACK"]
+choices = Array[String](["TEAMMANAGER_ORDER", "MENU_BACK"])
 cursor_texture = ExtResource("4")
 
 [node name="Nope" type="AudioStreamPlayer" parent="."]

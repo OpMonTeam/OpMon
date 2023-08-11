@@ -42,9 +42,12 @@ func _update_labels():
 		if team.get_opmon(i) != null:
 			opmons_rects[i].get_node("Name").text = team.get_opmon(i).get_effective_name()
 			opmons_rects[i].get_node("Pict").texture = team.get_opmon(i).species.front_texture
+			opmons_rects[i].get_node("HP").max_value = team.get_opmon(i).stats[OpMon.Stats.HP]
+			opmons_rects[i].get_node("HP").value = team.get_opmon(i).hp
 		else:
 			opmons_rects[i].get_node("Name").text = ""
 			opmons_rects[i].get_node("Name").text = ""
+			opmons_rects[i].get_node("HP").visible = false
 
 func _ready():
 	team = _map_manager.player_data.team
