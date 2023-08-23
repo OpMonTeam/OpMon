@@ -22,8 +22,9 @@ var player_data: PlayerData
 
 var camera_instance: Camera2D
 
-# Interface slot
-var interface = null
+# Interface stack. The upper interfaces need to be unloaded before the bottom ones can be.
+# Be careful when programming to not close interfaces in the wrong order
+var interface: Array[Node]
 
 # Loaded data from a save
 var load_data = null
@@ -65,18 +66,21 @@ func _process(_delta):
 		interface_closed_delay -= 1
 		unpause_player()
 
+# Loads an interface at the top of the stack
 func load_interface(p_interface: Node):
-	if interface == null and p_interface.has_method("set_map"):
-		interface = p_interface
+	if p_interface.has_method("set_map"):
+		interface.append(p_interface)
 		p_interface.set_map(self)
-		$Interface.add_child(interface)
-	elif not p_interface.has_method("set_map"):
+		$Interface.add_child(interface[interface.size() - 1])
+	else:
 		print("Error: the given interface doesn’t have the set_map method.")
 
+# Unloads the interface at the top of the stack
 func unload_interface():
-	if interface != null:
-		interface.call_deferred("free")
-		interface = null
+	var id := interface.size() - 1
+	if interface[id] != null:
+		interface[id].call_deferred("free")
+		interface.remove_at(id)
 		interface_closed_delay = 5
 
 # Loads a map at the given position in the global MapManager and erases all the current present maps
@@ -164,7 +168,7 @@ func unpause_player():
 
 # Only loads the dialog and returns it.
 func load_dialog(dialog_key: String) -> DialogBox:
-	var dialog_box_instance = DialogBox.instantiate() # Loads the dialog
+	var dialog_box_instance = load(_constants.PATH_DIALOG_BOX_SCENE).instantiate() # Loads the dialog
 	dialog_box_instance.set_dialog_key(dialog_key) # Adds the dialog lines to the dialog
 	dialog_box_instance.close_when_over = true
 	load_interface(dialog_box_instance)

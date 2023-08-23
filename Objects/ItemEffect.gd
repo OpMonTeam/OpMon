@@ -2,7 +2,8 @@ extends Resource
 
 class_name ItemEffect
 
-signal close_bag
+# If the item shows a dialog box, it must be stored here
+var dialog: DialogBox = null
 
 func _init():
 	super._init()

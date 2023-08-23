@@ -24,6 +24,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("2")
 script = ExtResource("1")
 
@@ -199,7 +201,7 @@ scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(0, 75)
 color = Color(0.960784, 0.960784, 0.960784, 1)
 script = ExtResource("3")
-choices = ["TEAMMANAGER_ORDER", "MENU_BACK"]
+choices = Array[String](["TEAMMANAGER_ORDER", "MENU_BACK"])
 cursor_texture = ExtResource("4")
 
 [node name="Nope" type="AudioStreamPlayer" parent="."]

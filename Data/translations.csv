@@ -60,5 +60,6 @@ ITEMDESC_POTION,"Heals 20 HP","Soigne 20 PV"
 ITEMDESC_GENERICITEM,"Shows text","Affiche du texte"
 ITEMMENU_USE,"Use","Utiliser"
 ITEMMENU_THROW,"Throw","Jeter"
-ITEM_GENERICITEM,"Generic item.","Objet générique."
+ITEM_GENERICITEM_0,"Generic item.","Objet générique."
+BAG_CANTUSE_0,"Can't use this right now!","Ce n'est pas le moment !"
 

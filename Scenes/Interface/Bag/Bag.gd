@@ -12,6 +12,7 @@ enum Mode {
 	OVERWORLD, # If the bag is opened from the game menu
 	BATTLE # If the bag is opened during a battle
 }
+var _mode := Mode.OVERWORLD
 
 var _item_boxes: Array[HBoxContainer] # each container contains the name and quantity of an item
 var _all_items: Array # an array of all the items in the bag (items IDs)
@@ -23,6 +24,11 @@ var _current_list_size := 0 # Number of items currently shown on the list
 # Prevents the ui_accept action of the Submenu from reactivating the submenu at
 # the same time as closing it
 var _accept_cooldown = 5
+
+var _battle_scene: BattleScene
+
+# Locks inputs while items execute
+var _locked := false
 
 # Updates the list with the currently shown items
 func _update_items():
@@ -73,7 +79,7 @@ func _ready():
 	$Submenu.connect("choice", _submenu_selection)
 
 func _input(event):
-	if not $Submenu.visible and _accept_cooldown == 0 and self.visible:
+	if not $Submenu.visible and _accept_cooldown == 0 and self.visible and not _locked:
 		if event.is_action_pressed("ui_up"):
 			if _cur_pos_rel == 0 and _first_item > 0:
 				_first_item -= 1
@@ -100,6 +106,37 @@ func _process(delta):
 	if _accept_cooldown != 0:
 		_accept_cooldown -= 1
 
+func _unlock():
+	_locked = false
+
 func _submenu_selection(selection):
 	$Submenu.visible = false
 	_accept_cooldown = 5
+	match selection:
+		0:
+			var item: Item = PlayerData.res_item[_all_items[_first_item + _cur_pos_rel]]
+			var valid_use: bool
+			if item.applies_to_opmon:
+				pass # complicated stuff
+			else:
+				_locked = true
+				match _mode:
+					Mode.OVERWORLD:
+						valid_use = item.apply_overworld(_map_manager)
+					Mode.BATTLE:
+						valid_use = item.apply_battle(_battle_scene)
+				
+			if item.dialog != null: # If dialog is not null it means a dialog is shown by the item
+				item.dialog.connect("dialog_over", Callable(self, "_unlock"))
+			else: # if no dialog, no need to maintain the lock
+				_unlock()
+			if valid_use and item.consumes:
+				PlayerData.bag[_all_items[_first_item + _cur_pos_rel]] -= 1
+				_update_items()
+			elif not valid_use:
+				var dialog := _map_manager.load_dialog("BAG_CANTUSE")
+				dialog.connect("dialog_over", Callable(self, "_unlock"))
+				dialog.go()
+		1:
+			pass # throw item
+	

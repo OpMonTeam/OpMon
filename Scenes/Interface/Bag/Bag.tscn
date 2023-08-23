@@ -488,3 +488,5 @@ color = Color(0.960784, 0.960784, 0.960784, 1)
 script = ExtResource("4_hpnxt")
 choices = Array[String](["ITEMMENU_USE", "ITEMMENU_THROW", "MENU_BACK"])
 cursor_texture = ExtResource("1")
+
+[connection signal="choice" from="Submenu" to="." method="_submenu_selection"]
