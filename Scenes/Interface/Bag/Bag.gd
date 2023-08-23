@@ -32,6 +32,8 @@ var _locked := false
 
 # Updates the list with the currently shown items
 func _update_items():
+	_all_items = PlayerData.bag.keys().filter(func(item): return PlayerData.bag[item] > 0)
+	_all_items.sort()
 	_current_list_size = 0
 	for i in range(_first_item, _first_item + LIST_SIZE + 1):
 		if i < _all_items.size(): # There is still items
@@ -72,8 +74,6 @@ func _ready():
 		$List/Items/Item11
 	]
 	
-	_all_items = PlayerData.bag.keys().filter(func(item): return PlayerData.bag[item] > 0)
-	_all_items.sort()
 	_update_items()
 	_load_opmons()
 	$Submenu.connect("choice", _submenu_selection)
@@ -108,27 +108,26 @@ func _process(delta):
 
 func _unlock():
 	_locked = false
+	_accept_cooldown = 5
 
 func _submenu_selection(selection):
 	$Submenu.visible = false
-	_accept_cooldown = 5
+	_locked = true
 	match selection:
 		0:
 			var item: Item = PlayerData.res_item[_all_items[_first_item + _cur_pos_rel]]
 			var valid_use: bool
 			if item.applies_to_opmon:
-				pass # complicated stuff
+				valid_use = false # complicated stuff
 			else:
-				_locked = true
 				match _mode:
 					Mode.OVERWORLD:
 						valid_use = item.apply_overworld(_map_manager)
 					Mode.BATTLE:
 						valid_use = item.apply_battle(_battle_scene)
-				
 			if item.dialog != null: # If dialog is not null it means a dialog is shown by the item
 				item.dialog.connect("dialog_over", Callable(self, "_unlock"))
-			else: # if no dialog, no need to maintain the lock
+			elif valid_use: # if no dialog but valid use, no need to maintain the lock
 				_unlock()
 			if valid_use and item.consumes:
 				PlayerData.bag[_all_items[_first_item + _cur_pos_rel]] -= 1
@@ -137,6 +136,6 @@ func _submenu_selection(selection):
 				var dialog := _map_manager.load_dialog("BAG_CANTUSE")
 				dialog.connect("dialog_over", Callable(self, "_unlock"))
 				dialog.go()
-		1:
-			pass # throw item
+		_:
+			_unlock()
 	

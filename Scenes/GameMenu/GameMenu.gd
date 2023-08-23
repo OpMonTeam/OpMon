@@ -23,17 +23,16 @@ func _ready():
 	self.position = (Vector2(960,640) / 2) - (self.size / 2)
 
 func _input(event):
-	if not subinterface_opened:
+	if not subinterface_opened and subinterface_cooldown == -1:
 		# Conditions on selection are here to avoid warping
 		if event.is_action_pressed("ui_accept"):
 			if selection == 4:
 				self._map_manager.save()
 			else:
 				subinterface = load(options[selection]).instantiate()
-				subinterface._map_manager = _map_manager
 				subinterface_opened = true
 				subinterface.connect("closed", Callable(self, "close_subinterface"))
-				$Subinterface.add_child(subinterface)
+				_map_manager.load_interface(subinterface)
 		elif event.is_action_pressed("menu"):
 			emit_signal("closed")
 		elif event.is_action_pressed("ui_down") and selection != 4:
@@ -51,14 +50,12 @@ func _input(event):
 		$ChoiceRect.position = labels[selection].position
 	
 func _process(_delta):
-	if subinterface_cooldown > 0:
+	if subinterface_cooldown >= 0:
 		subinterface_cooldown -= 1
-	elif subinterface_cooldown == 0:
-		subinterface_cooldown -= 1
-		subinterface_opened = false
+		if subinterface_cooldown == -1:
+			subinterface_opened = false
 	
 func close_subinterface():
 	if subinterface != null:
-		subinterface.call_deferred("queue_free")
 		subinterface = null
 		subinterface_cooldown = 5

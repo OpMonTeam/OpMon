@@ -54,7 +54,7 @@ func _ready():
 		player_instance.load_save(load_data["player_character"])
 	
 func _input(event):
-	if event.is_action_pressed("menu") and interface_closed_delay < 0 and not player_instance.is_moving():
+	if event.is_action_pressed("menu") and interface_closed_delay < 0 and not player_instance.is_moving() and interface.is_empty():
 		var menu = load("res://Scenes/GameMenu/GameMenu.tscn").instantiate()
 		pause_player()
 		load_interface(menu)
@@ -64,7 +64,8 @@ func _process(_delta):
 		interface_closed_delay -= 1
 	if interface_closed_delay == 0:
 		interface_closed_delay -= 1
-		unpause_player()
+		if interface.size() == 0:
+			unpause_player()
 
 # Loads an interface at the top of the stack
 func load_interface(p_interface: Node):
