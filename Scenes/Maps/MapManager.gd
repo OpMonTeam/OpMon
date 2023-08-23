@@ -162,6 +162,14 @@ func pause_player():
 func unpause_player():
 	player_instance.set_paused(false)
 
+# Only loads the dialog and returns it.
+func load_dialog(dialog_key: String) -> DialogBox:
+	var dialog_box_instance = DialogBox.instantiate() # Loads the dialog
+	dialog_box_instance.set_dialog_key(dialog_key) # Adds the dialog lines to the dialog
+	dialog_box_instance.close_when_over = true
+	load_interface(dialog_box_instance)
+	return dialog_box_instance
+
 func save() -> void:
 	var to_save := player_data.save()
 	to_save["current_map"]["data"] = maps[current_map].save_events()

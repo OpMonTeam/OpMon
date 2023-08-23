@@ -2,6 +2,8 @@ extends Resource
 
 class_name ItemEffect
 
+signal close_bag
+
 func _init():
 	super._init()
 
