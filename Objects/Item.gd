@@ -25,6 +25,10 @@ enum UseType {
 # « can’t use this item » only if none of the effects returns true
 @export var effect_used: Array[ItemEffect] # (Array, Resource)
 
+# If a dialog box is opened by an ItemEffect, it is stored here.
+# Caution: don't show more than one dialog box per item (it wouldn’t make sense and would cause bugs)
+var dialog: DialogBox = null
+
 func _init(p_id = "", p_applies_to_opmon = false, p_consumes = false, p_effect_used: Array[ItemEffect] = []):
 	id = p_id
 	applies_to_opmon = p_applies_to_opmon
@@ -36,6 +40,10 @@ func apply_overworld(map_manager: MapManager) -> bool:
 	var applies = false
 	for effect in effect_used:
 		applies = applies || effect.apply_overworld(map_manager)
+		if effect.dialog != null:
+			if dialog != null:
+				print("Warning: two dialog boxes are shown for one item.")
+			dialog = effect.dialog
 	return applies
 
 # Uses the item in the overworld on an OpMon
@@ -43,14 +51,22 @@ func apply_opmon_overworld(map_manager: MapManager, user: OpMon) -> bool:
 	if not applies_to_opmon: return false
 	var applies = false
 	for effect in effect_used:
+		if effect.dialog != null:
+			if dialog != null:
+				print("Warning: two dialog boxes are shown for one item.")
+			dialog = effect.dialog
 		applies = applies || effect.apply_opmon_overworld(map_manager, user)
 	return applies
 	
 # Uses the item in battle without applying it to a specific OpMon
-func apply_battle(battle_scene: BattleScene, players_team: OpTeam, opponent_team: OpTeam) -> bool:
+func apply_battle(battle_scene: BattleScene) -> bool:
 	var applies = false
 	for effect in effect_used:
-		applies = applies || effect.apply_battle(battle_scene, players_team, opponent_team)
+		if effect.dialog != null:
+			if dialog != null:
+				print("Warning: two dialog boxes are shown for one item.")
+			dialog = effect.dialog
+		applies = applies || effect.apply_battle(battle_scene, battle_scene.player_team, battle_scene.opponent_team)
 	return applies
 
 # Uses the item in battle on an OpMon
@@ -58,5 +74,9 @@ func apply_opmon_battle(battle_scene: BattleScene, user: OpMon, opponent: OpMon)
 	if not applies_to_opmon: return false
 	var applies = false
 	for effect in effect_used:
+		if effect.dialog != null:
+			if dialog != null:
+				print("Warning: two dialog boxes are shown for one item.")
+			dialog = effect.dialog
 		applies = applies || effect.apply_opmon_battle(battle_scene, user, opponent)
 	return applies

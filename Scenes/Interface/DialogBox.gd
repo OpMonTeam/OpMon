@@ -1,5 +1,7 @@
 extends "res://Scenes/Interface/Interface.gd"
 
+class_name DialogBox
+
 # Speed at which the dialog lines are displayed
 @export var dialog_speed := 30.0
 

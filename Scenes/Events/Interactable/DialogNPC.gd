@@ -15,12 +15,9 @@ func interact(player):
 	if _dialog_countdown == 0:
 		_paused = true
 		change_faced_direction(player.get_direction()) # Changes the faced direction of the NPC to face the player
-		var dialog_box_instance = load(_constants.PATH_DIALOG_BOX_SCENE).instantiate() # Loads the dialog
-		dialog_box_instance.set_dialog_key(dialog_key) # Adds the dialog lines to the dialog
-		dialog_box_instance.close_when_over = true
-		_map_manager.load_interface(dialog_box_instance)
-		dialog_box_instance.go() # Starts the dialog
+		var dialog_box_instance = _map_manager.load_dialog(dialog_key)
 		dialog_box_instance.connect("dialog_over", Callable(self, "_unpause")) # When the dialog is over, unpauses the character
+		dialog_box_instance.go() # Starts the dialog
 
 func _process(delta):
 	super._process(delta)
