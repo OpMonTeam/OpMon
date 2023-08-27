@@ -338,7 +338,7 @@ offset_bottom = 481.0
 
 [node name="Container" type="VBoxContainer" parent="Mons"]
 layout_mode = 0
-offset_left = 8.0
+offset_left = 40.0
 offset_top = 8.0
 offset_right = 280.0
 offset_bottom = 466.0
@@ -474,6 +474,15 @@ text = "NAME"
 layout_mode = 2
 texture_under = ExtResource("5_ynw0t")
 texture_progress = ExtResource("6_kj5e0")
+
+[node name="Selector" type="TextureRect" parent="Mons"]
+visible = false
+offset_left = 8.0
+offset_top = 25.0
+offset_right = 42.0
+offset_bottom = 59.0
+texture = ExtResource("1")
+expand_mode = 3
 
 [node name="Submenu" type="ColorRect" parent="."]
 visible = false
