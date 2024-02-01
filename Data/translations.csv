@@ -28,7 +28,7 @@ BATTLE_BASEDIALOG_FILLER," What should {opmon} do?"," Que doit faire {opmon} ?",
 BATTLE_BASEDIALOG_MOVES,"Moves","Capacités","技能"
 BATTLE_BASEDIALOG_OPMON,"OpMon","OpMon","OpMon"
 BATTLE_BASEDIALOG_ITEMS,"Items","Sac","道具"
-BATTLE_BASEDIALOG_RUN,"Run","Fuite","拽露"
+BATTLE_BASEDIALOG_RUN,"Run","Fuite","逃跑"
 BATTLE_KO,"{opmon} is KO!","{opmon} est KO !","{opmon} 被打倒了!"
 MOVE_EFFECTIVENESS_NONE,"But it's ineffective...","Mais c'est inefficace...","但這沒有效果......"
 MOVE_EFFECTIVENESS_VERYLOW,"It's barely effective...","C’est à peine efficace...","效果有點勉强......"
